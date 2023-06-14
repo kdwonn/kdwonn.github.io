@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>POSTECH Computer vision lab.</a>
+subtitle: <a href='https://cvlab.postech.ac.kr'>POSTECH Computer vision lab.</a>
 
 profile:
   align: right
