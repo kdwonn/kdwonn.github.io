@@ -106,7 +106,6 @@ youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 discord_id: # your discord id (18-digit unique numerical identifier)
 
 contact_note: >
-  kdwon@postech.ac.kr
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
