@@ -172,6 +172,16 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  education:
+    defaults:
+      layout: post
+    output: true
+    permalink: /education/:path/
+  services:
+    defaults:
+      layout: post
+    output: true
+    permalink: /services/:path/
 
 announcements:
   enabled: true
