@@ -134,6 +134,12 @@
           {{ entry.note | strip }}
         </div>
 
+        <!-- Additional info -->
+        {% if entry.award -%}
+          <span style="color:magenta"><b>{{entry.award}}</b></span>
+        {%- endif %}
+
+
           <!-- Links/Buttons -->
           <div class="links">
           {%- if entry.abstract %}
