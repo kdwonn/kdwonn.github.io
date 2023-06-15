@@ -27,10 +27,9 @@
         </div> -->
         <div class="col-sm-4">
           {%- if entry.img_path -%}
-            {% include figure.html path=entry.img_path class="img-fluid rounded z-depth-1" zoomable=true %}
+            {% include figure.html path=entry.preview class="img-fluid rounded z-depth-1" zoomable=true %}
           {%- endif -%}
         </div>
-      </div>
 
         <!-- Entry bib key -->
         <div id="{{entry.key}}" class="col-sm-8">
