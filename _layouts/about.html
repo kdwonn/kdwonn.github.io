@@ -38,6 +38,20 @@ layout: default
 
           <div class="clearfix">
             {{ content }}
+
+            <!-- Social -->
+            {%- if page.social %}
+            <div class="social">
+              <div class="contact-icons">
+                {% include social.html %}
+              </div>
+
+              <div class="contact-note">
+                {{ site.contact_note }}
+              </div>
+
+            </div>
+            {%- endif %}
           </div>
 
           <!-- News -->
@@ -58,19 +72,16 @@ layout: default
             {%- include selected_papers.html %}
           {%- endif %}
 
-          <!-- Social -->
-          {%- if page.social %}
-            <div class="social">
-              <div class="contact-icons">
-                {% include social.html %}
-              </div>
-
-              <div class="contact-note">
-                {{ site.contact_note }}
-              </div>
-
-            </div>
+          <!-- Education -->
+          {% if page.education -%}
+          {%- include education.html %}
           {%- endif %}
+          
+          <!-- Professional services -->
+          {% if page.services -%}
+          {%- include services.html %}
+          {%- endif %}
+
         </article>
 
 </div>
