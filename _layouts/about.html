@@ -75,7 +75,10 @@ layout: default
           {% if page.services -%}
           {%- include services.html %}
           {%- endif %}
-
+          {% if page.honors -%}
+          <!-- Honors and awards -->
+          {%- include honors.html %}
+          {%- endif %}
           <!-- Latest posts -->
           <!-- {% if page.latest_posts -%}
             <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>

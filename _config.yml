@@ -182,6 +182,11 @@ collections:
       layout: post
     output: true
     permalink: /services/:path/
+  honors:
+    defaults:
+      layout: post
+    output: true
+    permalink: /honors/:path/
 
 announcements:
   enabled: true
@@ -189,6 +194,11 @@ announcements:
   limit: 5 # leave blank to include all the news in the `_news` folder
 
 education:
+  enabled: true
+  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
+  limit: 5 # leave blank to include all the news in the `_news` folder
+
+honors:
   enabled: true
   scrollable: true # adds a vertical scroll bar if there are more than 3 news items
   limit: 5 # leave blank to include all the news in the `_news` folder
