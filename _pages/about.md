@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <a href='https://cvlab.postech.ac.kr'>POSTECH Computer vision lab.</a> kdwon@postech.ac.kr
 
