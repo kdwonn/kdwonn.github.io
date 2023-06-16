@@ -1,6 +1,5 @@
 ---
 layout: post
-# start_end: "Mar, 2015 - Aug, 2019"
 inline: true
 ---
 
