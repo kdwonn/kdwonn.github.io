@@ -11,7 +11,7 @@ inline: true
 - ReSTR: Convolution?free Referring Image Segmentation Using Transformers (CVPR 2022)
 
 **NAVER × POSTECH AI DAY The 2nd and 3rd Prize**, 2022
-- ReSTR: Convolution?free Referring Image Segmentation Using Transformers (CVPR 2022)
+- ReSTR: Convolution-free Referring Image Segmentation Using Transformers (CVPR 2022)
 
 **Qualcomm Innovation Fellowship Winner**, Qualcomm Korea Corp., 2021
 - Embedding Transfer with Label Relaxation for Improved Metric Learning  (CVPR 2021)

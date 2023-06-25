@@ -26,7 +26,7 @@ I am a Ph.D student at POSTECH Computer Vision Lab., supervided by Prof. Suha Kw
 I completed my B.S. in computer science and engineering also at POSTECH.
 
 My research interest lies in multi-modal learning and representation learning.
-Specifically, I recently work on the structural representation that can resolve the ambiguity of the multi-modal data. 
+Specifically, I recently work on the structured representation that can resolve the ambiguity of the multi-modal data. 
 
 I am looking for the oppertunities of interesting collaborations and internship! 
 If you are interested in my works or have any questions, please feel free to contact me.
