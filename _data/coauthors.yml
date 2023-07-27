@@ -33,18 +33,18 @@
   - firstname: ["Max"]
     url: https://en.wikipedia.org/wiki/Max_Planck
 
-"Suha":
-  - firstname: ["Kwak"]
+"Kwak":
+  - firstname: ["Suha"]
     url: https://suhakwak.github.io/
 
-"Sungyeon":
-  - firstname: ["Kim"]
+"Kim":
+  - firstname: ["Sungyeon"]
     url: http://cvlab.postech.ac.kr/~sungyeon
 
-"Namyup":
-  - firstname: ["Kim"]
+"Kim":
+  - firstname: ["Namyup"]
     url: https://southflame.github.io
 
-"Cuiling":
-  - firstname: ["Lan"]
+"Lan":
+  - firstname: ["Cuiling"]
     url: https://scholar.google.com/citations?user=XZugqiwAAAAJ&hl=en
