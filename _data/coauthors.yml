@@ -41,9 +41,16 @@
   - firstname: ["Sungyeon"]
     url: http://cvlab.postech.ac.kr/~sungyeon
 
-"Kim":
   - firstname: ["Namyup"]
     url: https://southflame.github.io
+
+"Cho":
+  - firstname: ["Minsu"]
+    url: http://cvlab.postech.ac.kr/~mcho
+
+"Zeng":
+  - firstname: ["Wenjun"]
+    url: https://scholar.google.com/citations?user=_cUfvYQAAAAJ&hl=en
 
 "Lan":
   - firstname: ["Cuiling"]
