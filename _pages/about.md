@@ -22,7 +22,7 @@ honors: true
 services: true
 ---
 
-I am a Ph.D student at POSTECH Computer Vision Lab., supervided by Prof. Suha Kwak.
+I am a Ph.D student at POSTECH Computer Vision Lab., supervised by Prof. Suha Kwak.
 I completed my B.S. in computer science and engineering also at POSTECH.
 
 My research interest lies in multi-modal learning and representation learning.
