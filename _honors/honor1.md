@@ -4,6 +4,7 @@ inline: true
 ---
 
 **POSTECHIAN Fellowship**, POSTECH, 2023
+- $5,000 grant
 
 **BK21 Best Paper Award**, POSTECH GSAI, 2023
 - Self-Taught Metric Learning without Labels (CVPR 2022)
