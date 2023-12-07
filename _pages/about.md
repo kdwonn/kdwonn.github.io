@@ -25,8 +25,9 @@ services: true
 I am a Ph.D student at POSTECH Computer Vision Lab., supervised by Prof. Suha Kwak.
 I completed my B.S. in computer science and engineering also at POSTECH.
 
-My research interest lies in multi-modal learning and representation learning.
-Specifically, I recently work on the structured representation that can resolve the ambiguity of the multi-modal data. 
+I am currently engaged in research that intersects visual perception with language understanding, focusing on object-centric representation. 
+My aspiration is to delve into the intricacies of how visual objects can be mapped as the lexicon of a unique language, reflecting the compositional and symbolic essence of language where objects are the primary semantic units. 
+In line with this research interest, I have recently worked on developing effective representation schemes for cross-modal retrieval ([DivE](http://arxiv.org/abs/2211.16761)) and referring image segmentation with weak supervision ([Shatter-Gather](http://arxiv.org/abs/2308.15512)).
 
 I am looking for the oppertunities of interesting collaborations and internship! 
 If you are interested in my works or have any questions, please feel free to contact me.
