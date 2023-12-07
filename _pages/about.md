@@ -27,6 +27,7 @@ I completed my B.S. in computer science and engineering also at POSTECH.
 
 I am currently engaged in research that intersects visual perception with language understanding, focusing on object-centric representation. 
 My aspiration is to delve into the intricacies of how visual objects can be mapped as the lexicon of a unique language, reflecting the compositional and symbolic essence of language where objects are the primary semantic units. 
+
 In line with this research interest, I have recently worked on developing effective representation schemes for cross-modal retrieval ([DivE](http://arxiv.org/abs/2211.16761)) and referring image segmentation with weak supervision ([Shatter-Gather](http://arxiv.org/abs/2308.15512)).
 
 I am looking for the oppertunities of interesting collaborations and internship! 
