@@ -44,6 +44,9 @@
   - firstname: ["Namyup"]
     url: https://southflame.github.io
 
+  - firstname: ["Seoyeon"]
+    url: https://yeon07.github.io/
+
 "Cho":
   - firstname: ["Minsu"]
     url: http://cvlab.postech.ac.kr/~mcho
@@ -55,3 +58,11 @@
 "Lan":
   - firstname: ["Cuiling"]
     url: https://scholar.google.com/citations?user=XZugqiwAAAAJ&hl=en
+
+"Kang":
+  - firstname: ["Minguk"]
+    url: https://mingukkang.github.io/
+
+"Park":
+  - firstname: ["Jaesik"]
+    url: https://jaesik.info
