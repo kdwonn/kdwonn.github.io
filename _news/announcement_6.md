@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: One paper accepted at ECCV 2024
+:loudspeaker: One paper is accepted at ECCV 2024
