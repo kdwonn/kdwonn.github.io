@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: A paper about object-centeric is accepted at ICCV 2023
+:loudspeaker: A paper about object-centric learning is accepted at ICCV 2023
