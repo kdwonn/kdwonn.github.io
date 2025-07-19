@@ -110,7 +110,7 @@ body.sticky-bottom-footer {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 .profile img {
@@ -615,7 +615,7 @@ footer.sticky-bottom {
 .publications ol.bibliography li .preview {
   width: 100%;
   min-width: 80px;
-  max-width: 200px;
+  max-width: 300px;
   margin-bottom: 0.5rem;
 }
 .publications ol.bibliography li .abbr {
