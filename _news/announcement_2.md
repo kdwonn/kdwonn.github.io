@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: A paper about weakly-supervised referring image segmentation is accepted at ICCV 2023!
+A paper about weakly-supervised referring image segmentation is accepted at ICCV 2023.

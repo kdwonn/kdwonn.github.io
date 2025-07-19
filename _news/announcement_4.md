@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: Our paper about referring image segmentation has been accepted at NAACL 2024 main track.
+Our paper about referring image segmentation has been accepted at NAACL 2024 main track.

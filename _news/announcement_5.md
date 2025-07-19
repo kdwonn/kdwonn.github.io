@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: Joined Bytedance (San Jose, CA) as a research intern
+Joined Bytedance (San Jose, CA) as a research intern

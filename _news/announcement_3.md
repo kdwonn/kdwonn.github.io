@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: I am really grateful to have been granted the POSTECHIAN fellowship!
+I am really grateful to have been granted the POSTECHIAN fellowship!

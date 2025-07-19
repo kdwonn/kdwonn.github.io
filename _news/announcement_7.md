@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: A paper about object-centric learning is accepted at NeurIPS 2024
+A paper about object-centric learning is accepted at NeurIPS 2024.

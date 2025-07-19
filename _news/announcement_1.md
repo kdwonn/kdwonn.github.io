@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-:loudspeaker: A <a href="http://arxiv.org/abs/http://arxiv.org/abs/2211.16761">paper</a> about cross-modal retrieval is selected as a *highlight* at CVPR 2023!
+A <a href="http://arxiv.org/abs/http://arxiv.org/abs/2211.16761">paper</a> about cross-modal retrieval is selected as a *highlight* at CVPR 2023!
