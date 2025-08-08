@@ -20,6 +20,7 @@ social: true  # includes social icons at the bottom of the page
 education: true # includes a list of education items
 honors: true
 services: true
+experiences: true
 ---
 
 I am a Ph.D. student at POSTECH Computer Vision Lab, supervised by Prof. Suha Kwak.
