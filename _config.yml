@@ -187,6 +187,11 @@ collections:
       layout: post
     output: true
     permalink: /honors/:path/
+  experiences:
+    defaults:
+      layout: post
+    output: true
+    permalink: /experiences/:path/
 
 announcements:
   enabled: true

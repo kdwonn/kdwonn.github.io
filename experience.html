@@ -1,0 +1,21 @@
+---
+layout: page
+title: experience
+permalink: /experience/
+---
+
+{% assign items = site.experiences | sort: "date" | reverse %}
+{% for exp in items %}
+<h3>{{ exp.title }}</h3>
+<p>
+  {% if exp.institution %}{{ exp.institution }}{% endif %}
+  {% if exp.location %} ? {{ exp.location }}{% endif %}
+</p>
+<p>
+  {% if exp.start %}{{ exp.start }}{% endif %}
+  {% if exp.end %}?{{ exp.end }}{% endif %}
+</p>
+{{ exp.content }}
+<hr/>
+{% endfor %}
+
