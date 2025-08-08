@@ -9,11 +9,11 @@ permalink: /experience/
 <h3>{{ exp.title }}</h3>
 <p>
   {% if exp.institution %}{{ exp.institution }}{% endif %}
-  {% if exp.location %} ? {{ exp.location }}{% endif %}
+  {% if exp.location %} &mdash; {{ exp.location }}{% endif %}
 </p>
 <p>
   {% if exp.start %}{{ exp.start }}{% endif %}
-  {% if exp.end %}?{{ exp.end }}{% endif %}
+  {% if exp.end %}&ndash;{{ exp.end }}{% endif %}
 </p>
 {{ exp.content }}
 <hr/>
