@@ -1,7 +1,7 @@
 ---
-title: Research Intern ? ByteDance
+title: Research Intern
 date: 2024-06-01
-institution: Fundamental Research Team / ByteDance SEED
+institution: Fundamental Research Team, ByteDance SEED
 location: San Jose, US
 start: 2024-06
 end: 2024-11
