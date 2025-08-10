@@ -4,24 +4,25 @@
             {% if site.experiences != blank -%}
             <div class="table-responsive">
               <table class="table table-sm table-borderless">
-              {%- assign experiences = site.experiences | sort: "date" | reverse -%}
+              {%- assign experiences = site.experiences | reverse -%}
               {% for item in experiences limit: site.experiences_limit %}
                 <tr>
                   <th scope="row" style="width:25%">
-                    {% if item.start %}{{ item.start }}{% endif %}
-                    {% if item.end %}&ndash;{{ item.end }}{% endif %}
+                    {% if item.start_end %}
+                      {{ item.start_end }}
+                    {% else %}
+                      {% if item.start %}{{ item.start }}{% endif %}{% if item.end %} &ndash; {{ item.end }}{% endif %}
+                    {% endif %}
                   </th>
                   <td>
                     {% if item.inline -%}
+                      <strong>{{ item.title }}</strong><br/>
+                      {% if item.institution or item.location %}
+                        {% if item.institution %}{{ item.institution }}{% endif %}{% if item.location %}, {{ item.location }}{% endif %}<br/>
+                      {% endif %}
                       {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
                     {%- else -%}
                       <a class="experience-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-                      {% if item.institution or item.location %}
-                        <div class="text-muted small">
-                          {% if item.institution %}{{ item.institution }}{% endif %}
-                          {% if item.location %} &mdash; {{ item.location }}{% endif %}
-                        </div>
-                      {% endif %}
                     {%- endif %}
                   </td>
                 </tr>
@@ -32,4 +33,3 @@
             <p>No experience so far...</p>
           {%- endif %}
           </div>
-
