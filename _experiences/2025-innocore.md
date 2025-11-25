@@ -1,5 +1,5 @@
 ---
-title: Research Intern
+title: Postdoctoral researcher
 date: 2025-11-01
 institution: KAIST
 location: Daejeon, KR
