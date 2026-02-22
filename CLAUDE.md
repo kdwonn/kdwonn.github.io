@@ -10,12 +10,14 @@ Personal academic website for Dongwon Kim (postdoctoral researcher at KAIST), bu
 
 ```bash
 bundle install                                           # Install Ruby dependencies
-bundle exec jekyll serve --lsi                           # Local dev server at http://localhost:4000
+bundle exec jekyll serve                                 # Local dev server at http://localhost:4000
 JEKYLL_ENV=production bundle exec jekyll build --lsi     # Production build (outputs to _site/)
 bin/cibuild                                              # CI build shortcut
 docker-compose up                                        # Docker dev at http://localhost:8080
 pre-commit run -a                                        # Run all linting hooks
 ```
+
+**Local preview**: Use `eval "$(rbenv init - zsh)" && bundle exec jekyll serve` to preview changes locally at http://localhost:4000. The `--lsi` flag is not needed for local preview and may cause errors with few posts. The server supports auto-regeneration so file changes are picked up automatically on refresh.
 
 ## Architecture
 
