@@ -598,6 +598,13 @@ footer.sticky-bottom {
 .education h2 span {
   font-size: 1.5rem;
 }
+.education table {
+  border-collapse: collapse;
+  border: none;
+}
+.education table td, .education table th {
+  border: none;
+}
 
 .services {
   margin-top: 2rem;
