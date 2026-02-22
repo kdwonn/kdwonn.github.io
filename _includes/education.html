@@ -1,24 +1,22 @@
           
           <div class="education">
             <h2>Education</h2>
-            {% if site.education != blank -%} 
-            <div class="table-responsive">
+            {% if site.education != blank -%}
               <table class="table table-sm table-borderless">
-              {%- assign education = site.education | reverse -%} 
-              {% for item in education limit: site.education_limit %} 
+              {%- assign education = site.education | reverse -%}
+              {% for item in education limit: site.education_limit %}
                 <tr>
                   <th scope="row" style="width:25%">{{ item.start_end }}</th>
                   <td>
-                    {% if item.inline -%} 
+                    {% if item.inline -%}
                       {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
-                    {%- else -%} 
+                    {%- else -%}
                       <a class="education-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-                    {%- endif %} 
+                    {%- endif %}
                   </td>
                 </tr>
-              {%- endfor %} 
+              {%- endfor %}
               </table>
-            </div>
           {%- else -%} 
             <p>No education so far...</p>
           {%- endif %} 
