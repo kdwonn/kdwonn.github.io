@@ -2,7 +2,49 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
+// Fonts
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('/assets/fonts/iAWriterDuoS-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('/assets/fonts/iAWriterDuoS-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('/assets/fonts/iAWriterDuoS-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('/assets/fonts/iAWriterDuoS-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 // Typography
+
+html {
+  font-size: 0.95rem;
+}
+
+body {
+  font-family: 'iA Writer Duo', monospace;
+}
 
 p,
 h1,
@@ -652,7 +694,7 @@ footer.sticky-bottom {
       }
 
       .title {
-        font-weight: bolder;
+        font-weight: 700;
         margin-top: 0;
       }
 
