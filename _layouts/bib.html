@@ -2,15 +2,15 @@
 ---
 <!-- _layouts/bib.html -->
       <div class="row">
-        <div class="col-sm-5 {% if entry.preview %}preview{% else %}abbr{% endif %}">
+        <div class="col-sm-3 {% if entry.preview %}preview{% else %}abbr{% endif %}">
         {%- if entry.preview -%}
           {% if entry.preview contains '://' -%}
-          <img class="img-fluid rounded z-depth-1" src="{{ entry.preview }}">
+          <img class="img-fluid" src="{{ entry.preview }}">
           {%- else -%}
             {%- assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' -%}
             {% include figure.html
             path=entry_path
-            class="img-fluid rounded z-depth-1"
+            class="img-fluid"
             alt=entry.preview -%}
           {%- endif -%}
         {%- elsif entry.abbr -%}
@@ -27,7 +27,7 @@
         </div>
 
         <!-- Entry bib key -->
-        <div id="{{entry.key}}" class="col-sm-7">
+        <div id="{{entry.key}}" class="col-sm-9">
         <!-- Title -->
         <div class="title">{{entry.title}}</div>
         <!-- Author -->

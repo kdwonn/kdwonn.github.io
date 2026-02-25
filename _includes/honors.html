@@ -8,8 +8,8 @@
               {% for item in honors limit: site.honors_limit %} 
                 <tr>
                   <td>
-                    {% if item.inline -%} 
-                      {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+                    {% if item.inline -%}
+                      {{ item.content | emojify }}
                     {%- else -%} 
                       <a class="honors-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
                     {%- endif %} 

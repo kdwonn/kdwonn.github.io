@@ -39,7 +39,7 @@
 // Typography
 
 html {
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 body {
@@ -62,7 +62,7 @@ strong {
 }
 
 hr {
-  border-top: 1px solid var(--global-divider-color);
+  border-top: 1px dashed var(--global-divider-color);
 }
 
 table {
@@ -79,14 +79,11 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
+  text-decoration: none;
 
   &:hover {
     color: var(--global-theme-color);
-    text-decoration: underline;
-  }
-
-  &:hover:after :not(.nav-item.dropdown) {
-    width: 100%;
+    text-decoration: none;
   }
 }
 
@@ -127,6 +124,9 @@ blockquote {
 
 .card {
   background-color: var(--global-card-bg-color);
+  border-radius: 0;
+  border: 1px solid var(--global-divider-color);
+  box-shadow: none !important;
 
   img {
     width: 100%;
@@ -147,6 +147,12 @@ blockquote {
   }
 }
 
+// Override Material Design shadows
+.z-depth-0 { box-shadow: none !important; }
+.z-depth-1, .z-depth-1-half, .z-depth-2, .z-depth-3 {
+  box-shadow: none !important;
+}
+
 // Citation
 
 .citation,
@@ -154,11 +160,50 @@ blockquote {
   color: var(--global-theme-color);
 }
 
-// Profile
+// About header layout — profile image aligned with name
+
+.about-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .profile {
+    width: 100%;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .about-header-text {
+    flex: 1;
+
+    .post-title {
+      margin-top: 0;
+    }
+
+    .social {
+      text-align: left;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .about-header {
+    flex-direction: row;
+    gap: 1.5rem;
+
+    .profile {
+      width: 20%;
+    }
+  }
+}
+
+// Profile (legacy float layout for other pages)
 
 .profile {
-  width: 100%;
-
   .address {
     margin-bottom: 5px;
     margin-top: 5px;
@@ -177,18 +222,6 @@ blockquote {
 
 .profile.float-left {
   margin-right: 1rem;
-}
-
-@media (min-width: 576px) {
-  .profile {
-    width: 20%;
-
-    .address {
-      p {
-        display: block;
-      }
-    }
-  }
 }
 
 .post-description {
@@ -212,7 +245,7 @@ blockquote {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  opacity: 1;
 }
 
 .navbar .dropdown-menu {
@@ -250,10 +283,15 @@ blockquote {
 
   .navbar-brand {
     color: var(--global-text-color);
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
   }
 
   .navbar-nav .nav-item .nav-link {
     color: var(--global-text-color);
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    font-size: 0.95rem;
 
     &:hover {
       color: var(--global-hover-color);
@@ -264,9 +302,30 @@ blockquote {
     background-color: inherit;
     font-weight: bolder;
     color: var(--global-theme-color);
+    border-bottom: 2px solid var(--global-theme-color);
+    padding-bottom: calc(0.5rem - 2px);
 
     &:hover {
       color: var(--global-hover-color);
+    }
+  }
+
+  // Path-like separators between nav items (desktop only)
+  @media (min-width: 576px) {
+    .navbar-nav {
+      align-items: center;
+    }
+    .navbar-nav .nav-item {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-nav .nav-item + .nav-item::before {
+      content: '/';
+      color: var(--global-text-color-light);
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-right: 0.15rem;
+      flex-shrink: 0;
     }
   }
 
@@ -347,7 +406,7 @@ blockquote {
   text-align: center;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 2.5rem;
 
     a {
       i::before {
@@ -372,16 +431,24 @@ blockquote {
 // Footer
 footer.fixed-bottom {
   background-color: var(--global-footer-bg-color);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  border-top: 1px dashed var(--global-divider-color);
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
 
   .container {
     color: var(--global-footer-text-color);
     padding-top: 9px;
     padding-bottom: 8px;
+
+    &::before {
+      content: '// ';
+      opacity: 0.4;
+    }
   }
 
   a {
-    color: var(--global-footer-link-color);
+    color: var(--global-footer-text-color);
 
     &:hover {
       color: var(--global-theme-color);
@@ -391,10 +458,21 @@ footer.fixed-bottom {
 }
 
 footer.sticky-bottom {
-  border-top: 1px solid var(--global-divider-color);
+  border-top: 1px dashed var(--global-divider-color);
   padding-top: 40px;
   padding-bottom: 40px;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+
+  .container {
+    color: var(--global-footer-text-color);
+
+    &::before {
+      content: '// ';
+      opacity: 0.4;
+    }
+  }
 }
 
 // CV
@@ -578,30 +656,51 @@ footer.sticky-bottom {
   }
 
   h2.category {
-    color: var(--global-divider-color);
-    border-bottom: 1px solid var(--global-divider-color);
-    padding-top: 0.5rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    @extend %section-header;
     text-align: right;
   }
 }
 
 
+// Shared industrial section header style
+%section-header {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid var(--global-divider-color);
+  padding-bottom: 0.3rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  color: var(--global-text-color-light);
+  font-weight: 400;
+}
+
+// Bold item titles in content sections
+.education, .experiences, .services, .honors {
+  td strong {
+    font-weight: 700;
+    color: var(--global-text-color);
+  }
+}
+
+// Section headers in article context (News, Publications on about page)
+.post > article > h2 {
+  @extend %section-header;
+  margin-top: 2.5rem;
+}
+
 // Education
 .education {
   margin-top: 2rem;
   h1 {
-    color: var(--global-theme-color);
-    font-size: 2rem;
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    @extend %section-header;
   }
   h2 {
-    margin-bottom: 1rem;
+    @extend %section-header;
     span {
-      font-size: 1.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
   }
   table {
@@ -612,21 +711,41 @@ footer.sticky-bottom {
     }
   }
 }
-  // Services
+
+// Experiences
+.experiences {
+  margin-top: 2rem;
+  h2 {
+    @extend %section-header;
+  }
+}
+
+// Services
 .services {
   margin-top: 2rem;
   h1 {
-    color: var(--global-theme-color);
-    font-size: 2rem;
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    @extend %section-header;
   }
   h2 {
-    margin-bottom: 1rem;
+    @extend %section-header;
     span {
-      font-size: 1.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
+  }
+}
+
+// Honors
+.honors {
+  h2 {
+    @extend %section-header;
+  }
+  td p {
+    margin-bottom: 0.25rem;
+  }
+  td ul {
+    margin-bottom: 0.25rem;
   }
 }
 
@@ -636,43 +755,72 @@ footer.sticky-bottom {
   margin-top: 2rem;
 
   h1 {
-    color: var(--global-theme-color);
-    font-size: 2rem;
-    text-align: center;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    @extend %section-header;
   }
 
   h2 {
     margin-bottom: 1rem;
 
     span {
-      font-size: 1.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
     }
   }
 
   h2.year {
-    color: var(--global-divider-color);
-    border-top: 1px solid var(--global-divider-color);
-    padding-top: 1rem;
+    color: var(--global-text-color-light);
+    border-bottom: 1px solid var(--global-divider-color);
+    border-top: none;
+    padding-bottom: 0.3rem;
     margin-top: 2rem;
-    margin-bottom: -2rem;
-    text-align: right;
+    margin-bottom: 1rem;
+    text-align: left;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    font-weight: 400;
   }
 
   ol.bibliography {
     list-style: none;
     padding: 0;
     margin-top: 0;
+    counter-reset: pub-counter;
 
     li {
       margin-bottom: 1rem;
+      counter-increment: pub-counter;
+      position: relative;
+
+      // Numbered index in margin
+      &::before {
+        content: counter(pub-counter, decimal-leading-zero);
+        position: absolute;
+        left: -2.2rem;
+        top: 0;
+        font-size: 0.7rem;
+        color: var(--global-text-color-light);
+        opacity: 0.5;
+        letter-spacing: 0.05em;
+      }
 
       .preview {
         width: 100%;
         min-width: 80px;
         max-width: 300px;
         margin-bottom: 0.5rem;
+
+        img {
+          background-color: var(--global-bg-color);
+          border: 1px solid var(--global-divider-color);
+          padding: 4px;
+          filter: grayscale(30%);
+          transition: filter 0.2s ease;
+
+          &:hover {
+            filter: grayscale(0%);
+          }
+        }
       }
 
       .abbr {
@@ -681,12 +829,16 @@ footer.sticky-bottom {
 
         abbr {
           display: inline-block;
-          background-color: var(--global-theme-color);
+          background-color: transparent;
+          border: 1px solid var(--global-theme-color);
           padding-left: 1rem;
           padding-right: 1rem;
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
 
           a {
-            color: white;
+            color: var(--global-theme-color);
 
             &:hover {
               text-decoration: none;
@@ -734,17 +886,24 @@ footer.sticky-bottom {
 
       .links {
         a.btn {
-          color: var(--global-text-color);
-          border: 1px solid var(--global-text-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
-          margin-left: 0;
+          color: #fff;
+          background: #555;
+          border: 1px solid #555;
+          border-radius: 0;
+          padding: 0.1rem 0.4rem;
+          margin-right: 0.25rem;
+          margin-top: 0.25rem;
+          font-size: 0.75rem;
+          text-transform: lowercase;
+          letter-spacing: 0.02em;
+          line-height: 1.4;
+
+          &::before, &::after { content: none; }
 
           &:hover {
-            color: var(--global-theme-color);
-            border-color: var(--global-theme-color);
+            color: #555;
+            background: transparent;
+            border: 1px solid #555;
           }
         }
       }
@@ -815,7 +974,8 @@ figure.highlight {
 pre {
   color: var(--global-theme-color);
   background-color: var(--global-code-bg-color);
-  border-radius: 6px;
+  border-radius: 0;
+  border: 1px solid var(--global-divider-color);
   padding: 6px 12px;
 
   pre,
@@ -830,8 +990,8 @@ pre {
 code {
   color: var(--global-theme-color);
   background-color: var(--global-code-bg-color);
-  border-radius: 3px;
-  padding: 3px 3px;
+  border-radius: 0;
+  padding: 2px 4px;
 }
 
 
