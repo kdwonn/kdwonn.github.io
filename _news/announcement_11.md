@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I won POSTECH CSE Best Research Award 2025, recognizing the best research among PhD graduates.
+I won *POSTECH CSE Best Research Award 2025*, recognizing the best research among PhD graduates.

@@ -7,7 +7,7 @@
               {%- assign experiences = site.experiences | reverse -%}
               {% for item in experiences limit: site.experiences_limit %}
                 <tr>
-                  <th scope="row" style="width:25%">
+                  <th scope="row" style="width:25%; white-space:nowrap">
                     {% if item.start_end %}
                       {{ item.start_end }}
                     {% else %}

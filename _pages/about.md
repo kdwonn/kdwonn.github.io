@@ -23,6 +23,6 @@ services: true
 experiences: true
 ---
 
-I am a postdoctoral researcher at KAIST, working with Prof. Jeany Son.
-I previously completed my BS and PhD at POSTECH Computer Vision Lab where I worked with Prof. Suha Kwak.
-My research centers on whether machines can learn representations with the right abstraction and hierarchy, spanning work in compositional representation ([SelfMod](https://proceedings.neurips.cc/paper_files/paper/2024/hash/bbf9c6e203e2638d756929c1e5bbe85e-Abstract-Conference.html)), multi-modalities ([DivE](http://openaccess.thecvf.com/content/CVPR2023/html/Kim_Improving_Cross-Modal_Retrieval_With_Set_of_Diverse_Embeddings_CVPR_2023_paper.html), [SaG](http://openaccess.thecvf.com/content/ICCV2023/html/Kim_Shatter_and_Gather_Learning_Referring_Image_Segmentation_with_Text_Supervision_ICCV_2023_paper.html), [MaskGen](https://arxiv.org/abs/2501.07730)), and world model (ongoing, [CompACT](https://openreview.net/forum?id=z9KgtDP6LB)).
+I am a postdoctoral researcher at KAIST, working with [Prof. Jeany Son](https://jeanyson.github.io/).
+I previously completed my BS and PhD at POSTECH [CVLab](https://cvlab.postech.ac.kr) where I worked with [Prof. Suha Kwak](http://cvlab.postech.ac.kr/~suhakwak/).
+My research centers on whether machines can learn representations with the right abstraction and hierarchy, spanning work in compositional representation ([SelfMod](https://proceedings.neurips.cc/paper_files/paper/2024/hash/bbf9c6e203e2638d756929c1e5bbe85e-Abstract-Conference.html)), multi-modalities ([DivE](http://openaccess.thecvf.com/content/CVPR2023/html/Kim_Improving_Cross-Modal_Retrieval_With_Set_of_Diverse_Embeddings_CVPR_2023_paper.html), [SaG](http://openaccess.thecvf.com/content/ICCV2023/html/Kim_Shatter_and_Gather_Learning_Referring_Image_Segmentation_with_Text_Supervision_ICCV_2023_paper.html), [MaskGen](https://arxiv.org/abs/2501.07730)), and world model (ongoing, [CompACT](https://kdwonn.github.io/CompACT)).

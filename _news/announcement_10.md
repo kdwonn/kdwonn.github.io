@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-A paper on world model and decision-time planning is accepted at CVPR 2026 (early version appeared in CoRL-LSRW workshop).
+A paper on world model is accepted at *CVPR 2026* ([CompACT](https://kdwonn.github.io/CompACT)).

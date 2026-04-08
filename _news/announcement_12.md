@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I gave a talk at Yonsei University (title: "Abstraction for world model").
+I gave a talk at Yonsei University (title: *"Abstraction for world model"*).

@@ -13,7 +13,7 @@ inline: true
 
 **Qualcomm Innovation Fellowship Winner**, Qualcomm Korea Corp., 2022
 - Self-Taught Metric Learning without Labels (CVPR 2022)
-- ReSTR: Convolution?free Referring Image Segmentation Using Transformers (CVPR 2022)
+- ReSTR: Convolution-free Referring Image Segmentation Using Transformers (CVPR 2022)
 
 **NAVER x POSTECH AI DAY The 2nd and 3rd Prize**, 2022
 - ReSTR: Convolution-free Referring Image Segmentation Using Transformers (CVPR 2022)

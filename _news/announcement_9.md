@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-A paper on 1-dimensinal tokenization and text-to-image generation is accepted at ICCV 2025.
+A paper on 1-dimensinal tokenization and text-to-image generation is accepted at *ICCV 2025* ([MaskGen](https://arxiv.org/abs/2501.07730)).
