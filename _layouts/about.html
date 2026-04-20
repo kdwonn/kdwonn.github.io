@@ -7,44 +7,42 @@ layout: default
 
         <article>
           <div class="about-header">
-            {% if page.profile -%}
-            <div class="profile">
-              {%- if page.profile.image %}
-                {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
-
-                {% if page.profile.image_circular %}
-                  {%- assign profile_image_class = "img-fluid rounded-circle" -%}
-                {% else %}
-                  {%- assign profile_image_class = "img-fluid" -%}
-                {% endif %}
-
-                {% include figure.html
-                path=profile_image_path
-                class=profile_image_class
-                alt=page.profile.image -%}
-              {% endif -%}
-            </div>
-            {%- endif %}
-            <div class="about-header-text">
-              <h1 class="post-title">
-               {% if site.title == "blank" -%}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
-              </h1>
-              <p class="desc">{{ page.subtitle }}</p>
-              {{ content }}
-
-              <!-- Social -->
-              {%- if page.social %}
-              <div class="social">
+            <div class="identity">
+              {% if page.profile and page.profile.image -%}
+              <div class="profile">
+                <img src="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}" alt="{{ site.first_name }} {{ site.last_name }}"{% if page.profile.image_circular %} class="rounded-circle"{% endif %}>
+              </div>
+              {%- endif %}
+              <div class="meta">
+                <h1 class="post-title">
+                  {% if site.title == "blank" -%}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
+                </h1>
+                <div class="contact">
+                  {% if page.profile.affiliation -%}
+                    {% if page.profile.affiliation_url -%}
+                      <a href="{{ page.profile.affiliation_url }}">{{ page.profile.affiliation }}</a>
+                    {%- else -%}
+                      {{ page.profile.affiliation }}
+                    {%- endif %}
+                    <br>
+                  {%- endif %}
+                  {% if site.email -%}
+                    <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+                  {%- endif %}
+                </div>
+                {% if page.profile.tagline -%}
+                <div class="tagline">{{ page.profile.tagline }}</div>
+                {%- endif %}
+                {%- if page.social %}
                 <div class="contact-icons">
                   {% include social.html %}
                 </div>
-
-                <div class="contact-note">
-                  {{ site.contact_note }}
-                </div>
-
+                {%- endif %}
               </div>
-              {%- endif %}
+            </div>
+
+            <div class="about-body">
+              {{ content }}
             </div>
           </div>
 
