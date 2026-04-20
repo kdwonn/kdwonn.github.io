@@ -147,7 +147,7 @@ body.sticky-bottom-footer {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 920px;
 }
 
 .profile img {
@@ -305,33 +305,102 @@ blockquote {
 .about-header {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
-.about-header .profile {
-  width: 100%;
+.about-header .identity {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 1.25rem;
+  flex-direction: column;
+}
+.about-header .identity .profile {
+  width: 142px;
   flex-shrink: 0;
+  display: flex;
 }
-.about-header .profile img {
+.about-header .identity .profile img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--global-divider-color);
+  padding: 4px;
+  background: #fff;
+  box-sizing: border-box;
 }
-.about-header .about-header-text {
+.about-header .identity .meta {
   flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
-.about-header .about-header-text .post-title {
-  margin-top: 0;
+.about-header .identity .meta .post-title {
+  margin: 0 0 0.4rem;
+  font-size: 2.1rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 }
-.about-header .about-header-text .social {
+.about-header .identity .meta .contact {
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+  line-height: 1.55;
+  margin: 0.1rem 0 0;
+}
+.about-header .identity .meta .contact a {
+  color: var(--global-theme-color);
+  border-bottom: 1px dashed var(--global-theme-color);
+  text-decoration: none;
+}
+.about-header .identity .meta .contact a:hover {
+  border-bottom-style: solid;
+}
+.about-header .identity .meta .tagline {
+  font-size: 1rem;
+  color: var(--global-text-color);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.about-header .identity .meta .contact-icons {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: 1.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
   text-align: left;
+}
+.about-header .identity .meta .contact-icons a {
+  color: var(--global-text-color);
+  transition: color 0.2s ease-in-out;
+}
+.about-header .identity .meta .contact-icons a:hover {
+  color: var(--global-theme-color);
+}
+.about-header .identity .meta .contact-icons a i::before {
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+.about-header .about-body {
+  font-size: 0.95rem;
+}
+.about-header .about-body p {
+  margin: 0 0 0.5rem;
+}
+.about-header .about-body a {
+  color: var(--global-theme-color);
+  border-bottom: 1px dashed var(--global-theme-color);
+  text-decoration: none;
+}
+.about-header .about-body a:hover {
+  border-bottom-style: solid;
 }
 
 @media (min-width: 576px) {
-  .about-header {
+  .about-header .identity {
     flex-direction: row;
-    gap: 1.5rem;
-  }
-  .about-header .profile {
-    width: 20%;
   }
 }
 .profile .address {
@@ -700,6 +769,40 @@ footer.sticky-bottom .container::before {
 .education td strong, .experiences td strong, .services td strong, .honors td strong {
   font-weight: 700;
   color: var(--global-text-color);
+}
+
+.news em {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.news table, .education table, .experiences table, .services table {
+  table-layout: auto;
+}
+.news table td, .news table th, .education table td, .education table th, .experiences table td, .experiences table th, .services table td, .services table th {
+  font-size: 0.95rem;
+  vertical-align: top !important;
+  line-height: 1.55;
+}
+.news th.when, .news td.when, .education th.when, .education td.when, .experiences th.when, .experiences td.when, .services th.when, .services td.when {
+  width: 120px;
+  white-space: nowrap;
+  padding-right: 14px;
+  color: var(--global-text-color-light);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+.news td .muted, .education td .muted, .experiences td .muted, .services td .muted {
+  color: var(--global-text-color-light);
+}
+
+.experiences td .muted ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.experiences td .muted li {
+  color: var(--global-text-color-light);
 }
 
 .post > article > h2 {
