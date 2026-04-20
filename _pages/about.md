@@ -8,6 +8,9 @@ profile:
   align: right
   image: prof_pic.jpeg
   image_circular: false # crops the image to make it circular
+  affiliation: Postdoctoral Researcher, KAIST
+  affiliation_url: https://cvlab.postech.ac.kr/
+  tagline: world model / representation learning / multi-modal learning
   # address: >
   #   <p>555 your office number</p>
   #   <p>123 your address street</p>
