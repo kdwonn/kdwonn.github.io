@@ -1262,63 +1262,75 @@ nav[data-toggle=toc] .nav-link.active:hover {
 
 @media (min-width: 1200px) {
   .page-home .container {
-    max-width: 1360px;
+    max-width: 1440px;
   }
   .page-home > .container.mt-5 {
     margin-top: 1.5rem !important;
   }
   .home-split {
     display: grid;
-    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
     column-gap: 3.5rem;
     align-items: start;
   }
   .home-col-left {
     position: sticky;
     top: calc(56px + 1.5rem);
-    max-height: calc(100vh - 56px - 1.5rem - 36px);
+    height: calc(100vh - 56px - 1.5rem - 36px);
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.25em;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-col-left > * {
+    flex-shrink: 0;
+  }
+  .home-col-left > .news {
+    flex-shrink: 1;
+    min-height: 6em;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
   }
   .home-col-left .about-header {
     margin-bottom: 0;
   }
   .home-col-left .about-header .identity {
-    gap: 16px;
-    margin-bottom: 0.9rem;
+    gap: 1em;
+    margin-bottom: 0.9em;
   }
   .home-col-left .about-header .identity .profile {
-    width: 112px;
+    width: 7.2em;
   }
   .home-col-left .about-header .identity .meta .post-title {
-    font-size: 1.8rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.8em;
+    margin-bottom: 0.15em;
   }
   .home-col-left .about-header .identity .meta .contact {
-    font-size: 0.85rem;
+    font-size: 0.85em;
     line-height: 1.45;
   }
   .home-col-left .about-header .identity .meta .tagline {
-    font-size: 0.85rem;
-    margin-top: 0.3rem;
+    font-size: 0.85em;
+    margin-top: 0.35em;
     line-height: 1.4;
   }
   .home-col-left .about-header .identity .meta .contact-icons {
-    font-size: 1.35rem;
-    gap: 12px;
-    padding-top: 0.4rem;
+    font-size: 1.35em;
+    gap: 0.5em;
+    padding-top: 0.3em;
   }
   .home-col-left .about-header .about-body {
-    font-size: 0.85rem;
+    font-size: 0.85em;
     line-height: 1.45;
   }
   .home-col-left .education h2,
   .home-col-left .experiences h2 {
-    margin-top: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
+    margin-top: 1.4em;
+    margin-bottom: 0.6em;
+    font-size: 0.85em;
   }
   .home-col-left .education,
   .home-col-left .experiences {
@@ -1328,20 +1340,20 @@ nav[data-toggle=toc] .nav-link.active:hover {
     margin-bottom: 0;
   }
   .home-col-left .news table td, .home-col-left .news table th, .home-col-left .education table td, .home-col-left .education table th, .home-col-left .experiences table td, .home-col-left .experiences table th {
-    font-size: 0.82rem;
+    font-size: 0.82em;
     line-height: 1.4;
-    padding-top: 0.15rem;
-    padding-bottom: 0.15rem;
+    padding-top: 0.18em;
+    padding-bottom: 0.18em;
   }
   .home-col-left .news th.when, .home-col-left .news td.when, .home-col-left .education th.when, .home-col-left .education td.when, .home-col-left .experiences th.when, .home-col-left .experiences td.when {
-    width: calc(11.5 * (1ch + 0.04em) + 1rem);
-    min-width: calc(11.5 * (1ch + 0.04em) + 1rem);
-    padding-right: 1rem;
+    width: calc(11.5 * (1ch + 0.04em) + 1.2em);
+    min-width: calc(11.5 * (1ch + 0.04em) + 1.2em);
+    padding-right: 1.2em;
   }
   .post > article > .home-col-left > h2 {
-    margin-top: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
+    margin-top: 1.4em;
+    margin-bottom: 0.6em;
+    font-size: 0.85em;
   }
   .post > article > .home-col-right > h2:first-child {
     margin-top: 0;
