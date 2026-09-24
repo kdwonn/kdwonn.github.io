@@ -768,6 +768,8 @@ footer.sticky-bottom {
   font-weight: 700;
 }
 
+$when-chars: 14;
+
 .news, .education, .experiences, .services {
   table {
     table-layout: auto;
@@ -778,8 +780,12 @@ footer.sticky-bottom {
     }
   }
   th.when, td.when {
-    width: 120px;
+    // Same width in every section so dates line up across News/Education/
+    // Experience; sized for the longest label ("2025 – Present").
+    width: calc(#{$when-chars} * (1ch + 0.04em) + 14px);
+    min-width: calc(#{$when-chars} * (1ch + 0.04em) + 14px);
     white-space: nowrap;
+    padding-left: 0;
     padding-right: 14px;
     color: var(--global-text-color-light);
     font-weight: 400;
@@ -1436,8 +1442,8 @@ $home-top-gap: 1.5rem;
         padding-bottom: 0.15rem;
       }
       th.when, td.when {
-        width: 1%;
-        padding-left: 0;
+        width: calc(#{$when-chars} * (1ch + 0.04em) + 1rem);
+        min-width: calc(#{$when-chars} * (1ch + 0.04em) + 1rem);
         padding-right: 1rem;
       }
     }
