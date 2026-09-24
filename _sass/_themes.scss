@@ -3,18 +3,18 @@
  ******************************************************************************/
 
 :root {
-  --global-bg-color: #f5f3ef;
-  --global-code-bg-color: rgba(0,0,0,.04);
-  --global-text-color: #1a1a1a;
-  --global-text-color-light: #888;
-  --global-theme-color: #c03020;
-  --global-hover-color: #c03020;
-  --global-hover-text-color: #f5f3ef;
-  --global-footer-bg-color: #f5f3ef;
-  --global-footer-text-color: #888;
-  --global-footer-link-color: #1a1a1a;
+  --global-bg-color: #f6f7f9;
+  --global-code-bg-color: rgba(20,30,50,.04);
+  --global-text-color: #15181d;
+  --global-text-color-light: #7c828c;
+  --global-theme-color: #1a3190;
+  --global-hover-color: #1a3190;
+  --global-hover-text-color: #f6f7f9;
+  --global-footer-bg-color: #f6f7f9;
+  --global-footer-text-color: #7c828c;
+  --global-footer-link-color: #15181d;
   --global-distill-app-color: #{$grey-color};
-  --global-divider-color: rgba(0,0,0,.15);
+  --global-divider-color: rgba(20,30,50,.15);
   --global-card-bg-color: transparent;
 
   --global-tip-block: #42b983;

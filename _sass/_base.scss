@@ -44,7 +44,7 @@ html {
 
 body {
   font-family: 'iA Writer Mono', monospace;
-  background-image: radial-gradient(circle, rgba(0,0,0,.15) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(20,30,50,.15) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -1002,8 +1002,8 @@ footer.sticky-bottom {
       .links {
         a.btn {
           color: #fff;
-          background: #555;
-          border: 1px solid #555;
+          background: #2b2f36;
+          border: 1px solid #2b2f36;
           border-radius: 0;
           padding: 0.1rem 0.4rem;
           margin-right: 0.25rem;
@@ -1016,9 +1016,9 @@ footer.sticky-bottom {
           &::before, &::after { content: none; }
 
           &:hover {
-            color: #555;
+            color: #2b2f36;
             background: transparent;
-            border: 1px solid #555;
+            border: 1px solid #2b2f36;
           }
         }
       }

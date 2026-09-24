@@ -6,7 +6,7 @@ body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
-  background-image: radial-gradient(circle, rgba(0,0,0,.08) 0.5px, transparent 0.5px);
+  background-image: radial-gradient(circle, rgba(20,30,50,.08) 0.5px, transparent 0.5px);
   background-size: 20px 20px;
 
   h1, h2, h3, h4, h5, h6 {
@@ -16,11 +16,11 @@ body {
 
 // Text selection highlight
 ::selection {
-  background-color: rgba(192, 48, 32, 0.2);
+  background-color: rgba(26, 49, 144, 0.18);
   color: var(--global-text-color);
 }
 ::-moz-selection {
-  background-color: rgba(192, 48, 32, 0.2);
+  background-color: rgba(26, 49, 144, 0.18);
   color: var(--global-text-color);
 }
 
@@ -34,7 +34,7 @@ body > .container::after {
   content: '+';
   position: fixed;
   font-size: 0.65rem;
-  color: rgba(0,0,0,.12);
+  color: rgba(20,30,50,.12);
   font-family: monospace;
   pointer-events: none;
   z-index: 0;
