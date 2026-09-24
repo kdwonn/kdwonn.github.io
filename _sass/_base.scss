@@ -799,7 +799,8 @@ footer.sticky-bottom {
 }
 
 // Section headers in article context (News, Publications on about page)
-.post > article > h2 {
+.post > article > h2,
+.post > article > .home-col > h2 {
   @extend %section-header;
   margin-top: 2.5rem;
 }
@@ -1361,5 +1362,101 @@ nav[data-toggle="toc"] {
     h1, h2, h3, h4, h5, h6 {
       color: var(--global-danger-block-title);
     }
+  }
+}
+
+// Home: two-column layout on wide screens. The left column (identity, bio,
+// news, education, experience) is pinned below the navbar and sized to the
+// viewport; the right column (publications, services, honors) scrolls with
+// the page. Below the breakpoint the columns stack in the original order.
+$home-split-breakpoint: 1200px;
+$home-nav-height: 56px;
+$home-footer-height: 36px;
+$home-top-gap: 2rem;
+
+@media (min-width: $home-split-breakpoint) {
+  .page-home .container {
+    max-width: 1360px;
+  }
+  .page-home > .container.mt-5 {
+    margin-top: $home-top-gap !important;
+  }
+
+  .home-split {
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    column-gap: 4rem;
+    align-items: start;
+  }
+
+  .home-col-left {
+    position: sticky;
+    top: calc(#{$home-nav-height} + #{$home-top-gap});
+    max-height: calc(100vh - #{$home-nav-height} - #{$home-top-gap} - #{$home-footer-height});
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding-bottom: 1rem;
+
+    // Compact the left column so it fits one screen.
+    .about-header {
+      margin-bottom: 0;
+
+      .identity {
+        gap: 16px;
+        margin-bottom: 0.9rem;
+      }
+      .identity .profile { width: 112px; }
+      .identity .meta {
+        .post-title { font-size: 1.8rem; margin-bottom: 0.25rem; }
+        .contact { font-size: 0.85rem; line-height: 1.45; }
+        .tagline { font-size: 0.85rem; margin-top: 0.3rem; line-height: 1.4; }
+        .contact-icons { font-size: 1.35rem; gap: 12px; padding-top: 0.4rem; }
+      }
+      .about-body { font-size: 0.85rem; line-height: 1.5; }
+    }
+
+    .education h2,
+    .experiences h2 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+    }
+    .education,
+    .experiences {
+      margin-top: 0;
+    }
+
+    .news, .education, .experiences {
+      table { margin-bottom: 0; }
+      table td, table th {
+        font-size: 0.82rem;
+        line-height: 1.45;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+      }
+      th.when, td.when {
+        width: 1%;
+        padding-left: 0;
+        padding-right: 1rem;
+      }
+    }
+  }
+
+  .post > article > .home-col-left > h2 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+  }
+  .post > article > .home-col-right > h2:first-child {
+    margin-top: 0;
+  }
+}
+
+// On shorter wide screens, keep only the latest news so the pinned column
+// still fits; the News heading links to the full list.
+@media (min-width: $home-split-breakpoint) and (max-height: 960px) {
+  .home-col-left .news tr:nth-child(n+4) {
+    display: none;
   }
 }
