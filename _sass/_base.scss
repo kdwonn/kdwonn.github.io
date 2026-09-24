@@ -1372,7 +1372,7 @@ nav[data-toggle="toc"] {
 $home-split-breakpoint: 1200px;
 $home-nav-height: 56px;
 $home-footer-height: 36px;
-$home-top-gap: 2rem;
+$home-top-gap: 1.5rem;
 
 @media (min-width: $home-split-breakpoint) {
   .page-home .container {
@@ -1384,8 +1384,8 @@ $home-top-gap: 2rem;
 
   .home-split {
     display: grid;
-    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-    column-gap: 4rem;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
+    column-gap: 3.5rem;
     align-items: start;
   }
 
@@ -1396,7 +1396,7 @@ $home-top-gap: 2rem;
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
-    padding-bottom: 1rem;
+    padding-bottom: 0.25rem;
 
     // Compact the left column so it fits one screen.
     .about-header {
@@ -1413,13 +1413,13 @@ $home-top-gap: 2rem;
         .tagline { font-size: 0.85rem; margin-top: 0.3rem; line-height: 1.4; }
         .contact-icons { font-size: 1.35rem; gap: 12px; padding-top: 0.4rem; }
       }
-      .about-body { font-size: 0.85rem; line-height: 1.5; }
+      .about-body { font-size: 0.85rem; line-height: 1.45; }
     }
 
     .education h2,
     .experiences h2 {
-      margin-top: 1.5rem;
-      margin-bottom: 0.6rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.5rem;
       font-size: 0.85rem;
     }
     .education,
@@ -1431,9 +1431,9 @@ $home-top-gap: 2rem;
       table { margin-bottom: 0; }
       table td, table th {
         font-size: 0.82rem;
-        line-height: 1.45;
-        padding-top: 0.2rem;
-        padding-bottom: 0.2rem;
+        line-height: 1.4;
+        padding-top: 0.15rem;
+        padding-bottom: 0.15rem;
       }
       th.when, td.when {
         width: 1%;
@@ -1444,19 +1444,11 @@ $home-top-gap: 2rem;
   }
 
   .post > article > .home-col-left > h2 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.6rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
     font-size: 0.85rem;
   }
   .post > article > .home-col-right > h2:first-child {
     margin-top: 0;
-  }
-}
-
-// On shorter wide screens, keep only the latest news so the pinned column
-// still fits; the News heading links to the full list.
-@media (min-width: $home-split-breakpoint) and (max-height: 960px) {
-  .home-col-left .news tr:nth-child(n+4) {
-    display: none;
   }
 }
