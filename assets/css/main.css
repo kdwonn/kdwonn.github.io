@@ -754,7 +754,8 @@ footer.sticky-bottom .container::before {
   text-align: right;
 }
 
-.publications h1, .honors h2, .services h2, .services h1, .experiences h2, .education h2, .education h1, .post > article > h2, .projects h2.category {
+.publications h1, .honors h2, .services h2, .services h1, .experiences h2, .education h2, .education h1, .post > article > h2,
+.post > article > .home-col > h2, .projects h2.category {
   font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -785,8 +786,12 @@ footer.sticky-bottom .container::before {
   line-height: 1.55;
 }
 .news th.when, .news td.when, .education th.when, .education td.when, .experiences th.when, .experiences td.when, .services th.when, .services td.when {
-  width: 120px;
+  width: calc(11.5 * (1ch + 0.04em) + 14px);
+  min-width: calc(11.5 * (1ch + 0.04em) + 14px);
   white-space: nowrap;
+  text-align: justify;
+  text-align-last: justify;
+  padding-left: 0;
   padding-right: 14px;
   color: var(--global-text-color-light);
   font-weight: 400;
@@ -805,7 +810,8 @@ footer.sticky-bottom .container::before {
   color: var(--global-text-color-light);
 }
 
-.post > article > h2 {
+.post > article > h2,
+.post > article > .home-col > h2 {
   margin-top: 2.5rem;
 }
 
@@ -1254,6 +1260,93 @@ nav[data-toggle=toc] .nav-link.active:hover {
   color: var(--global-danger-block-title);
 }
 
+@media (min-width: 1200px) {
+  .page-home .container {
+    max-width: 1360px;
+  }
+  .page-home > .container.mt-5 {
+    margin-top: 1.5rem !important;
+  }
+  .home-split {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr);
+    column-gap: 3.5rem;
+    align-items: start;
+  }
+  .home-col-left {
+    position: sticky;
+    top: calc(56px + 1.5rem);
+    max-height: calc(100vh - 56px - 1.5rem - 36px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    padding-bottom: 0.25rem;
+  }
+  .home-col-left .about-header {
+    margin-bottom: 0;
+  }
+  .home-col-left .about-header .identity {
+    gap: 16px;
+    margin-bottom: 0.9rem;
+  }
+  .home-col-left .about-header .identity .profile {
+    width: 112px;
+  }
+  .home-col-left .about-header .identity .meta .post-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+  }
+  .home-col-left .about-header .identity .meta .contact {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+  .home-col-left .about-header .identity .meta .tagline {
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+  }
+  .home-col-left .about-header .identity .meta .contact-icons {
+    font-size: 1.35rem;
+    gap: 12px;
+    padding-top: 0.4rem;
+  }
+  .home-col-left .about-header .about-body {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+  .home-col-left .education h2,
+  .home-col-left .experiences h2 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .home-col-left .education,
+  .home-col-left .experiences {
+    margin-top: 0;
+  }
+  .home-col-left .news table, .home-col-left .education table, .home-col-left .experiences table {
+    margin-bottom: 0;
+  }
+  .home-col-left .news table td, .home-col-left .news table th, .home-col-left .education table td, .home-col-left .education table th, .home-col-left .experiences table td, .home-col-left .experiences table th {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+  }
+  .home-col-left .news th.when, .home-col-left .news td.when, .home-col-left .education th.when, .home-col-left .education td.when, .home-col-left .experiences th.when, .home-col-left .experiences td.when {
+    width: calc(11.5 * (1ch + 0.04em) + 1rem);
+    min-width: calc(11.5 * (1ch + 0.04em) + 1rem);
+    padding-right: 1rem;
+  }
+  .post > article > .home-col-left > h2 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+  .post > article > .home-col-right > h2:first-child {
+    margin-top: 0;
+  }
+}
 /*******************************************************************************
  * Style overrides for distill blog posts.
  ******************************************************************************/

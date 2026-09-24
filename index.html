@@ -44,7 +44,7 @@
   </head>
 
   <!-- Body -->
-  <body class="fixed-top-nav ">
+  <body class="fixed-top-nav  page-home">
 
     <!-- Header -->
     <header>
@@ -103,7 +103,10 @@
         <!-- about.html -->
       <div class="post">
 
-        <article>
+        <article class="home-split">
+          <!-- Left column: identity, bio, news, education, experience.
+               On wide screens it stays pinned while the right column scrolls. -->
+          <div class="home-col home-col-left">
           <div class="about-header">
             <div class="identity">
               <div class="profile">
@@ -145,35 +148,35 @@ My research centers on whether machines can learn representations with the right
               <table class="table table-sm table-borderless">
               
                 <tr>
-                  <th scope="row" class="when">Sep 2026</th>
+                  <th scope="row" class="when">24 Sep 2026</th>
                   <td>
                     A paper on generation-friendly image tokenization is accepted at <em>NeurIPS 2026</em> (<a href="https://arxiv.org/abs/2604.11089" rel="external nofollow noopener" target="_blank">arXiv</a>).
 
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" class="when">Apr 2026</th>
+                  <th scope="row" class="when">20 Apr 2026</th>
                   <td>
                     I gave invited talks at <em>Google DeepMind</em> and <em>Yonsei University</em>, about <a href="https://kdwonn.github.io/CompACT">CompACT</a> and <em>abstraction for world model</em>.
 
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" class="when">Feb 2026</th>
+                  <th scope="row" class="when">22 Feb 2026</th>
                   <td>
                     A paper on world model is accepted at <em>CVPR 2026</em> (<a href="https://kdwonn.github.io/CompACT">CompACT</a>).
 
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" class="when">Feb 2026</th>
+                  <th scope="row" class="when">01 Feb 2026</th>
                   <td>
                     I won <em>POSTECH CSE Best Research Award 2025</em>, recognizing the best research among PhD graduates.
 
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" class="when">Jul 2025</th>
+                  <th scope="row" class="when">14 Jul 2025</th>
                   <td>
                     A paper on 1-dimensinal tokenization and text-to-image generation is accepted at <em>ICCV 2025</em> (<a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">MaskGen</a>).
 
@@ -189,7 +192,7 @@ My research centers on whether machines can learn representations with the right
             <h2>Education</h2>
             <table class="table table-sm table-borderless">
                 <tr>
-                  <th scope="row" class="when">Sep 2019 - Aug 2025</th>
+                  <th scope="row" class="when">2019 – 2025</th>
                   <td>
                     <strong>Integrated M.S &amp; Ph.D in Computer Science &amp; Engineering</strong> <br>
 <a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea <br>
@@ -198,7 +201,7 @@ My research centers on whether machines can learn representations with the right
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" class="when">Mar 2015 - Aug 2019</th>
+                  <th scope="row" class="when">2015 – 2019</th>
                   <td>
                     <strong>B.S. in Computer Science &amp; Engineering</strong> <br>
 <a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea
@@ -217,7 +220,7 @@ My research centers on whether machines can learn representations with the right
                 <tr>
                   <th scope="row" class="when">
                     
-                      Nov 2025 - Present
+                      2025 – Now
                     
                   </th>
                   <td>
@@ -230,7 +233,7 @@ My research centers on whether machines can learn representations with the right
                 <tr>
                   <th scope="row" class="when">
                     
-                      Jun 2024 - Nov 2024
+                      2024
                     
                   </th>
                   <td>
@@ -243,6 +246,10 @@ My research centers on whether machines can learn representations with the right
             </div>
           </div>
 
+          </div>
+
+          <!-- Right column: publications, services, honors -->
+          <div class="home-col home-col-right">
 
           <!-- All papers -->
           <h2><a href="/publications/" style="color: inherit;">Publications</a></h2>
@@ -1173,6 +1180,7 @@ My research centers on whether machines can learn representations with the right
                 </tr> 
               </table>
             </div> 
+          </div>
           </div>
           <!-- Latest posts -->
           <!--  -->
