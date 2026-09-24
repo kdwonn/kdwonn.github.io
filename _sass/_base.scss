@@ -768,7 +768,7 @@ footer.sticky-bottom {
   font-weight: 700;
 }
 
-$when-chars: 14;
+$when-chars: 11.5; // + half a char of slack for sub-pixel rounding
 
 .news, .education, .experiences, .services {
   table {
@@ -781,7 +781,7 @@ $when-chars: 14;
   }
   th.when, td.when {
     // Same width in every section so dates line up across News/Education/
-    // Experience; sized for the longest label ("2025 – Present").
+    // Experience; sized for the longest label ("2019 – 2025").
     width: calc(#{$when-chars} * (1ch + 0.04em) + 14px);
     min-width: calc(#{$when-chars} * (1ch + 0.04em) + 14px);
     white-space: nowrap;
