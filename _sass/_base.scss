@@ -781,8 +781,8 @@ $when-chars: 11.5; // + half a char of slack for sub-pixel rounding
   }
   th.when, td.when {
     // Same width in every section so dates line up across News/Education/
-    // Experience; sized for the longest label ("2019 – 2025"). Justified so
-    // every date starts and ends at the same edges ("Sep   2026").
+    // Experience; sized for the longest labels ("24 Sep 2026", "2019 – 2025").
+    // Justified so shorter ranges ("2025 – Now") still span the full width.
     width: calc(#{$when-chars} * (1ch + 0.04em) + 14px);
     min-width: calc(#{$when-chars} * (1ch + 0.04em) + 14px);
     white-space: nowrap;
