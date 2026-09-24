@@ -5,7 +5,10 @@ layout: default
 <!-- about.html -->
       <div class="post">
 
-        <article>
+        <article class="home-split">
+          <!-- Left column: identity, bio, news, education, experience.
+               On wide screens it stays pinned while the right column scrolls. -->
+          <div class="home-col home-col-left">
           <div class="about-header">
             <div class="identity">
               {% if page.profile and page.profile.image -%}
@@ -61,6 +64,10 @@ layout: default
           {% if page.experiences -%}
           {%- include experiences.html %}
           {%- endif %}
+          </div>
+
+          <!-- Right column: publications, services, honors -->
+          <div class="home-col home-col-right">
 
           <!-- All papers -->
           {% if page.selected_papers -%}
@@ -76,6 +83,7 @@ layout: default
           <!-- Honors and awards -->
           {%- include honors.html %}
           {%- endif %}
+          </div>
           <!-- Latest posts -->
           <!-- {% if page.latest_posts -%}
             <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
