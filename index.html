@@ -104,7 +104,7 @@
       <div class="post">
 
         <article class="home-split">
-          <!-- Left column: identity, bio, news, education, experience.
+          <!-- Left column: identity, bio, news.
                On wide screens it stays pinned while the right column scrolls. -->
           <div class="home-col home-col-left">
           <div class="about-header">
@@ -185,70 +185,9 @@ My research centers on whether machines can learn representations with the right
               </table>
             </div>
           </div>
-
-          <!-- Education -->
-                    
-          <div class="education">
-            <h2>Education</h2>
-            <table class="table table-sm table-borderless">
-                <tr>
-                  <th scope="row" class="when">2019 – 2025</th>
-                  <td>
-                    <strong>Integrated M.S &amp; Ph.D in Computer Science &amp; Engineering</strong> <br>
-<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea <br>
-<span class="muted">Advisor: Prof. <a href="http://cvlab.postech.ac.kr/~suhakwak/" rel="external nofollow noopener" target="_blank">Suha Kwak</a></span>
-
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">2015 – 2019</th>
-                  <td>
-                    <strong>B.S. in Computer Science &amp; Engineering</strong> <br>
-<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea
-
-                  </td>
-                </tr>
-              </table> 
           </div>
 
-          <!-- Experience -->
-                    
-          <div class="experiences">
-            <h2>Experience</h2>
-            <div class="table-responsive">
-              <table class="table table-sm table-borderless">
-                <tr>
-                  <th scope="row" class="when">
-                    
-                      2025 – Now
-                    
-                  </th>
-                  <td>
-                    <strong>Postdoctoral researcher</strong> · KAIST, Daejeon, KR<br>
-                      <div class="muted">
-<a href="https://sites.google.com/view/innocore-llm-2/home" rel="external nofollow noopener" target="_blank">InnoCORE-LLM</a>, PI: <a href="https://jeanyson.github.io" rel="external nofollow noopener" target="_blank">Jeany Son</a>
-</div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">
-                    
-                      2024
-                    
-                  </th>
-                  <td>
-                    <strong>Research Intern</strong> · Fundamental Research Team, ByteDance SEED, San Jose, US<br>
-                      <div class="muted">Developed efficient text-to-image generative model using 1D tokens (<a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">MaskGen</a>)
-</div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-          </div>
-
-          <!-- Right column: publications, services, honors -->
+          <!-- Right column: publications, education, experience, services, honors -->
           <div class="home-col home-col-right">
 
           <!-- All papers -->
@@ -1112,6 +1051,67 @@ My research centers on whether machines can learn representations with the right
 </ol>
           </div>
 
+
+          <!-- Education -->
+                    
+          <div class="education">
+            <h2>Education</h2>
+            <table class="table table-sm table-borderless">
+                <tr>
+                  <th scope="row" class="when">2019 – 2025</th>
+                  <td>
+                    <strong>Integrated M.S &amp; Ph.D in Computer Science &amp; Engineering</strong> <br>
+<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea <br>
+<span class="muted">Advisor: Prof. <a href="http://cvlab.postech.ac.kr/~suhakwak/" rel="external nofollow noopener" target="_blank">Suha Kwak</a></span>
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" class="when">2015 – 2019</th>
+                  <td>
+                    <strong>B.S. in Computer Science &amp; Engineering</strong> <br>
+<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea
+
+                  </td>
+                </tr>
+              </table> 
+          </div>
+
+          <!-- Experience -->
+                    
+          <div class="experiences">
+            <h2>Experience</h2>
+            <div class="table-responsive">
+              <table class="table table-sm table-borderless">
+                <tr>
+                  <th scope="row" class="when">
+                    
+                      2025 – Now
+                    
+                  </th>
+                  <td>
+                    <strong>Postdoctoral researcher</strong> · KAIST, Daejeon, KR<br>
+                      <div class="muted">
+<a href="https://sites.google.com/view/innocore-llm-2/home" rel="external nofollow noopener" target="_blank">InnoCORE-LLM</a>, PI: <a href="https://jeanyson.github.io" rel="external nofollow noopener" target="_blank">Jeany Son</a>
+</div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" class="when">
+                    
+                      2024
+                    
+                  </th>
+                  <td>
+                    <strong>Research Intern</strong> · Fundamental Research Team, ByteDance SEED, San Jose, US<br>
+                      <div class="muted">Developed efficient text-to-image generative model using 1D tokens (<a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">MaskGen</a>)
+</div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
           
           <!-- Professional services -->
                     <div class="services">
@@ -1189,58 +1189,6 @@ My research centers on whether machines can learn representations with the right
 
 </div>
 
-<script>
-  // Fit the pinned left column to the viewport height on wide screens: find
-  // the largest font-size (all sizes in the column are em-based) at which its
-  // content fits without scrolling. Below MIN_PX the news list scrolls on its
-  // own instead of the text shrinking further.
-  (function () {
-    var col = document.querySelector('.home-col-left');
-    if (!col || !window.matchMedia) return;
-    var wide = window.matchMedia('(min-width: 1200px)');
-    var MIN_PX = 13.5;
-    var MAX_PX = 16;
-
-    var news = col.querySelector('.news');
-
-    function fits() {
-      return col.scrollHeight <= col.clientHeight + 1 &&
-        (!news || news.scrollHeight <= news.clientHeight + 1);
-    }
-
-    function fit() {
-      if (!wide.matches) {
-        col.style.fontSize = '';
-        return;
-      }
-      col.style.fontSize = MAX_PX + 'px';
-      if (fits()) return;
-      var lo = MIN_PX, hi = MAX_PX;
-      for (var i = 0; i < 10; i++) {
-        var mid = (lo + hi) / 2;
-        col.style.fontSize = mid + 'px';
-        if (fits()) lo = mid; else hi = mid;
-      }
-      col.style.fontSize = lo + 'px';
-    }
-
-    var pending = false;
-    function schedule() {
-      if (pending) return;
-      pending = true;
-      window.requestAnimationFrame(function () {
-        pending = false;
-        fit();
-      });
-    }
-
-    fit();
-    window.addEventListener('resize', schedule);
-    window.addEventListener('load', schedule);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
-  })();
-</script>
-
       
     </div>
 
@@ -1248,7 +1196,7 @@ My research centers on whether machines can learn representations with the right
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2026 Dongwon  Kim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
-Last updated: September 24, 2026.
+Last updated: September 25, 2026.
       </div>
     </footer>
 
