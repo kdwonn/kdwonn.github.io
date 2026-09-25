@@ -1375,15 +1375,10 @@ nav[data-toggle="toc"] {
 }
 
 // Home: two-column layout on wide screens. The left column (identity, bio,
-// news, education, experience) is pinned below the navbar and exactly as tall
-// as the viewport; the right column (publications, services, honors) is the
-// wider one and scrolls with the page. Below the breakpoint the columns stack
-// in the original order.
-//
-// Every size inside the left column is in em, relative to the column's own
-// font-size. A script in _layouts/about.html sets that font-size to the
-// largest value at which the column fits the viewport height; without the
-// script the column falls back to the page's base size and scrolls if needed.
+// news) is pinned below the navbar and exactly as tall as the viewport; the
+// right column (publications, education, experience, services, honors) is the
+// wider one and scrolls with the page. Both columns use the same type sizes
+// as the rest of the site. Below the breakpoint the columns stack.
 $home-split-breakpoint: 1200px;
 $home-nav-height: 56px;
 $home-footer-height: 36px;
@@ -1411,71 +1406,24 @@ $home-top-gap: 1.5rem;
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
-    padding-bottom: 0.25em;
     display: flex;
     flex-direction: column;
 
-    // Only the news list gives way when the column is taller than the
-    // viewport: it shrinks and scrolls on its own, so identity, education
-    // and experience always stay in view.
+    .about-header { margin-bottom: 0; }
+
+    // The news list takes whatever height is left and scrolls on its own
+    // when it is longer than that; everything above it stays in view.
     > * { flex-shrink: 0; }
     > .news {
-      flex-shrink: 1;
-      min-height: 6em;
+      flex: 0 1 auto;
+      min-height: 6rem;
       overflow-y: auto;
       overscroll-behavior: contain;
       scrollbar-width: thin;
-    }
-
-    .about-header {
-      margin-bottom: 0;
-
-      .identity {
-        gap: 1em;
-        margin-bottom: 0.9em;
-      }
-      .identity .profile { width: 7.2em; }
-      .identity .meta {
-        .post-title { font-size: 1.8em; margin-bottom: 0.15em; }
-        .contact { font-size: 0.85em; line-height: 1.45; }
-        .tagline { font-size: 0.85em; margin-top: 0.35em; line-height: 1.4; }
-        .contact-icons { font-size: 1.35em; gap: 0.5em; padding-top: 0.3em; }
-      }
-      .about-body { font-size: 0.85em; line-height: 1.45; }
-    }
-
-    .education h2,
-    .experiences h2 {
-      margin-top: 1.4em;
-      margin-bottom: 0.6em;
-      font-size: 0.85em;
-    }
-    .education,
-    .experiences {
-      margin-top: 0;
-    }
-
-    .news, .education, .experiences {
       table { margin-bottom: 0; }
-      table td, table th {
-        font-size: 0.82em;
-        line-height: 1.4;
-        padding-top: 0.18em;
-        padding-bottom: 0.18em;
-      }
-      th.when, td.when {
-        width: calc(#{$when-chars} * (1ch + 0.04em) + 1.2em);
-        min-width: calc(#{$when-chars} * (1ch + 0.04em) + 1.2em);
-        padding-right: 1.2em;
-      }
     }
   }
 
-  .post > article > .home-col-left > h2 {
-    margin-top: 1.4em;
-    margin-bottom: 0.6em;
-    font-size: 0.85em;
-  }
   .post > article > .home-col-right > h2:first-child {
     margin-top: 0;
   }
