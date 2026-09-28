@@ -5,91 +5,109 @@ layout: default
 <!-- about.html -->
       <div class="post">
 
-        <article class="home-split">
-          <!-- Left column: identity, bio, news.
-               On wide screens it stays pinned while the right column scrolls. -->
-          <div class="home-col home-col-left">
-          <div class="about-header">
-            <div class="identity">
-              {% if page.profile and page.profile.image -%}
-              <div class="profile">
-                <img src="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}" alt="{{ site.first_name }} {{ site.last_name }}"{% if page.profile.image_circular %} class="rounded-circle"{% endif %}>
+        <article class="home">
+          <!-- Header: photo, identity, bio -->
+          <header class="home-header">
+            {% if page.profile and page.profile.image -%}
+            <div class="home-photo">
+              <img src="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}" alt="{{ site.first_name }} {{ site.last_name }}"{% if page.profile.image_circular %} class="rounded-circle"{% endif %}>
+            </div>
+            {%- endif %}
+            <div class="home-id">
+              <h1 class="post-title">
+                {% if site.title == "blank" -%}{{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
+              </h1>
+              <div class="home-contact">
+                {% if page.profile.affiliation -%}
+                  {% if page.profile.affiliation_url -%}
+                    <a href="{{ page.profile.affiliation_url }}">{{ page.profile.affiliation }}</a>
+                  {%- else -%}
+                    {{ page.profile.affiliation }}
+                  {%- endif %}
+                  <br>
+                {%- endif %}
+                {% if site.email -%}
+                  <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+                {%- endif %}
+              </div>
+              {% if page.profile.tagline -%}
+              <div class="home-tagline">{{ page.profile.tagline }}</div>
+              {%- endif %}
+              {%- if page.social %}
+              <div class="contact-icons">
+                {% include social.html %}
               </div>
               {%- endif %}
-              <div class="meta">
-                <h1 class="post-title">
-                  {% if site.title == "blank" -%}<span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }} {{ site.last_name }}{%- else -%}{{ site.title }}{%- endif %}
-                </h1>
-                <div class="contact">
-                  {% if page.profile.affiliation -%}
-                    {% if page.profile.affiliation_url -%}
-                      <a href="{{ page.profile.affiliation_url }}">{{ page.profile.affiliation }}</a>
-                    {%- else -%}
-                      {{ page.profile.affiliation }}
-                    {%- endif %}
-                    <br>
-                  {%- endif %}
-                  {% if site.email -%}
-                    <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-                  {%- endif %}
-                </div>
-                {% if page.profile.tagline -%}
-                <div class="tagline">{{ page.profile.tagline }}</div>
-                {%- endif %}
-                {%- if page.social %}
-                <div class="contact-icons">
-                  {% include social.html %}
-                </div>
-                {%- endif %}
-              </div>
             </div>
-
-            <div class="about-body">
+            <div class="home-bio">
               {{ content }}
             </div>
-          </div>
+          </header>
 
-          <!-- News -->
+          <!-- News band -->
           {% if page.news and site.announcements.enabled -%}
-            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">News</a></h2>
-            {%- include news.html limit=true %}
+          {%- include news_band.html %}
           {%- endif %}
+
+          <!-- Tabs (enabled by assets/js/home.js; without JS every panel is shown in turn) -->
+          <div class="home-tabs" role="tablist" aria-label="Sections">
+            {% if page.selected_papers -%}
+            <button type="button" role="tab" id="tab-pub" aria-controls="panel-pub" aria-selected="true">Publications <span class="home-tab-n" data-pub-count></span></button>
+            {%- endif %}
+            {% if page.experiences or page.education -%}
+            <button type="button" role="tab" id="tab-exp" aria-controls="panel-exp" aria-selected="false">Experience &amp; education</button>
+            {%- endif %}
+            {% if page.honors or page.services -%}
+            <button type="button" role="tab" id="tab-hon" aria-controls="panel-hon" aria-selected="false">Honors &amp; service</button>
+            {%- endif %}
+            <span class="home-tabs-ind" aria-hidden="true"></span>
           </div>
 
-          <!-- Right column: publications, education, experience, services, honors -->
-          <div class="home-col home-col-right">
-
-          <!-- All papers -->
           {% if page.selected_papers -%}
-            <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">Publications</a></h2>
-            {%- include selected_papers.html %}
+          <section class="home-panel pub-section" id="panel-pub" role="tabpanel" aria-labelledby="tab-pub">
+            <h2 class="home-panel-title"><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">Publications</a></h2>
+            <div class="pub-toolbar">
+              <div class="pub-chips">
+                <button type="button" class="pub-chip" data-topic="all" aria-pressed="true">All <span class="pub-chip-n"></span></button>
+                {%- for t in site.data.research_topics %}
+                <button type="button" class="pub-chip" data-topic="{{ t[0] }}" aria-pressed="false">{{ t[1].label }} <span class="pub-chip-n"></span></button>
+                {%- endfor %}
+              </div>
+              <span class="pub-hint" data-pub-hint>click a paper for details</span>
+            </div>
+            <div class="pub-layout">
+              <div class="pub-list">
+                {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --template bib_row %}
+              </div>
+              <aside class="pub-pane" aria-label="Paper details" hidden>
+                <div class="pub-pane-head">
+                  <span class="pub-pane-pos" data-pane-pos></span>
+                  <button type="button" data-pane-prev aria-label="Previous paper">&lsaquo;</button>
+                  <button type="button" data-pane-next aria-label="Next paper">&rsaquo;</button>
+                  <button type="button" data-pane-close aria-label="Close details">&times;</button>
+                </div>
+                <div class="pub-pane-body" data-pane-body></div>
+              </aside>
+            </div>
+          </section>
           {%- endif %}
 
-          <!-- Education -->
-          {% if page.education -%}
-          {%- include education.html %}
+          {% if page.experiences or page.education -%}
+          <section class="home-panel" id="panel-exp" role="tabpanel" aria-labelledby="tab-exp">
+            {% if page.experiences -%}{%- include experiences.html %}{%- endif %}
+            {% if page.education -%}{%- include education.html %}{%- endif %}
+          </section>
           {%- endif %}
 
-          <!-- Experience -->
-          {% if page.experiences -%}
-          {%- include experiences.html %}
+          {% if page.honors or page.services -%}
+          <section class="home-panel" id="panel-hon" role="tabpanel" aria-labelledby="tab-hon">
+            {% if page.honors -%}{%- include honors.html %}{%- endif %}
+            {% if page.services -%}{%- include services.html %}{%- endif %}
+          </section>
           {%- endif %}
-          
-          <!-- Professional services -->
-          {% if page.services -%}
-          {%- include services.html %}
-          {%- endif %}
-          {% if page.honors -%}
-          <!-- Honors and awards -->
-          {%- include honors.html %}
-          {%- endif %}
-          </div>
-          <!-- Latest posts -->
-          <!-- {% if page.latest_posts -%}
-            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
-            {%- include latest_posts.html %}
-          {%- endif %} -->
 
         </article>
 
 </div>
+
+<script src="{{ '/assets/js/home.js' | relative_url }}"></script>

@@ -1,0 +1,14 @@
+# Research areas used to tag papers on the homepage (bib field `topics`, comma-separated keys).
+# `short` is shown in the publication list, `label` on the filter buttons and in the detail pane.
+wm:
+  short: WM
+  label: World models
+gen:
+  short: GEN
+  label: Tokenization & generation
+rep:
+  short: REP
+  label: Representation
+vl:
+  short: V+L
+  label: Vision–language

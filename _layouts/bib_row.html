@@ -1,0 +1,91 @@
+---
+---
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block -->
+{%- if entry.abbr -%}
+  {%- assign venue = entry.abbr -%}
+{%- elsif entry.booktitle -%}
+  {%- assign venue = entry.booktitle -%}
+{%- elsif entry.journal -%}
+  {%- assign venue = entry.journal -%}
+{%- else -%}
+  {%- assign venue = '' -%}
+{%- endif -%}
+{%- if venue contains 'arXiv' -%}{%- assign venue = 'arXiv' -%}{%- endif -%}
+{%- assign topic_keys = entry.topics | split: ',' -%}
+{%- capture area_short -%}
+  {%- for k in topic_keys -%}{%- assign key = k | strip -%}{{ site.data.research_topics[key].short }}{%- unless forloop.last -%}·{%- endunless -%}{%- endfor -%}
+{%- endcapture -%}
+{%- capture area_long -%}
+  {%- for k in topic_keys -%}{%- assign key = k | strip -%}{{ site.data.research_topics[key].label }}{%- unless forloop.last %} · {% endunless -%}{%- endfor -%}
+{%- endcapture -%}
+<div class="pub-row" id="pub-{{ entry.key }}" data-year="{{ entry.year }}" data-topics="{{ entry.topics | strip }}">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">{{ entry.year }}</span>
+    <span class="pub-venue">{{ venue | strip }}</span>
+    <span class="pub-title">{{ entry.title }}</span>
+    <span class="pub-area">{{ area_short | strip }}</span>
+    <span class="pub-arrow" aria-hidden="true">&rsaquo;</span>
+  </button>
+  <div class="pub-detail">
+    {%- if entry.preview %}
+    <div class="pub-detail-img">
+      {%- if entry.preview contains '://' %}
+      <img src="{{ entry.preview }}" alt="{{ entry.title | strip_html }} preview" loading="lazy">
+      {%- else %}
+      <img src="{{ entry.preview | prepend: '/assets/img/publication_preview/' | relative_url }}" alt="{{ entry.title | strip_html }} preview" loading="lazy">
+      {%- endif %}
+    </div>
+    {%- endif %}
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">{{ venue | strip }} {{ entry.year }}</span>{% if entry.award %}<span class="pub-detail-award">{{ entry.award }}</span>{% endif %}</div>
+      <div class="pub-detail-title">{{ entry.title }}</div>
+      <div class="pub-detail-authors">
+      {%- for author in entry.author_array -%}
+        {%- assign author_is_self = false -%}
+        {%- assign author_last_name = author.last | remove: "¶" | remove: "&" | remove: "*" | remove: "†" | remove: "^" -%}
+        {%- if site.scholar.last_name contains author_last_name -%}
+          {%- if site.scholar.first_name contains author.first -%}
+            {%- assign author_is_self = true -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- assign coauthor_url = nil -%}
+        {%- if site.data.coauthors[author_last_name] -%}
+          {%- for coauthor in site.data.coauthors[author_last_name] -%}
+            {%- if coauthor.firstname contains author.first -%}
+              {%- assign coauthor_url = coauthor.url -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if forloop.length > 1 -%}
+          {%- if forloop.first == false -%},&nbsp;{%- endif -%}
+          {%- if forloop.last -%}and&nbsp;{%- endif -%}
+        {%- endif -%}
+        {%- if author_is_self -%}
+          <em>{{ author.first }} {{ author.last }}</em>
+        {%- elsif coauthor_url -%}
+          <a href="{{ coauthor_url }}">{{ author.first }} {{ author.last }}</a>
+        {%- else -%}
+          {{ author.first }} {{ author.last }}
+        {%- endif -%}
+      {%- endfor -%}
+      </div>
+      {%- if entry.note %}
+      <div class="pub-detail-note">{{ entry.note | strip }}</div>
+      {%- endif %}
+      {%- if area_long != '' %}
+      <div class="pub-detail-area">{{ area_long | strip }}</div>
+      {%- endif %}
+      <div class="pub-detail-links">
+        {%- if entry.arxiv %}<a href="https://arxiv.org/abs/{{ entry.arxiv }}">arXiv &nearr;</a>{% endif %}
+        {%- if entry.pdf %}{% if entry.pdf contains '://' %}<a href="{{ entry.pdf }}">PDF &nearr;</a>{% else %}<a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}">PDF &nearr;</a>{% endif %}{% endif %}
+        {%- if entry.html %}<a href="{{ entry.html }}">HTML &nearr;</a>{% endif %}
+        {%- if entry.code %}<a href="{{ entry.code }}">Code &nearr;</a>{% endif %}
+        {%- if entry.website %}<a href="{{ entry.website }}">Website &nearr;</a>{% endif %}
+        {%- if entry.blog %}<a href="{{ entry.blog }}">Blog &nearr;</a>{% endif %}
+        {%- if entry.slides %}{% if entry.slides contains '://' %}<a href="{{ entry.slides }}">Slides &nearr;</a>{% else %}<a href="{{ entry.slides | prepend: '/assets/pdf/' | relative_url }}">Slides &nearr;</a>{% endif %}{% endif %}
+        {%- if entry.poster %}{% if entry.poster contains '://' %}<a href="{{ entry.poster }}">Poster &nearr;</a>{% else %}<a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}">Poster &nearr;</a>{% endif %}{% endif %}
+      </div>
+    </div>
+  </div>
+</div>

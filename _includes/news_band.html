@@ -1,0 +1,22 @@
+{%- assign news_items = site.news | sort: 'date' | reverse -%}
+{%- if news_items.size > 0 -%}
+{%- assign first_news = news_items | first -%}
+          <div class="news-band" data-news-band>
+            <span class="news-band-label"><span class="news-band-dot" aria-hidden="true"></span>News</span>
+            <span class="news-band-pos" data-pos>01 / {% if news_items.size < 10 %}0{% endif %}{{ news_items.size }}</span>
+            <span class="news-band-nav">
+              <button type="button" data-prev aria-label="Previous news">&lsaquo;</button>
+              <button type="button" data-next aria-label="Next news">&rsaquo;</button>
+            </span>
+            <p class="news-band-screen" aria-live="polite">
+              <span class="news-band-date" data-date>{{ first_news.date | date: "%d %b %Y" }}</span>
+              <span class="news-band-text" data-text>{{ first_news.content | remove: '<p>' | remove: '</p>' | strip }}</span>
+            </p>
+            <a class="news-band-all" href="{{ '/news/' | relative_url }}">all news &rarr;</a>
+            <ol class="news-band-items" hidden>
+              {%- for item in news_items %}
+              <li data-date="{{ item.date | date: '%d %b %Y' }}">{{ item.content | remove: '<p>' | remove: '</p>' | strip }}</li>
+              {%- endfor %}
+            </ol>
+          </div>
+{%- endif -%}
