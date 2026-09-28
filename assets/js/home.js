@@ -8,6 +8,39 @@
 
   document.documentElement.classList.add('home-js');
 
+  // ------------------------------------------------------ fit to viewport
+  // On wide screens the page doesn't scroll: header, news band, tabs and
+  // filters stay put, and only the content under them scrolls.
+  function initFit() {
+    var article = document.querySelector('article.home');
+    if (!article) return;
+    var root = document.documentElement;
+    var fits = window.matchMedia('(min-width: 992px) and (min-height: 680px)');
+
+    function apply() {
+      if (!fits.matches) {
+        root.classList.remove('home-fit', 'home-fit-compact');
+        article.style.height = '';
+        return;
+      }
+      root.classList.add('home-fit');
+      root.classList.toggle('home-fit-compact', window.innerHeight < 960);
+      window.scrollTo(0, 0);
+      var footer = document.querySelector('footer.fixed-bottom');
+      var bottom = (footer ? footer.offsetHeight : 0) + 16;
+      var top = article.getBoundingClientRect().top;
+      article.style.height = Math.max(320, window.innerHeight - top - bottom) + 'px';
+    }
+
+    window.addEventListener('resize', apply);
+    // Keep the page pinned: focusing a control must not scroll the window.
+    window.addEventListener('scroll', function () {
+      if (root.classList.contains('home-fit') && window.scrollY !== 0) window.scrollTo(0, 0);
+    });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(apply);
+    apply();
+  }
+
   // ---------------------------------------------------------------- tabs
   function initTabs() {
     var list = document.querySelector('.home-tabs');
@@ -137,9 +170,9 @@
       pane.classList.add('is-entering');
       updatePos();
       if (hint) hint.textContent = 'click again or × to close';
-      // If the pane would run past the bottom of the window, scroll so it fits.
+      // Outside fit mode, scroll the page if the pane would run past the window.
       var rect = pane.getBoundingClientRect();
-      if (rect.bottom > window.innerHeight) {
+      if (!document.documentElement.classList.contains('home-fit') && rect.bottom > window.innerHeight) {
         var top = parseFloat(getComputedStyle(pane).top) || 0;
         window.scrollBy({ top: rect.top - top, behavior: reduceMotion ? 'auto' : 'smooth' });
       }
@@ -251,6 +284,7 @@
     schedule();
   }
 
+  initFit();
   initTabs();
   initPubs();
   initNews();

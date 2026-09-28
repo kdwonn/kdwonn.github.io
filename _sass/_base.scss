@@ -1796,6 +1796,76 @@ html:not(.home-js) .pub-detail { display: block; padding: 0 8px 16px; }
   to { opacity: 1; transform: none; }
 }
 
+// Fit mode (wide screens, set by home.js): no page scroll. The article is
+// sized to the window; header, news band, tabs and filters keep their size,
+// and only the active panel's content scrolls. The detail pane takes the
+// full remaining height, so it never scrolls either.
+html.home-fit,
+html.home-fit body { overflow: hidden; }
+
+.home-fit {
+  article.home { display: flex; flex-direction: column; min-height: 0; }
+  .home-header, .news-band, .home-tabs { flex-shrink: 0; }
+  .home-header { padding-bottom: 1.25rem; }
+  .home-tabs { margin-top: 1.25rem; }
+
+  .home-panel:not([hidden]) {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .pub-section:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+  .pub-toolbar { flex-shrink: 0; }
+  .pub-layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .pub-list {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .pub-pane {
+    position: static;
+    height: auto;
+    max-height: none;
+  }
+  // The thumbnail gives up its space first, so the text always fits.
+  .pub-pane-body .pub-detail-img { min-height: 0; }
+}
+
+html.home-fit body.page-home { padding-bottom: 0; }
+html.home-fit body.page-home > .container.mt-5 { margin-top: 1.25rem !important; }
+
+// Shorter windows: a more compact header leaves room for the list and pane.
+.home-fit-compact {
+  .home-header {
+    grid-template-columns: 96px minmax(0, 300px) minmax(0, 1fr);
+    padding-bottom: 1rem;
+    .home-photo img { width: 96px; height: 120px; }
+    .home-id .post-title { font-size: 1.6rem; margin-bottom: .35rem; }
+    .home-id .home-contact { font-size: .82rem; }
+    .home-id .contact-icons { font-size: 1.15rem; padding-top: .4rem; }
+    .home-bio { font-size: .82rem; line-height: 1.6; }
+  }
+  .home-tabs { margin-top: 1rem; }
+  .home-panel { padding-top: .75rem; }
+  .pub-toolbar { margin-bottom: 8px; }
+  .pub-pane-body .pub-detail-body { padding: 10px 14px 12px; gap: 6px; }
+  .pub-pane-body .pub-detail-title { font-size: .92rem; }
+  .pub-pane-body .pub-detail-authors { font-size: .76rem; line-height: 1.45; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .news-band .news-band-dot,
   .home-js .home-panel:not([hidden]),
