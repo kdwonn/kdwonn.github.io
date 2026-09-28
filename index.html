@@ -103,982 +103,489 @@
         <!-- about.html -->
       <div class="post">
 
-        <article class="home-split">
-          <!-- Left column: identity, bio, news.
-               On wide screens it stays pinned while the right column scrolls. -->
-          <div class="home-col home-col-left">
-          <div class="about-header">
-            <div class="identity">
-              <div class="profile">
-                <img src="/assets/img/prof_pic.jpeg" alt="Dongwon Kim">
+        <article class="home">
+          <!-- Header: photo, identity, bio -->
+          <header class="home-header">
+            <div class="home-photo">
+              <img src="/assets/img/prof_pic.jpeg" alt="Dongwon Kim">
+            </div>
+            <div class="home-id">
+              <h1 class="post-title">
+                Dongwon  Kim
+              </h1>
+              <div class="home-contact">
+                <a href="https://cvlab.postech.ac.kr/" rel="external nofollow noopener" target="_blank">Postdoctoral Researcher, KAIST</a>
+                  <br>
+                <a href="mailto:kdwon@postech.ac.kr">kdwon@postech.ac.kr</a>
               </div>
-              <div class="meta">
-                <h1 class="post-title">
-                  <span class="font-weight-bold">Dongwon</span>  Kim
-                </h1>
-                <div class="contact">
-                  <a href="https://cvlab.postech.ac.kr/" rel="external nofollow noopener" target="_blank">Postdoctoral Researcher, KAIST</a>
-                    <br>
-                  <a href="mailto:kdwon@postech.ac.kr">kdwon@postech.ac.kr</a>
-                </div>
-                <div class="tagline">world model / representation learning / multi-modal learning</div>
-                <div class="contact-icons">
-                  <a href="mailto:%6B%64%77%6F%6E@%70%6F%73%74%65%63%68.%61%63.%6B%72" title="email"><i class="fas fa-envelope"></i></a>
+              <div class="home-tagline">world model / representation learning / multi-modal learning</div>
+              <div class="contact-icons">
+                <a href="mailto:%6B%64%77%6F%6E@%70%6F%73%74%65%63%68.%61%63.%6B%72" title="email"><i class="fas fa-envelope"></i></a>
             <a href="https://scholar.google.com/citations?user=abXotYsAAAAJ" title="Google Scholar" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a>
             <a href="https://github.com/kdwonn" title="GitHub" rel="external nofollow noopener" target="_blank"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/dongwon-kim-7877771b7" title="LinkedIn" rel="external nofollow noopener" target="_blank"><i class="fab fa-linkedin"></i></a>
             <a href="https://twitter.com/dngwnkm" title="Twitter" rel="external nofollow noopener" target="_blank"><i class="fab fa-twitter"></i></a>
             
 
-                </div>
               </div>
             </div>
-
-            <div class="about-body">
+            <div class="home-bio">
               <p>I am a postdoctoral researcher at KAIST, working with <a href="https://jeanyson.github.io/" rel="external nofollow noopener" target="_blank">Prof. Jeany Son</a>.
 I previously completed my BS and PhD at POSTECH <a href="https://cvlab.postech.ac.kr" rel="external nofollow noopener" target="_blank">CVLab</a> where I worked with <a href="http://cvlab.postech.ac.kr/~suhakwak/" rel="external nofollow noopener" target="_blank">Prof. Suha Kwak</a>.
 My research centers on whether machines can learn representations with the right abstraction and hierarchy, spanning work in compositional representation (<a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/bbf9c6e203e2638d756929c1e5bbe85e-Abstract-Conference.html" rel="external nofollow noopener" target="_blank">SelfMod</a>), multi-modalities (<a href="http://openaccess.thecvf.com/content/CVPR2023/html/Kim_Improving_Cross-Modal_Retrieval_With_Set_of_Diverse_Embeddings_CVPR_2023_paper.html" rel="external nofollow noopener" target="_blank">DivE</a>, <a href="http://openaccess.thecvf.com/content/ICCV2023/html/Kim_Shatter_and_Gather_Learning_Referring_Image_Segmentation_with_Text_Supervision_ICCV_2023_paper.html" rel="external nofollow noopener" target="_blank">SaG</a>, <a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">MaskGen</a>), and world model (ongoing, <a href="https://kdwonn.github.io/CompACT">CompACT</a>).</p>
 
             </div>
+          </header>
+
+          <!-- News band -->
+          <div class="news-band" data-news-band>
+            <span class="news-band-label"><span class="news-band-dot" aria-hidden="true"></span>News</span>
+            <span class="news-band-pos" data-pos>01 / 13</span>
+            <span class="news-band-nav">
+              <button type="button" data-prev aria-label="Previous news">‹</button>
+              <button type="button" data-next aria-label="Next news">›</button>
+            </span>
+            <p class="news-band-screen" aria-live="polite">
+              <span class="news-band-date" data-date>24 Sep 2026</span>
+              <span class="news-band-text" data-text>A paper on generation-friendly image tokenization is accepted at <em>NeurIPS 2026</em> (<a href="https://arxiv.org/abs/2604.11089" rel="external nofollow noopener" target="_blank">arXiv</a>).</span>
+            </p>
+            <a class="news-band-all" href="/news/">all news →</a>
+            <ol class="news-band-items" hidden>
+              <li data-date="24 Sep 2026">A paper on generation-friendly image tokenization is accepted at <em>NeurIPS 2026</em> (<a href="https://arxiv.org/abs/2604.11089" rel="external nofollow noopener" target="_blank">arXiv</a>).</li>
+              <li data-date="20 Apr 2026">I gave invited talks at <em>Google DeepMind</em> and <em>Yonsei University</em>, about <a href="https://kdwonn.github.io/CompACT">CompACT</a> and <em>abstraction for world model</em>.</li>
+              <li data-date="22 Feb 2026">A paper on world model is accepted at <em>CVPR 2026</em> (<a href="https://kdwonn.github.io/CompACT">CompACT</a>).</li>
+              <li data-date="01 Feb 2026">I won <em>POSTECH CSE Best Research Award 2025</em>, recognizing the best research among PhD graduates.</li>
+              <li data-date="14 Jul 2025">A paper on 1-dimensinal tokenization and text-to-image generation is accepted at <em>ICCV 2025</em> (<a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">MaskGen</a>).</li>
+              <li data-date="14 Jul 2025">I have completed my defense - now I’m officially a Ph.D (thesis title: <em>“Learning Compositional Visual Representations
+for Vision-Language Understanding and Generation”</em>).</li>
+              <li data-date="26 Sep 2024">A paper about object-centric learning is accepted at NeurIPS 2024.</li>
+              <li data-date="10 Jun 2024">One paper is accepted at ECCV 2024.</li>
+              <li data-date="10 Jun 2024">Joined Bytedance (San Jose, CA) as a research intern</li>
+              <li data-date="14 Mar 2024">Our paper about referring image segmentation has been accepted at NAACL 2024 main track.</li>
+              <li data-date="07 Dec 2023">I am really grateful to have been granted the POSTECHIAN fellowship!</li>
+              <li data-date="15 Jul 2023">A paper about weakly-supervised referring image segmentation is accepted at ICCV 2023.</li>
+              <li data-date="21 Mar 2023">A <a href="http://arxiv.org/abs/http://arxiv.org/abs/2211.16761" rel="external nofollow noopener" target="_blank">paper</a> about cross-modal retrieval is selected as a <em>highlight</em> at CVPR 2023!</li>
+            </ol>
           </div>
 
-          <!-- News -->
-          <h2><a href="/news/" style="color: inherit;">News</a></h2>          <div class="news">
-            <div class="table-responsive" style="max-height: 60vw">
-              <table class="table table-sm table-borderless">
-              
-                <tr>
-                  <th scope="row" class="when">24 Sep 2026</th>
-                  <td>
-                    A paper on generation-friendly image tokenization is accepted at <em>NeurIPS 2026</em> (<a href="https://arxiv.org/abs/2604.11089" rel="external nofollow noopener" target="_blank">arXiv</a>).
+          <!-- Tabs (enabled by assets/js/home.js; without JS every panel is shown in turn) -->
+          <div class="home-tabs" role="tablist" aria-label="Sections">
+            <button type="button" role="tab" id="tab-pub" aria-controls="panel-pub" aria-selected="true">Publications <span class="home-tab-n" data-pub-count></span></button>
+            <button type="button" role="tab" id="tab-exp" aria-controls="panel-exp" aria-selected="false">Experience &amp; education</button>
+            <button type="button" role="tab" id="tab-hon" aria-controls="panel-hon" aria-selected="false">Honors &amp; service</button>
+            <span class="home-tabs-ind" aria-hidden="true"></span>
+          </div>
 
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">20 Apr 2026</th>
-                  <td>
-                    I gave invited talks at <em>Google DeepMind</em> and <em>Yonsei University</em>, about <a href="https://kdwonn.github.io/CompACT">CompACT</a> and <em>abstraction for world model</em>.
-
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">22 Feb 2026</th>
-                  <td>
-                    A paper on world model is accepted at <em>CVPR 2026</em> (<a href="https://kdwonn.github.io/CompACT">CompACT</a>).
-
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">01 Feb 2026</th>
-                  <td>
-                    I won <em>POSTECH CSE Best Research Award 2025</em>, recognizing the best research among PhD graduates.
-
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">14 Jul 2025</th>
-                  <td>
-                    A paper on 1-dimensinal tokenization and text-to-image generation is accepted at <em>ICCV 2025</em> (<a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">MaskGen</a>).
-
-                  </td>
-                </tr>
-              </table>
+          <section class="home-panel pub-section" id="panel-pub" role="tabpanel" aria-labelledby="tab-pub">
+            <h2 class="home-panel-title"><a href="/publications/" style="color: inherit;">Publications</a></h2>
+            <div class="pub-toolbar">
+              <div class="pub-chips">
+                <button type="button" class="pub-chip" data-topic="all" aria-pressed="true">All <span class="pub-chip-n"></span></button>
+                <button type="button" class="pub-chip" data-topic="wm" aria-pressed="false">World models <span class="pub-chip-n"></span></button>
+                <button type="button" class="pub-chip" data-topic="gen" aria-pressed="false">Tokenization &amp; generation <span class="pub-chip-n"></span></button>
+                <button type="button" class="pub-chip" data-topic="rep" aria-pressed="false">Representation <span class="pub-chip-n"></span></button>
+                <button type="button" class="pub-chip" data-topic="vl" aria-pressed="false">Vision–language <span class="pub-chip-n"></span></button>
+              </div>
+              <span class="pub-hint" data-pub-hint>click a paper for details</span>
             </div>
-          </div>
-          </div>
-
-          <!-- Right column: publications, education, experience, services, honors -->
-          <div class="home-col home-col-right">
-
-          <!-- All papers -->
-          <h2><a href="/publications/" style="color: inherit;">Publications</a></h2>
-          <div class="publications">
-            <ol class="bibliography">
+            <div class="pub-layout">
+              <div class="pub-list">
+                <ol class="bibliography">
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/tbd-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/tbd-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/tbd-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/tbd.png" class="img-fluid" width="auto" height="auto" alt="tbd.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-seo_2026_arxiv" data-year="2026" data-topics="wm">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2026</span>
+    <span class="pub-venue">arXiv</span>
+    <span class="pub-title">ACID: Action Consistency via Inverse Dynamics for Planning with World Models</span>
+    <span class="pub-area">WM</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/tbd.png" alt="ACID: Action Consistency via Inverse Dynamics for Planning with World Models preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">arXiv 2026</span></div>
+      <div class="pub-detail-title">ACID: Action Consistency via Inverse Dynamics for Planning with World Models</div>
+      <div class="pub-detail-authors">
+<a href="https://www.linkedin.com/in/gawon-seo-9a3588279/" rel="external nofollow noopener" target="_blank">Gawon Seo</a>, <em>Dongwon Kim</em>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="seo_2026_arxiv" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">ACID: Action Consistency via Inverse Dynamics for Planning with World Models</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://www.linkedin.com/in/gawon-seo-9a3588279/" rel="external nofollow noopener" target="_blank">Gawon Seo</a>, <em>Dongwon Kim</em>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In arXiv preprint</em>, Jul 2026
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2607.02403" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">World models</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2607.02403" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/8world-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/8world-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/8world-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/8world.png" class="img-fluid" width="auto" height="auto" alt="8world.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-kim_2026_cvpr" data-year="2026" data-topics="wm, gen">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2026</span>
+    <span class="pub-venue">CVPR</span>
+    <span class="pub-title">Planning in 8 Tokens: A Compact Discrete Tokenizer for Latent World Model</span>
+    <span class="pub-area">WM·GEN</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/8world.png" alt="Planning in 8 Tokens: A Compact Discrete Tokenizer for Latent World Model preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">CVPR 2026</span></div>
+      <div class="pub-detail-title">Planning in 8 Tokens: A Compact Discrete Tokenizer for Latent World Model</div>
+      <div class="pub-detail-authors">
+<em>Dongwon Kim</em>, <a href="https://www.linkedin.com/in/gawon-seo-9a3588279/" rel="external nofollow noopener" target="_blank">Gawon Seo</a>, <a href="https://jinsingsangsung.github.io" rel="external nofollow noopener" target="_blank">Jinsung Lee</a>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="kim_2026_cvpr" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Planning in 8 Tokens: A Compact Discrete Tokenizer for Latent World Model</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <em>Dongwon Kim</em>, <a href="https://www.linkedin.com/in/gawon-seo-9a3588279/" rel="external nofollow noopener" target="_blank">Gawon Seo</a>, <a href="https://jinsingsangsung.github.io" rel="external nofollow noopener" target="_blank">Jinsung Lee</a>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In CVPR</em>, Jun 2026
-        </div>
-        <div class="periodical">
-          (An early version appeared in LSRW workshop in CoRL 2025)
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2603.05438" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/kdwonn/CompACT" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-            <a href="https://kdwonn.github.io/CompACT" class="btn btn-sm z-depth-0" role="button">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-note">(An early version appeared in LSRW workshop in CoRL 2025)</div>
+      <div class="pub-detail-area">World models · Tokenization &amp; generation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2603.05438" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/kdwonn/CompACT" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a><a href="https://kdwonn.github.io/CompACT">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/tbd-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/tbd-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/tbd-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/tbd.png" class="img-fluid" width="auto" height="auto" alt="tbd.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-lee_2026_neurips" data-year="2026" data-topics="gen">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2026</span>
+    <span class="pub-venue">NeurIPS</span>
+    <span class="pub-title">Structured State-Space Regularization for Generation-Friendly Image Tokenization</span>
+    <span class="pub-area">GEN</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/tbd.png" alt="Structured State-Space Regularization for Generation-Friendly Image Tokenization preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">NeurIPS 2026</span></div>
+      <div class="pub-detail-title">Structured State-Space Regularization for Generation-Friendly Image Tokenization</div>
+      <div class="pub-detail-authors">
+<a href="https://jinsingsangsung.github.io" rel="external nofollow noopener" target="_blank">Jinsung Lee</a>, Jaemin Oh, Namhun Kim, <em>Dongwon Kim</em>, Byung-Jun Yoon, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="lee_2026_neurips" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Structured State-Space Regularization for Generation-Friendly Image Tokenization</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://jinsingsangsung.github.io" rel="external nofollow noopener" target="_blank">Jinsung Lee</a>, Jaemin Oh, Namhun Kim, <em>Dongwon Kim</em>, Byung-Jun Yoon, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In NeurIPS</em>, Dec 2026
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2604.11089" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Tokenization &amp; generation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2604.11089" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/maskgen-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/maskgen-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/maskgen-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/maskgen.png" class="img-fluid" width="auto" height="auto" alt="maskgen.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-kim_2025_arxiv" data-year="2025" data-topics="gen, vl">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2025</span>
+    <span class="pub-venue">ICCV</span>
+    <span class="pub-title">Democratizing Text-to-Image Masked Generative Models with Compact Text-Aware One-Dimensional Tokens</span>
+    <span class="pub-area">GEN·V+L</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/maskgen.png" alt="Democratizing Text-to-Image Masked Generative Models with Compact Text-Aware One-Dimensional Tokens preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">ICCV 2025</span></div>
+      <div class="pub-detail-title">Democratizing Text-to-Image Masked Generative Models with Compact Text-Aware One-Dimensional Tokens</div>
+      <div class="pub-detail-authors">
+<em>Dongwon Kim*</em>, <a href="https://tacju.github.io" rel="external nofollow noopener" target="_blank">Ju He*</a>, <a href="https://yucornetto.github.io" rel="external nofollow noopener" target="_blank">Qihang Yu*</a>, <a href="https://www.chenglinyang.com" rel="external nofollow noopener" target="_blank">Chenglin Yang</a>, Xiaohui Shen, <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>, and <a href="http://liangchiehchen.com" rel="external nofollow noopener" target="_blank">Liang-Chieh Chen</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="kim_2025_arxiv" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Democratizing Text-to-Image Masked Generative Models with Compact Text-Aware One-Dimensional Tokens</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <em>Dongwon Kim*</em>, <a href="https://tacju.github.io" rel="external nofollow noopener" target="_blank">Ju He*</a>, <a href="https://yucornetto.github.io" rel="external nofollow noopener" target="_blank">Qihang Yu*</a>, <a href="https://www.chenglinyang.com" rel="external nofollow noopener" target="_blank">Chenglin Yang</a>, Xiaohui Shen, <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>, and <a href="http://liangchiehchen.com" rel="external nofollow noopener" target="_blank">Liang-Chieh Chen</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In ICCV</em>, Jan 2025
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2501.07730" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="/assets/pdf/maskgen_arxiv.pdf" class="btn btn-sm z-depth-0" role="button">PDF</a>
-            <a href="https://github.com/bytedance/1d-tokenizer" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Tokenization &amp; generation · Vision–language</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2501.07730" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="/assets/pdf/maskgen_arxiv.pdf">PDF &amp;nearr;</a><a href="https://github.com/bytedance/1d-tokenizer" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/158flux-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/158flux-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/158flux-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/158flux.png" class="img-fluid" width="auto" height="auto" alt="158flux.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-kim_2024_arxiv" data-year="2024" data-topics="gen">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2024</span>
+    <span class="pub-venue">arXiv</span>
+    <span class="pub-title">1.58-bit FLUX</span>
+    <span class="pub-area">GEN</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/158flux.png" alt="1.58-bit FLUX preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">arXiv 2024</span></div>
+      <div class="pub-detail-title">1.58-bit FLUX</div>
+      <div class="pub-detail-authors">
+<a href="https://www.chenglinyang.com" rel="external nofollow noopener" target="_blank">Chenglin Yang</a>, Celong Liu, <a href="https://sites.google.com/view/xueqingdeng7/" rel="external nofollow noopener" target="_blank">Xueqing Deng</a>, <em>Dongwon Kim</em>, Xing Mei, Xiaohui Shen, and <a href="http://liangchiehchen.com" rel="external nofollow noopener" target="_blank">Liang-Chieh Chen</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="kim_2024_arxiv" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">1.58-bit FLUX</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://www.chenglinyang.com" rel="external nofollow noopener" target="_blank">Chenglin Yang</a>, Celong Liu, <a href="https://sites.google.com/view/xueqingdeng7/" rel="external nofollow noopener" target="_blank">Xueqing Deng</a>, <em>Dongwon Kim</em>, Xing Mei, Xiaohui Shen, and <a href="http://liangchiehchen.com" rel="external nofollow noopener" target="_blank">Liang-Chieh Chen</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In arXiv preprint</em>, Dec 2024
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2412.18653" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Tokenization &amp; generation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2412.18653" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/selfmod-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/selfmod-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/selfmod-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/selfmod.png" class="img-fluid" width="auto" height="auto" alt="selfmod.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2024_NeurIPS" data-year="2024" data-topics="rep">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2024</span>
+    <span class="pub-venue">NeurIPS</span>
+    <span class="pub-title">Bootstrapping Top-down Information for Self-modulating Slot Attention</span>
+    <span class="pub-area">REP</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/selfmod.png" alt="Bootstrapping Top-down Information for Self-modulating Slot Attention preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">NeurIPS 2024</span></div>
+      <div class="pub-detail-title">Bootstrapping Top-down Information for Self-modulating Slot Attention</div>
+      <div class="pub-detail-authors">
+<em>Dongwon Kim</em>, <a href="https://yeon07.github.io/" rel="external nofollow noopener" target="_blank">Seoyeon Kim</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2024_NeurIPS" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Bootstrapping Top-down Information for Self-modulating Slot Attention</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <em>Dongwon Kim</em>, <a href="https://yeon07.github.io/" rel="external nofollow noopener" target="_blank">Seoyeon Kim</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In NeurIPS</em>, Dec 2024
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2411.01801" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/kdwonn/selfmod" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Representation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2411.01801" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/kdwonn/selfmod" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/plot-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/plot-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/plot-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/plot.png" class="img-fluid" width="auto" height="auto" alt="plot.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Park_2024_NAACL" data-year="2024" data-topics="vl">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2024</span>
+    <span class="pub-venue">ECCV</span>
+    <span class="pub-title">PLOT: Text-based Person Search with Part Slot Attention for Corresponding Part Discovery</span>
+    <span class="pub-area">V+L</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/plot.png" alt="PLOT: Text-based Person Search with Part Slot Attention for Corresponding Part Discovery preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">ECCV 2024</span></div>
+      <div class="pub-detail-title">PLOT: Text-based Person Search with Part Slot Attention for Corresponding Part Discovery</div>
+      <div class="pub-detail-authors">Jicheol Park, <em>Dongwon Kim</em>, Boseung Jeong, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Park_2024_NAACL" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">PLOT: Text-based Person Search with Part Slot Attention for Corresponding Part Discovery</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        Jicheol Park, <em>Dongwon Kim</em>, Boseung Jeong, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In ECCV</em>, Oct 2024
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Vision–language</div>
+      <div class="pub-detail-links">
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/risclip-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/risclip-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/risclip-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/risclip.jpg" class="img-fluid" width="auto" height="auto" alt="risclip.jpg" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2024_NAACL" data-year="2024" data-topics="vl">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2024</span>
+    <span class="pub-venue">NAACL</span>
+    <span class="pub-title">Extending CLIP’s Image-Text Alignment to Referring Image Segmentation</span>
+    <span class="pub-area">V+L</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/risclip.jpg" alt="Extending CLIP’s Image-Text Alignment to Referring Image Segmentation preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">NAACL 2024</span></div>
+      <div class="pub-detail-title">Extending CLIP’s Image-Text Alignment to Referring Image Segmentation</div>
+      <div class="pub-detail-authors">
+<a href="https://yeon07.github.io/" rel="external nofollow noopener" target="_blank">Seoyeon Kim</a>, <a href="https://mingukkang.github.io/" rel="external nofollow noopener" target="_blank">Minguk Kang</a>, <em>Dongwon Kim</em>, <a href="https://jaesik.info" rel="external nofollow noopener" target="_blank">Jaesik Park</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2024_NAACL" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Extending CLIP’s Image-Text Alignment to Referring Image Segmentation</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://yeon07.github.io/" rel="external nofollow noopener" target="_blank">Seoyeon Kim</a>, <a href="https://mingukkang.github.io/" rel="external nofollow noopener" target="_blank">Minguk Kang</a>, <em>Dongwon Kim</em>, <a href="https://jaesik.info" rel="external nofollow noopener" target="_blank">Jaesik Park</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In NAACL</em>, Jun 2024
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="https://github.com/Yeon07/RISCLIP" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Vision–language</div>
+      <div class="pub-detail-links">
+<a href="https://github.com/Yeon07/RISCLIP" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/sag-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/sag-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/sag-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/sag.png" class="img-fluid" width="auto" height="auto" alt="sag.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2023_ICCV" data-year="2023" data-topics="vl">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2023</span>
+    <span class="pub-venue">ICCV</span>
+    <span class="pub-title">Shatter and Gather: Learning Referring Image Segmentation with Text Supervision</span>
+    <span class="pub-area">V+L</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/sag.png" alt="Shatter and Gather: Learning Referring Image Segmentation with Text Supervision preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">ICCV 2023</span></div>
+      <div class="pub-detail-title">Shatter and Gather: Learning Referring Image Segmentation with Text Supervision</div>
+      <div class="pub-detail-authors">
+<em>Dongwon Kim*</em>, <a href="https://southflame.github.io" rel="external nofollow noopener" target="_blank">Namyup Kim*</a>, <a href="https://scholar.google.com/citations?user=XZugqiwAAAAJ&amp;hl=en" rel="external nofollow noopener" target="_blank">Cuiling Lan</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2023_ICCV" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Shatter and Gather: Learning Referring Image Segmentation with Text Supervision</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <em>Dongwon Kim*</em>, <a href="https://southflame.github.io" rel="external nofollow noopener" target="_blank">Namyup Kim*</a>, <a href="https://scholar.google.com/citations?user=XZugqiwAAAAJ&amp;hl=en" rel="external nofollow noopener" target="_blank">Cuiling Lan</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In ICCV</em>, Oct 2023
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2308.15512" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/kdwonn/SaG" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-            <a href="https://southflame.github.io/sag/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Vision–language</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2308.15512" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/kdwonn/SaG" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a><a href="https://southflame.github.io/sag/" rel="external nofollow noopener" target="_blank">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/dive-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/dive-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/dive-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/dive.png" class="img-fluid" width="auto" height="auto" alt="dive.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2023_CVPR" data-year="2023" data-topics="vl">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2023</span>
+    <span class="pub-venue">CVPR</span>
+    <span class="pub-title">Improving Cross-Modal Retrieval With Set of Diverse Embeddings</span>
+    <span class="pub-area">V+L</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/dive.png" alt="Improving Cross-Modal Retrieval With Set of Diverse Embeddings preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta">
+<span class="pub-detail-venue">CVPR 2023</span><span class="pub-detail-award">(Highlight, 235/9155 = 2.5%)</span>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2023_CVPR" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Improving Cross-Modal Retrieval With Set of Diverse Embeddings</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <em>Dongwon Kim</em>, <a href="https://southflame.github.io" rel="external nofollow noopener" target="_blank">Namyup Kim</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
+      <div class="pub-detail-title">Improving Cross-Modal Retrieval With Set of Diverse Embeddings</div>
+      <div class="pub-detail-authors">
+<em>Dongwon Kim</em>, <a href="https://southflame.github.io" rel="external nofollow noopener" target="_blank">Namyup Kim</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In CVPR</em>, Jun 2023
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        <span style="color:darkgreen"><b>(Highlight, 235/9155 = 2.5%)</b></span>
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2211.16761" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/kdwonn/DivE" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-            <a href="https://cvlab.postech.ac.kr/research/DivE" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Vision–language</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2211.16761" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/kdwonn/DivE" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a><a href="https://cvlab.postech.ac.kr/research/DivE" rel="external nofollow noopener" target="_blank">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/restr-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/restr-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/restr-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/restr.png" class="img-fluid" width="auto" height="auto" alt="restr.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2022_CVPR" data-year="2022" data-topics="vl">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2022</span>
+    <span class="pub-venue">CVPR</span>
+    <span class="pub-title">ReSTR: Convolution-Free Referring Image Segmentation Using Transformers</span>
+    <span class="pub-area">V+L</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/restr.png" alt="ReSTR: Convolution-Free Referring Image Segmentation Using Transformers preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">CVPR 2022</span></div>
+      <div class="pub-detail-title">ReSTR: Convolution-Free Referring Image Segmentation Using Transformers</div>
+      <div class="pub-detail-authors">
+<a href="https://southflame.github.io" rel="external nofollow noopener" target="_blank">Namyup Kim</a>, <em>Dongwon Kim</em>, <a href="https://scholar.google.com/citations?user=XZugqiwAAAAJ&amp;hl=en" rel="external nofollow noopener" target="_blank">Cuiling Lan</a>, <a href="https://scholar.google.com/citations?user=_cUfvYQAAAAJ&amp;hl=en" rel="external nofollow noopener" target="_blank">Wenjun Zeng</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2022_CVPR" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">ReSTR: Convolution-Free Referring Image Segmentation Using Transformers</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://southflame.github.io" rel="external nofollow noopener" target="_blank">Namyup Kim</a>, <em>Dongwon Kim</em>, <a href="https://scholar.google.com/citations?user=XZugqiwAAAAJ&amp;hl=en" rel="external nofollow noopener" target="_blank">Cuiling Lan</a>, <a href="https://scholar.google.com/citations?user=_cUfvYQAAAAJ&amp;hl=en" rel="external nofollow noopener" target="_blank">Wenjun Zeng</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In CVPR</em>, Jun 2022
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2203.16768" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="http://cvlab.postech.ac.kr/research/restr/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Vision–language</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2203.16768" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="http://cvlab.postech.ac.kr/research/restr/" rel="external nofollow noopener" target="_blank">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/stml-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/stml-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/stml-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/stml.png" class="img-fluid" width="auto" height="auto" alt="stml.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2022_CVPS" data-year="2022" data-topics="rep">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2022</span>
+    <span class="pub-venue">CVPR</span>
+    <span class="pub-title">Self-Taught Metric Learning Without Labels</span>
+    <span class="pub-area">REP</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/stml.png" alt="Self-Taught Metric Learning Without Labels preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">CVPR 2022</span></div>
+      <div class="pub-detail-title">Self-Taught Metric Learning Without Labels</div>
+      <div class="pub-detail-authors">
+<a href="https://sung-yeon-kim.github.io/" rel="external nofollow noopener" target="_blank">Sungyeon Kim</a>, <em>Dongwon Kim</em>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2022_CVPS" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Self-Taught Metric Learning Without Labels</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://sung-yeon-kim.github.io/" rel="external nofollow noopener" target="_blank">Sungyeon Kim</a>, <em>Dongwon Kim</em>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In CVPR</em>, Jun 2022
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2205.01903" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/tjddus9597/STML-CVPR22" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-            <a href="http://cvlab.postech.ac.kr/research/STML/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Representation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2205.01903" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/tjddus9597/STML-CVPR22" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a><a href="http://cvlab.postech.ac.kr/research/STML/" rel="external nofollow noopener" target="_blank">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/et-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/et-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/et-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/et.png" class="img-fluid" width="auto" height="auto" alt="et.png" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2021_CVPR" data-year="2021" data-topics="rep">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2021</span>
+    <span class="pub-venue">CVPR</span>
+    <span class="pub-title">Embedding Transfer With Label Relaxation for Improved Metric Learning</span>
+    <span class="pub-area">REP</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/et.png" alt="Embedding Transfer With Label Relaxation for Improved Metric Learning preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">CVPR 2021</span></div>
+      <div class="pub-detail-title">Embedding Transfer With Label Relaxation for Improved Metric Learning</div>
+      <div class="pub-detail-authors">
+<a href="https://sung-yeon-kim.github.io/" rel="external nofollow noopener" target="_blank">Sungyeon Kim</a>, <em>Dongwon Kim</em>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2021_CVPR" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Embedding Transfer With Label Relaxation for Improved Metric Learning</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://sung-yeon-kim.github.io/" rel="external nofollow noopener" target="_blank">Sungyeon Kim</a>, <em>Dongwon Kim</em>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In CVPR</em>, Jun 2021
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2103.14908" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/tjddus9597/LabelRelaxation-CVPR21" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Representation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2103.14908" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/tjddus9597/LabelRelaxation-CVPR21" rel="external nofollow noopener" target="_blank">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 <li>
-<!-- _layouts/bib.html -->
-      <div class="row">
-        <div class="col-sm-3 preview">
-<figure>
-
-  <picture>
-    
-    <source class="responsive-img-srcset" media="(max-width: 480px)" srcset="/assets/img/publication_preview/pa.gif-480.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 800px)" srcset="/assets/img/publication_preview/pa.gif-800.webp"></source>
-    <source class="responsive-img-srcset" media="(max-width: 1400px)" srcset="/assets/img/publication_preview/pa.gif-1400.webp"></source>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/publication_preview/pa.gif" class="img-fluid" width="auto" height="auto" alt="pa.gif" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
+<!-- _layouts/bib_row.html: compact publication row for the homepage, with a hidden detail block --><div class="pub-row" id="pub-Kim_2020_CVPR" data-year="2020" data-topics="rep">
+  <button type="button" class="pub-row-btn" aria-expanded="false">
+    <span class="pub-year">2020</span>
+    <span class="pub-venue">CVPR</span>
+    <span class="pub-title">Proxy Anchor Loss for Deep Metric Learning</span>
+    <span class="pub-area">REP</span>
+    <span class="pub-arrow" aria-hidden="true">›</span>
+  </button>
+  <div class="pub-detail">
+    <div class="pub-detail-img">
+      <img src="/assets/img/publication_preview/pa.gif" alt="Proxy Anchor Loss for Deep Metric Learning preview" loading="lazy">
+    </div>
+    <div class="pub-detail-body">
+      <div class="pub-detail-meta"><span class="pub-detail-venue">CVPR 2020</span></div>
+      <div class="pub-detail-title">Proxy Anchor Loss for Deep Metric Learning</div>
+      <div class="pub-detail-authors">
+<a href="https://sung-yeon-kim.github.io/" rel="external nofollow noopener" target="_blank">Sungyeon Kim</a>, <em>Dongwon Kim</em>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
 </div>
-
-        <!-- Entry bib key -->
-        <div id="Kim_2020_CVPR" class="col-sm-9">
-        <!-- Title -->
-        <div class="title">Proxy Anchor Loss for Deep Metric Learning</div>
-        <!-- Author -->
-        <div class="author">
-        
-
-        <a href="https://sung-yeon-kim.github.io/" rel="external nofollow noopener" target="_blank">Sungyeon Kim</a>, <em>Dongwon Kim</em>, <a href="http://cvlab.postech.ac.kr/~mcho" rel="external nofollow noopener" target="_blank">Minsu Cho</a>, and <a href="https://suhakwak.github.io/" rel="external nofollow noopener" target="_blank">Suha Kwak</a>
-</div>
-
-        <!-- Journal/Book title and date -->
-        
-        
-        <div class="periodical">
-          <em>In CVPR</em>, Jun 2020
-        </div>
-        <div class="periodical">
-          
-        </div>
-
-        <!-- Additional info -->
-        
-
-
-          <!-- Links/Buttons -->
-          <div class="links">
-            <a href="http://arxiv.org/abs/2003.13911" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">arXiv</a>
-            <a href="https://github.com/tjddus9597/Proxy-Anchor-CVPR2020" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Code</a>
-            <a href="http://cvlab.postech.ac.kr/research/ProxyAnchor/" class="btn btn-sm z-depth-0" role="button" rel="external nofollow noopener" target="_blank">Website</a>
-          </div>
-          
-          <div class="badges">
-            <span class="altmetric-embed" data-hide-no-mentions="true" data-hide-less-than="15" data-badge-type="2" data-badge-popover="right"></span>
-              <span class="__dimensions_badge_embed__" data-pmid="" data-hide-zero-citations="true" data-style="small_rectangle" data-legend="hover-right" style="margin-bottom: 3px;"></span>
-          </div>
-
-          
-        </div>
+      <div class="pub-detail-area">Representation</div>
+      <div class="pub-detail-links">
+<a href="https://arxiv.org/abs/2003.13911" rel="external nofollow noopener" target="_blank">arXiv &amp;nearr;</a><a href="https://github.com/tjddus9597/Proxy-Anchor-CVPR2020" rel="external nofollow noopener" target="_blank">Code &amp;nearr;</a><a href="http://cvlab.postech.ac.kr/research/ProxyAnchor/" rel="external nofollow noopener" target="_blank">Website &amp;nearr;</a>
       </div>
+    </div>
+  </div>
+</div>
 </li>
 </ol>
-          </div>
+              </div>
+              <aside class="pub-pane" aria-label="Paper details" hidden>
+                <div class="pub-pane-head">
+                  <span class="pub-pane-pos" data-pane-pos></span>
+                  <button type="button" data-pane-prev aria-label="Previous paper">‹</button>
+                  <button type="button" data-pane-next aria-label="Next paper">›</button>
+                  <button type="button" data-pane-close aria-label="Close details">×</button>
+                </div>
+                <div class="pub-pane-body" data-pane-body></div>
+              </aside>
+            </div>
+          </section>
 
-
-          <!-- Education -->
-                    
-          <div class="education">
-            <h2>Education</h2>
-            <table class="table table-sm table-borderless">
-                <tr>
-                  <th scope="row" class="when">2019 – 2025</th>
-                  <td>
-                    <strong>Integrated M.S &amp; Ph.D in Computer Science &amp; Engineering</strong> <br>
-<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea <br>
-<span class="muted">Advisor: Prof. <a href="http://cvlab.postech.ac.kr/~suhakwak/" rel="external nofollow noopener" target="_blank">Suha Kwak</a></span>
-
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row" class="when">2015 – 2019</th>
-                  <td>
-                    <strong>B.S. in Computer Science &amp; Engineering</strong> <br>
-<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea
-
-                  </td>
-                </tr>
-              </table> 
-          </div>
-
-          <!-- Experience -->
-                    
+          <section class="home-panel" id="panel-exp" role="tabpanel" aria-labelledby="tab-exp">
+                      
           <div class="experiences">
             <h2>Experience</h2>
             <div class="table-responsive">
@@ -1112,31 +619,33 @@ My research centers on whether machines can learn representations with the right
             </div>
           </div>
 
-          
-          <!-- Professional services -->
-                    <div class="services">
-            <h2>Professional Services</h2>
-            <div class="table-responsive">
-              <table class="table table-sm table-borderless"> 
+                      
+          <div class="education">
+            <h2>Education</h2>
+            <table class="table table-sm table-borderless">
                 <tr>
+                  <th scope="row" class="when">2019 – 2025</th>
                   <td>
-                    <strong>Reviewer</strong>
-<ul>
-  <li>IEEE Transactions on Pattern Analysis and Machine Intelligence (<strong>TPAMI</strong>)</li>
-  <li>IEEE/CVF International Conference on Computer Vision (<strong>ICCV</strong>)</li>
-  <li>IEEE/CVF Conference on Computer Vision and Pattern Recognition (<strong>CVPR</strong>)</li>
-  <li>European Conference on Computer Vision (<strong>ECCV</strong>)</li>
-  <li>Winter Conference on Applications of Computer Vision (<strong>WACV</strong>)</li>
-  <li>Asian Conference on Computer Vision (<strong>ACCV</strong>)</li>
-  <li>Conference on Neural Information Processing Systems (<strong>NeurIPS</strong>)</li>
-</ul>
- 
+                    <strong>Integrated M.S &amp; Ph.D in Computer Science &amp; Engineering</strong> <br>
+<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea <br>
+<span class="muted">Advisor: Prof. <a href="http://cvlab.postech.ac.kr/~suhakwak/" rel="external nofollow noopener" target="_blank">Suha Kwak</a></span>
+
                   </td>
-                </tr> 
-              </table>
-            </div> 
+                </tr>
+                <tr>
+                  <th scope="row" class="when">2015 – 2019</th>
+                  <td>
+                    <strong>B.S. in Computer Science &amp; Engineering</strong> <br>
+<a href="https://postech.ac.kr/eng/" rel="external nofollow noopener" target="_blank">POSTECH</a>, Pohang, South Korea
+
+                  </td>
+                </tr>
+              </table> 
           </div>
-          <!-- Honors and awards -->          
+          </section>
+
+          <section class="home-panel" id="panel-hon" role="tabpanel" aria-labelledby="tab-hon">
+                      
           <div class="honors">
             <h2>Honors and Awards</h2>
             <div class="table-responsive">
@@ -1181,13 +690,35 @@ My research centers on whether machines can learn representations with the right
               </table>
             </div> 
           </div>
+                      <div class="services">
+            <h2>Professional Services</h2>
+            <div class="table-responsive">
+              <table class="table table-sm table-borderless"> 
+                <tr>
+                  <td>
+                    <strong>Reviewer</strong>
+<ul>
+  <li>IEEE Transactions on Pattern Analysis and Machine Intelligence (<strong>TPAMI</strong>)</li>
+  <li>IEEE/CVF International Conference on Computer Vision (<strong>ICCV</strong>)</li>
+  <li>IEEE/CVF Conference on Computer Vision and Pattern Recognition (<strong>CVPR</strong>)</li>
+  <li>European Conference on Computer Vision (<strong>ECCV</strong>)</li>
+  <li>Winter Conference on Applications of Computer Vision (<strong>WACV</strong>)</li>
+  <li>Asian Conference on Computer Vision (<strong>ACCV</strong>)</li>
+  <li>Conference on Neural Information Processing Systems (<strong>NeurIPS</strong>)</li>
+</ul>
+ 
+                  </td>
+                </tr> 
+              </table>
+            </div> 
           </div>
-          <!-- Latest posts -->
-          <!--  -->
+          </section>
 
         </article>
 
 </div>
+
+<script src="/assets/js/home.js"></script>
 
       
     </div>
@@ -1196,7 +727,7 @@ My research centers on whether machines can learn representations with the right
     <footer class="fixed-bottom">
       <div class="container mt-0">
         © Copyright 2026 Dongwon  Kim. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
-Last updated: September 25, 2026.
+Last updated: September 28, 2026.
       </div>
     </footer>
 
