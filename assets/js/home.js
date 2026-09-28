@@ -41,6 +41,153 @@
     apply();
   }
 
+  // ---------------------------------------------------- condensed header
+  // In fit mode, scrolling the content squeezes the header into one line
+  // (name, position, email, icons); scrolling back to the top restores it.
+  // The change is animated FLIP-style: measure, switch class, animate back.
+  function initCondense() {
+    var article = document.querySelector('article.home');
+    var header = document.querySelector('.home-header');
+    if (!article || !header) return;
+    var root = document.documentElement;
+    var condensed = false, busy = false;
+    var EASE = 'cubic-bezier(.65, 0, .35, 1)', MS = 560;
+
+    function fit() { return root.classList.contains('home-fit'); }
+    function activeScroller() {
+      var panel = article.querySelector('.home-panel:not([hidden])');
+      if (!panel) return null;
+      return panel.classList.contains('pub-section') ? panel.querySelector('.pub-list') : panel;
+    }
+
+    function morph(on) {
+      if (on === condensed || busy) return;
+      condensed = on;
+      if (reduceMotion || !header.animate) {
+        header.classList.toggle('is-condensed', on);
+        return;
+      }
+      busy = true;
+      var moving = toArray(header.querySelectorAll('.home-id > .post-title, .home-contact > a, .home-id > .contact-icons'));
+      var fading = toArray(header.querySelectorAll('.home-header > .home-photo, .home-header > .home-bio, .home-id > .home-tagline'));
+      var below = toArray(article.querySelectorAll('.news-band, .home-tabs, .home-panel:not([hidden])'));
+      var hr = header.getBoundingClientRect();
+      var first = moving.map(function (el) {
+        return { r: el.getBoundingClientRect(), fs: parseFloat(getComputedStyle(el).fontSize) };
+      });
+      var belowTop = below.length ? below[0].getBoundingClientRect().top : 0;
+
+      // Collapsing: leave copies of the photo, tagline and bio in place; the
+      // news band slides up over them while they fade.
+      var ghosts = [];
+      if (on) {
+        fading.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          var g = el.cloneNode(true);
+          g.classList.add('home-ghost');
+          g.removeAttribute('id');
+          g.setAttribute('aria-hidden', 'true');
+          g.style.left = (r.left - hr.left) + 'px';
+          g.style.top = (r.top - hr.top) + 'px';
+          g.style.width = r.width + 'px';
+          g.style.height = r.height + 'px';
+          el.parentNode.appendChild(g);
+          ghosts.push(g);
+        });
+      }
+
+      // Expanding: keep the panel at its taller height until the end, so its
+      // bottom edge stays put while it slides down (the article clips it).
+      var panel = article.querySelector('.home-panel:not([hidden])');
+      var panelH = panel ? panel.getBoundingClientRect().height : 0;
+
+      article.classList.add('is-morphing');
+      header.classList.add('is-morphing');
+      header.classList.toggle('is-condensed', on);
+      if (!on && panel) {
+        panel.style.flex = 'none';
+        panel.style.height = panelH + 'px';
+      }
+      var hr2 = header.getBoundingClientRect();
+      var shift = below.length ? belowTop - below[0].getBoundingClientRect().top : 0;
+      var opts = { duration: MS, easing: EASE };
+      var anims = [];
+
+      // Everything is animated with transforms and opacity only, from the old
+      // positions back to the new layout.
+      moving.forEach(function (el, i) {
+        var r = el.getBoundingClientRect();
+        var k = first[i].fs / (parseFloat(getComputedStyle(el).fontSize) || first[i].fs);
+        var dx = (first[i].r.left - hr.left) - (r.left - hr2.left);
+        var dy = (first[i].r.top - hr.top) - (r.top - hr2.top);
+        anims.push(el.animate([
+          { transformOrigin: '0 0', transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + k + ')' },
+          { transformOrigin: '0 0', transform: 'none' }
+        ], opts));
+      });
+      below.forEach(function (el) {
+        anims.push(el.animate([
+          { transform: 'translateY(' + shift + 'px)' },
+          { transform: 'none' }
+        ], opts));
+      });
+      ghosts.forEach(function (g) {
+        anims.push(g.animate([
+          { opacity: 1, transform: 'none' },
+          { opacity: 0, transform: 'translateY(-12px)' }
+        ], { duration: MS * 0.7, easing: 'ease-in', fill: 'forwards' }));
+      });
+      if (!on) {
+        fading.forEach(function (el) {
+          anims.push(el.animate([
+            { opacity: 0, transform: 'translateY(-12px)' },
+            { opacity: 1, transform: 'none' }
+          ], { duration: MS * 0.7, delay: MS * 0.3, easing: 'ease-out', fill: 'backwards' }));
+        });
+      }
+
+      var done = 0;
+      var finish = function () {
+        if (++done < anims.length) return;
+        ghosts.forEach(function (g) { g.remove(); });
+        if (panel) { panel.style.flex = ''; panel.style.height = ''; }
+        header.classList.remove('is-morphing');
+        article.classList.remove('is-morphing');
+        busy = false;
+        // Catch up if the content moved while animating.
+        var sc = activeScroller();
+        if (sc) update(sc);
+      };
+      anims.forEach(function (a) { a.onfinish = finish; a.oncancel = finish; });
+    }
+
+    function update(sc) {
+      if (!fit()) return;
+      var top = sc.scrollTop;
+      var last = sc._homeLastTop || 0;
+      if (!condensed && top > 24 && sc.scrollHeight - sc.clientHeight > header.offsetHeight) morph(true);
+      else if (condensed && top <= 2 && top <= last) morph(false);
+      sc._homeLastTop = top;
+    }
+
+    // Scroll events don't bubble; listen in the capture phase.
+    article.addEventListener('scroll', function (e) {
+      if (e.target === activeScroller()) update(e.target);
+    }, true);
+    // Already at the top, a scroll up doesn't fire "scroll"; use the wheel.
+    article.addEventListener('wheel', function (e) {
+      if (!condensed || e.deltaY >= 0 || !fit()) return;
+      var sc = activeScroller();
+      if (!sc || sc.scrollTop <= 0) morph(false);
+    }, { passive: true });
+    window.addEventListener('resize', function () {
+      if (!fit() && condensed) {
+        condensed = false;
+        header.classList.remove('is-condensed');
+      }
+    });
+  }
+
   // ---------------------------------------------------------------- tabs
   function initTabs() {
     var list = document.querySelector('.home-tabs');
@@ -236,6 +383,7 @@
   }
 
   initFit();
+  initCondense();
   initTabs();
   initPubs();
   initNews();
