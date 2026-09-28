@@ -1,4 +1,4 @@
-// Homepage interactions: tabs, publication filter + detail pane, glitch news band.
+// Homepage interactions: tabs, publication list + topic filter, glitch news band.
 (function () {
   'use strict';
 
@@ -87,42 +87,57 @@
     select(current());
   }
 
-  // ------------------------------------------------- publications + pane
+  // ------------------------------------------------- publications list
+  // Papers are grouped under a year column; the topic chips show only the
+  // papers of that topic (and hide years left empty).
   function initPubs() {
     var root = document.querySelector('.pub-section');
     if (!root) return;
-    var layout = root.querySelector('.pub-layout');
+    var list = root.querySelector('.pub-list');
     var rows = toArray(root.querySelectorAll('.pub-row'));
-    var pane = root.querySelector('.pub-pane');
-    var paneBody = root.querySelector('[data-pane-body]');
-    var panePos = root.querySelector('[data-pane-pos]');
-    var hint = root.querySelector('[data-pub-hint]');
     var chips = toArray(root.querySelectorAll('.pub-chip'));
     var count = document.querySelector('[data-pub-count]');
-    var wide = window.matchMedia('(min-width: 992px)');
-    var active = null;
-
     if (count) count.textContent = rows.length;
 
-    // Show the year only on the first paper of each year.
-    var lastYear = null;
+    // Regroup the flat bibliography into one block per year.
+    var groups = [], byYear = {};
     rows.forEach(function (r) {
       var y = r.getAttribute('data-year');
-      if (y !== lastYear) r.classList.add('is-year-start');
-      lastYear = y;
+      var g = byYear[y];
+      if (!g) {
+        g = document.createElement('div');
+        g.className = 'pub-group';
+        g.innerHTML = '<div class="pub-group-year"><span>' + y + '</span></div><ol class="bibliography pub-group-items"></ol>';
+        byYear[y] = g;
+        groups.push(g);
+      }
+      g.lastChild.appendChild(r.closest('li') || r);
     });
+    list.innerHTML = '';
+    groups.forEach(function (g) { list.appendChild(g); });
+    list.classList.add('is-grouped');
 
     function topicsOf(r) {
       return (r.getAttribute('data-topics') || '').split(',')
         .map(function (s) { return s.trim(); })
         .filter(Boolean);
     }
-    function visibleRows() {
-      return rows.filter(function (r) { return !r.classList.contains('is-dim'); });
-    }
-    function updatePos() {
-      var v = visibleRows(), i = v.indexOf(active);
-      panePos.textContent = i >= 0 ? pad2(i + 1) + ' / ' + pad2(v.length) : '';
+
+    function filter(key) {
+      rows.forEach(function (r) {
+        var show = key === 'all' || topicsOf(r).indexOf(key) >= 0;
+        var item = r.closest('li') || r;
+        item.hidden = !show;
+        if (show && !reduceMotion) {
+          item.classList.remove('is-entering');
+          void item.offsetWidth; // restart the fade-in
+          item.classList.add('is-entering');
+        }
+      });
+      groups.forEach(function (g) {
+        g.hidden = !g.querySelector('.pub-group-items > li:not([hidden])');
+      });
+      list.scrollTop = 0;
     }
 
     chips.forEach(function (chip) {
@@ -133,73 +148,9 @@
       if (key !== 'all' && n === 0) chip.hidden = true;
       chip.addEventListener('click', function () {
         chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
-        rows.forEach(function (r) {
-          r.classList.toggle('is-dim', key !== 'all' && topicsOf(r).indexOf(key) < 0);
-        });
-        if (active) updatePos();
+        filter(key);
       });
     });
-
-    function setActive(r, on) {
-      r.classList.toggle('is-active', on);
-      r.querySelector('.pub-row-btn').setAttribute('aria-expanded', on ? 'true' : 'false');
-    }
-    function close() {
-      if (active) setActive(active, false);
-      active = null;
-      layout.classList.remove('pane-open');
-      pane.hidden = true;
-      paneBody.innerHTML = '';
-      if (hint) hint.textContent = 'click a paper for details';
-    }
-    function open(r) {
-      if (!wide.matches) {
-        var isOpen = r.classList.toggle('is-open');
-        r.querySelector('.pub-row-btn').setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        return;
-      }
-      if (active === r) { close(); return; }
-      if (active) setActive(active, false);
-      active = r;
-      setActive(r, true);
-      paneBody.innerHTML = r.querySelector('.pub-detail').innerHTML;
-      pane.hidden = false;
-      layout.classList.add('pane-open');
-      pane.classList.remove('is-entering');
-      void pane.offsetWidth; // restart the entrance animation
-      pane.classList.add('is-entering');
-      updatePos();
-      if (hint) hint.textContent = 'click again or × to close';
-      // Outside fit mode, scroll the page if the pane would run past the window.
-      var rect = pane.getBoundingClientRect();
-      if (!document.documentElement.classList.contains('home-fit') && rect.bottom > window.innerHeight) {
-        var top = parseFloat(getComputedStyle(pane).top) || 0;
-        window.scrollBy({ top: rect.top - top, behavior: reduceMotion ? 'auto' : 'smooth' });
-      }
-    }
-    function step(d) {
-      var v = visibleRows();
-      if (!v.length) return;
-      var i = v.indexOf(active);
-      var next = v[i < 0 ? 0 : (i + d + v.length) % v.length];
-      if (next !== active) open(next);
-    }
-
-    rows.forEach(function (r) {
-      r.querySelector('.pub-row-btn').addEventListener('click', function () { open(r); });
-    });
-    root.querySelector('[data-pane-prev]').addEventListener('click', function () { step(-1); });
-    root.querySelector('[data-pane-next]').addEventListener('click', function () { step(1); });
-    root.querySelector('[data-pane-close]').addEventListener('click', close);
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && active) close();
-    });
-    var onBreakpoint = function () {
-      if (!wide.matches) close();
-      else rows.forEach(function (r) { r.classList.remove('is-open'); });
-    };
-    if (wide.addEventListener) wide.addEventListener('change', onBreakpoint);
-    else if (wide.addListener) wide.addListener(onBreakpoint);
   }
 
   // ------------------------------------------------------ glitch news band
