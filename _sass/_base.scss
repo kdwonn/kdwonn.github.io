@@ -1789,6 +1789,40 @@ html.home-fit body.page-home > .container.mt-5 { margin-top: 1.25rem !important;
   .pub-toolbar { margin-bottom: 8px; }
 }
 
+// Condensed header (fit mode, set by home.js once the content scrolls): one
+// line with name, position, email and icons; photo, tagline and bio are
+// dropped. home.js animates the change (FLIP), so these are end states only.
+.home-header .home-contact a { display: inline-block; }
+.home-fit .home-header.is-condensed {
+  grid-template-columns: minmax(0, 1fr);
+  padding-bottom: .9rem;
+  > .home-photo:not(.home-ghost),
+  > .home-bio:not(.home-ghost),
+  .home-id > .home-tagline:not(.home-ghost) { display: none; }
+  .home-id {
+    flex-direction: row;
+    align-items: center;
+    column-gap: 28px;
+    .post-title { margin: 0; font-size: 1.35rem; white-space: nowrap; }
+    .home-contact {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: .85rem;
+      white-space: nowrap;
+      br { display: none; }
+    }
+    .contact-icons {
+      margin: 0 0 0 auto;
+      padding-top: 0;
+      flex-wrap: nowrap;
+      font-size: 1.1rem;
+    }
+  }
+}
+.home-header.is-morphing { position: relative; overflow: hidden; }
+.home-header .home-ghost { position: absolute; margin: 0; pointer-events: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .news-band .news-band-dot,
   .home-js .home-panel:not([hidden]),

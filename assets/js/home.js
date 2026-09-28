@@ -41,6 +41,122 @@
     apply();
   }
 
+  // ---------------------------------------------------- condensed header
+  // In fit mode, scrolling the content squeezes the header into one line
+  // (name, position, email, icons); scrolling back to the top restores it.
+  // The change is animated FLIP-style: measure, switch class, animate back.
+  function initCondense() {
+    var article = document.querySelector('article.home');
+    var header = document.querySelector('.home-header');
+    if (!article || !header) return;
+    var root = document.documentElement;
+    var condensed = false, busy = false;
+    var EASE = 'cubic-bezier(.2, .8, .2, 1)', MS = 420;
+
+    function fit() { return root.classList.contains('home-fit'); }
+    function activeScroller() {
+      var panel = article.querySelector('.home-panel:not([hidden])');
+      if (!panel) return null;
+      return panel.classList.contains('pub-section') ? panel.querySelector('.pub-list') : panel;
+    }
+
+    function morph(on) {
+      if (on === condensed || busy) return;
+      condensed = on;
+      if (reduceMotion || !header.animate) {
+        header.classList.toggle('is-condensed', on);
+        return;
+      }
+      busy = true;
+      var moving = toArray(header.querySelectorAll('.home-id > .post-title, .home-contact > a, .home-id > .contact-icons'));
+      var fading = toArray(header.querySelectorAll('.home-header > .home-photo, .home-header > .home-bio, .home-id > .home-tagline'));
+      var hr = header.getBoundingClientRect();
+      var first = moving.map(function (el) {
+        return { r: el.getBoundingClientRect(), fs: parseFloat(getComputedStyle(el).fontSize) };
+      });
+
+      // Collapsing: leave fading copies of the photo, tagline and bio behind.
+      var ghosts = [];
+      if (on) {
+        fading.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          var g = el.cloneNode(true);
+          g.classList.add('home-ghost');
+          g.removeAttribute('id');
+          g.setAttribute('aria-hidden', 'true');
+          g.style.left = (r.left - hr.left) + 'px';
+          g.style.top = (r.top - hr.top) + 'px';
+          g.style.width = r.width + 'px';
+          g.style.height = r.height + 'px';
+          el.parentNode.appendChild(g);
+          ghosts.push(g);
+        });
+      }
+
+      header.classList.add('is-morphing');
+      header.classList.toggle('is-condensed', on);
+      var hr2 = header.getBoundingClientRect();
+      var anims = [header.animate([{ height: hr.height + 'px' }, { height: hr2.height + 'px' }], { duration: MS, easing: EASE })];
+
+      moving.forEach(function (el, i) {
+        var r = el.getBoundingClientRect();
+        var k = first[i].fs / (parseFloat(getComputedStyle(el).fontSize) || first[i].fs);
+        var dx = (first[i].r.left - hr.left) - (r.left - hr2.left);
+        var dy = (first[i].r.top - hr.top) - (r.top - hr2.top);
+        anims.push(el.animate([
+          { transformOrigin: '0 0', transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + k + ')' },
+          { transformOrigin: '0 0', transform: 'none' }
+        ], { duration: MS, easing: EASE }));
+      });
+      ghosts.forEach(function (g) {
+        anims.push(g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: MS * 0.5, easing: 'ease-out', fill: 'forwards' }));
+      });
+      if (!on) {
+        fading.forEach(function (el) {
+          anims.push(el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: MS * 0.6, delay: MS * 0.4, easing: 'ease-out', fill: 'backwards' }));
+        });
+      }
+
+      var done = 0;
+      var finish = function () {
+        if (++done < anims.length) return;
+        ghosts.forEach(function (g) { g.remove(); });
+        header.classList.remove('is-morphing');
+        busy = false;
+        // Catch up if the content moved while animating.
+        var sc = activeScroller();
+        if (sc) update(sc);
+      };
+      anims.forEach(function (a) { a.onfinish = finish; a.oncancel = finish; });
+    }
+
+    function update(sc) {
+      if (!fit()) return;
+      var top = sc.scrollTop;
+      var last = sc._homeLastTop || 0;
+      if (!condensed && top > 24 && sc.scrollHeight - sc.clientHeight > header.offsetHeight) morph(true);
+      else if (condensed && top <= 2 && top <= last) morph(false);
+      sc._homeLastTop = top;
+    }
+
+    // Scroll events don't bubble; listen in the capture phase.
+    article.addEventListener('scroll', function (e) {
+      if (e.target === activeScroller()) update(e.target);
+    }, true);
+    // Already at the top, a scroll up doesn't fire "scroll"; use the wheel.
+    article.addEventListener('wheel', function (e) {
+      if (!condensed || e.deltaY >= 0 || !fit()) return;
+      var sc = activeScroller();
+      if (!sc || sc.scrollTop <= 0) morph(false);
+    }, { passive: true });
+    window.addEventListener('resize', function () {
+      if (!fit() && condensed) {
+        condensed = false;
+        header.classList.remove('is-condensed');
+      }
+    });
+  }
+
   // ---------------------------------------------------------------- tabs
   function initTabs() {
     var list = document.querySelector('.home-tabs');
@@ -236,6 +352,7 @@
   }
 
   initFit();
+  initCondense();
   initTabs();
   initPubs();
   initNews();
