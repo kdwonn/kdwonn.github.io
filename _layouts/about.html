@@ -74,21 +74,9 @@ layout: default
                 <button type="button" class="pub-chip" data-topic="{{ t[0] }}" aria-pressed="false">{{ t[1].label }} <span class="pub-chip-n"></span></button>
                 {%- endfor %}
               </div>
-              <span class="pub-hint" data-pub-hint>click a paper for details</span>
             </div>
-            <div class="pub-layout">
-              <div class="pub-list">
-                {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --template bib_row %}
-              </div>
-              <aside class="pub-pane" aria-label="Paper details" hidden>
-                <div class="pub-pane-head">
-                  <span class="pub-pane-pos" data-pane-pos></span>
-                  <button type="button" data-pane-prev aria-label="Previous paper">&lsaquo;</button>
-                  <button type="button" data-pane-next aria-label="Next paper">&rsaquo;</button>
-                  <button type="button" data-pane-close aria-label="Close details">&times;</button>
-                </div>
-                <div class="pub-pane-body" data-pane-body></div>
-              </aside>
+            <div class="pub-list">
+              {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --template bib_row %}
             </div>
           </section>
           {%- endif %}
