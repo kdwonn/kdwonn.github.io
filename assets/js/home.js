@@ -51,7 +51,7 @@
     if (!article || !header) return;
     var root = document.documentElement;
     var condensed = false, busy = false;
-    var EASE = 'cubic-bezier(.2, .8, .2, 1)', MS = 420;
+    var EASE = 'cubic-bezier(.65, 0, .35, 1)', MS = 560;
 
     function fit() { return root.classList.contains('home-fit'); }
     function activeScroller() {
@@ -70,12 +70,15 @@
       busy = true;
       var moving = toArray(header.querySelectorAll('.home-id > .post-title, .home-contact > a, .home-id > .contact-icons'));
       var fading = toArray(header.querySelectorAll('.home-header > .home-photo, .home-header > .home-bio, .home-id > .home-tagline'));
+      var below = toArray(article.querySelectorAll('.news-band, .home-tabs, .home-panel:not([hidden])'));
       var hr = header.getBoundingClientRect();
       var first = moving.map(function (el) {
         return { r: el.getBoundingClientRect(), fs: parseFloat(getComputedStyle(el).fontSize) };
       });
+      var belowTop = below.length ? below[0].getBoundingClientRect().top : 0;
 
-      // Collapsing: leave fading copies of the photo, tagline and bio behind.
+      // Collapsing: leave copies of the photo, tagline and bio in place; the
+      // news band slides up over them while they fade.
       var ghosts = [];
       if (on) {
         fading.forEach(function (el) {
@@ -93,11 +96,25 @@
         });
       }
 
+      // Expanding: keep the panel at its taller height until the end, so its
+      // bottom edge stays put while it slides down (the article clips it).
+      var panel = article.querySelector('.home-panel:not([hidden])');
+      var panelH = panel ? panel.getBoundingClientRect().height : 0;
+
+      article.classList.add('is-morphing');
       header.classList.add('is-morphing');
       header.classList.toggle('is-condensed', on);
+      if (!on && panel) {
+        panel.style.flex = 'none';
+        panel.style.height = panelH + 'px';
+      }
       var hr2 = header.getBoundingClientRect();
-      var anims = [header.animate([{ height: hr.height + 'px' }, { height: hr2.height + 'px' }], { duration: MS, easing: EASE })];
+      var shift = below.length ? belowTop - below[0].getBoundingClientRect().top : 0;
+      var opts = { duration: MS, easing: EASE };
+      var anims = [];
 
+      // Everything is animated with transforms and opacity only, from the old
+      // positions back to the new layout.
       moving.forEach(function (el, i) {
         var r = el.getBoundingClientRect();
         var k = first[i].fs / (parseFloat(getComputedStyle(el).fontSize) || first[i].fs);
@@ -106,14 +123,26 @@
         anims.push(el.animate([
           { transformOrigin: '0 0', transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + k + ')' },
           { transformOrigin: '0 0', transform: 'none' }
-        ], { duration: MS, easing: EASE }));
+        ], opts));
+      });
+      below.forEach(function (el) {
+        anims.push(el.animate([
+          { transform: 'translateY(' + shift + 'px)' },
+          { transform: 'none' }
+        ], opts));
       });
       ghosts.forEach(function (g) {
-        anims.push(g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: MS * 0.5, easing: 'ease-out', fill: 'forwards' }));
+        anims.push(g.animate([
+          { opacity: 1, transform: 'none' },
+          { opacity: 0, transform: 'translateY(-12px)' }
+        ], { duration: MS * 0.7, easing: 'ease-in', fill: 'forwards' }));
       });
       if (!on) {
         fading.forEach(function (el) {
-          anims.push(el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: MS * 0.6, delay: MS * 0.4, easing: 'ease-out', fill: 'backwards' }));
+          anims.push(el.animate([
+            { opacity: 0, transform: 'translateY(-12px)' },
+            { opacity: 1, transform: 'none' }
+          ], { duration: MS * 0.7, delay: MS * 0.3, easing: 'ease-out', fill: 'backwards' }));
         });
       }
 
@@ -121,7 +150,9 @@
       var finish = function () {
         if (++done < anims.length) return;
         ghosts.forEach(function (g) { g.remove(); });
+        if (panel) { panel.style.flex = ''; panel.style.height = ''; }
         header.classList.remove('is-morphing');
+        article.classList.remove('is-morphing');
         busy = false;
         // Catch up if the content moved while animating.
         var sc = activeScroller();

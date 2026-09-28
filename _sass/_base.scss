@@ -1820,8 +1820,12 @@ html.home-fit body.page-home > .container.mt-5 { margin-top: 1.25rem !important;
     }
   }
 }
-.home-header.is-morphing { position: relative; overflow: hidden; }
-.home-header .home-ghost { position: absolute; margin: 0; pointer-events: none; }
+// While morphing, the news band passes over the fading photo and bio, and
+// content sliding in from below is clipped to the article.
+.home-header.is-morphing { position: relative; }
+.home-header .home-ghost { position: absolute; z-index: 0; margin: 0; pointer-events: none; }
+.home-fit article.home.is-morphing { overflow: hidden; }
+article.home.is-morphing > .news-band { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .news-band .news-band-dot,
