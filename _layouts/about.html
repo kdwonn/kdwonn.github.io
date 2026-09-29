@@ -75,6 +75,7 @@ layout: default
                 {%- endfor %}
               </div>
             </div>
+            <p class="pub-legend"><span class="pub-legend-lead">Highlighted</span>: first, co-first, or co-corresponding author &middot; * equal contribution &middot; &dagger; co-corresponding</p>
             <div class="pub-list">
               {% bibliography -f {{ site.scholar.bibliography }} -q @*[selected=true]* --template bib_row %}
             </div>

@@ -1,7 +1,15 @@
 ---
 ---
 <!-- _layouts/bib.html -->
-      <div class="row">
+      {%- comment -%} Lead paper: I am first, co-first (*) or co-corresponding (†) author. {%- endcomment -%}
+      {%- assign is_lead = false -%}
+      {%- for author in entry.author_array -%}
+        {%- assign author_last_name = author.last | remove: "¶" | remove: "&" | remove: "*" | remove: "†" | remove: "^" -%}
+        {%- if site.scholar.last_name contains author_last_name and site.scholar.first_name contains author.first -%}
+          {%- if forloop.first or author.last contains "*" or author.last contains "†" -%}{%- assign is_lead = true -%}{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <div class="row{% if is_lead %} pub-lead{% endif %}">
         <div class="col-sm-3 {% if entry.preview %}preview{% else %}abbr{% endif %}">
         {%- if entry.preview -%}
           {% if entry.preview contains '://' -%}

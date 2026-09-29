@@ -15,7 +15,15 @@
 {%- capture area_short -%}
   {%- for k in topic_keys -%}{%- assign key = k | strip -%}{{ site.data.research_topics[key].short }}{%- unless forloop.last -%}·{%- endunless -%}{%- endfor -%}
 {%- endcapture -%}
-<div class="pub-row" id="pub-{{ entry.key }}" data-year="{{ entry.year }}" data-topics="{{ entry.topics | strip }}">
+{%- comment -%} Lead paper: I am first, co-first (*) or co-corresponding (†) author. {%- endcomment -%}
+{%- assign is_lead = false -%}
+{%- for author in entry.author_array -%}
+  {%- assign author_last_name = author.last | remove: "¶" | remove: "&" | remove: "*" | remove: "†" | remove: "^" -%}
+  {%- if site.scholar.last_name contains author_last_name and site.scholar.first_name contains author.first -%}
+    {%- if forloop.first or author.last contains "*" or author.last contains "†" -%}{%- assign is_lead = true -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<div class="pub-row{% if is_lead %} pub-lead{% endif %}" id="pub-{{ entry.key }}" data-year="{{ entry.year }}" data-topics="{{ entry.topics | strip }}">
   <div class="pub-row-head">
     <span class="pub-venue">{{ venue | strip }}<span class="pub-year"> {{ entry.year }}</span></span>
     <span class="pub-title">{{ entry.title }}</span>
