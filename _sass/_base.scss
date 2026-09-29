@@ -1468,6 +1468,7 @@ $home-sticky-top: 72px;
 
 // News band -----------------------------------------------------------------
 .news-band {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -1565,6 +1566,96 @@ $home-sticky-top: 72px;
     letter-spacing: .04em;
     color: #c9d3f0;
     &:hover { color: #fff; }
+    &:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  }
+  .news-band-caret { display: inline-block; transition: transform .2s ease; }
+  &.is-open .news-band-all { color: #fff; }
+
+  // Dropdown with every item, opened by "all news" (home.js): a light
+  // timeline grouped by year, hanging off the band.
+  .news-band-items {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    max-height: 440px;
+    margin: 0;
+    padding: 6px 24px 14px;
+    list-style: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    background: #fff;
+    border: 1px solid var(--global-divider-color);
+    border-top: 2px solid var(--global-theme-color);
+    box-shadow: 0 18px 40px -12px rgba(20, 30, 50, .22);
+    font-size: .84rem;
+    animation: news-band-drop .18s ease-out;
+
+    .news-year {
+      position: sticky;
+      top: -6px;
+      z-index: 1;
+      padding: 12px 0 6px;
+      background: #fff;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      color: var(--global-text-color-light);
+      &::after {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        width: calc(100% - 7ch);
+        margin-left: 1.5ch;
+        border-top: 1px dashed var(--global-divider-color);
+      }
+    }
+    .news-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 7ch minmax(0, 1fr);
+      column-gap: 4ch;
+      padding: 6px 0;
+      line-height: 1.55;
+      // Timeline rail and dot between the date and the text.
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: calc(7ch + 2ch);
+        border-left: 1px solid var(--global-divider-color);
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        top: calc(6px + .78em - 3.5px);
+        left: calc(7ch + 2ch - 3px);
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #fff;
+        border: 1px solid var(--global-text-color-light);
+      }
+      &.is-current::after {
+        background: var(--global-theme-color);
+        border-color: var(--global-theme-color);
+        box-shadow: 0 0 0 3px rgba(26, 49, 144, .15);
+      }
+      &.is-current .news-item-date { color: var(--global-theme-color); }
+    }
+    .news-item-date {
+      white-space: nowrap;
+      color: var(--global-text-color-light);
+      font-variant-numeric: tabular-nums;
+    }
+    .news-item-text {
+      color: var(--global-text-color);
+      em, strong { font-style: normal; font-weight: 700; color: var(--global-theme-color); }
+      a { color: var(--global-theme-color); border-bottom: 1px dashed rgba(26, 49, 144, .45); }
+      a:hover { border-bottom-style: solid; }
+    }
   }
 
   @media (max-width: 767.98px) {
@@ -1573,10 +1664,19 @@ $home-sticky-top: 72px;
     .news-band-label { align-self: auto; padding: 10px 16px; }
     .news-band-screen { order: 5; flex-basis: 100%; padding: 0 16px 10px; }
     .news-band-all { margin-left: auto; padding-right: 16px; }
+    .news-band-items { max-height: 65vh; padding: 4px 16px 12px; }
   }
 }
 
+// With JS the arrow points down (open list) instead of right (news page).
+.home-js .news-band-caret { transform: rotate(90deg); }
+.home-js .news-band.is-open .news-band-caret { transform: rotate(-90deg); }
+
 @keyframes news-band-dot { 50% { opacity: .25; } }
+@keyframes news-band-drop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
 
 // Tabs -------------------------------------------------------------------------
 .home-tabs {
@@ -1888,7 +1988,8 @@ article.home.is-morphing > .news-band { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .news-band .news-band-dot,
+  .news-band .news-band-items,
   .home-js .home-panel:not([hidden]),
   .pub-list ol.bibliography > li.is-entering { animation: none; }
-  .home-tabs .home-tabs-ind { transition: none; }
+  .home-tabs .home-tabs-ind, .news-band-caret { transition: none; }
 }

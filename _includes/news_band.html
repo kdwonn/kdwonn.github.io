@@ -12,10 +12,16 @@
               <span class="news-band-date" data-date>{{ first_news.date | date: "%d %b %Y" }}</span>
               <span class="news-band-text" data-text>{{ first_news.content | remove: '<p>' | remove: '</p>' | strip }}</span>
             </p>
-            <a class="news-band-all" href="{{ '/news/' | relative_url }}">all news &rarr;</a>
-            <ol class="news-band-items" hidden>
+            <a class="news-band-all" href="{{ '/news/' | relative_url }}" data-news-toggle aria-controls="news-band-list">all news <span class="news-band-caret" aria-hidden="true">&rarr;</span></a>
+            <ol class="news-band-items" id="news-band-list" hidden>
+              {%- assign last_year = '' -%}
               {%- for item in news_items %}
-              <li data-date="{{ item.date | date: '%d %b %Y' }}">{{ item.content | remove: '<p>' | remove: '</p>' | strip }}</li>
+              {%- assign year = item.date | date: '%Y' -%}
+              {%- if year != last_year %}
+              <li class="news-year" aria-hidden="true">{{ year }}</li>
+              {%- assign last_year = year -%}
+              {%- endif %}
+              <li class="news-item" data-date="{{ item.date | date: '%d %b %Y' }}"><span class="news-item-date">{{ item.date | date: '%d %b' }}</span><span class="news-item-text">{{ item.content | remove: '<p>' | remove: '</p>' | strip }}</span></li>
               {%- endfor %}
             </ol>
           </div>
