@@ -1,8 +1,8 @@
 {%- comment -%}
-  Interactive publication preview drawn by assets/js/acid-fig.js.
+  Interactive publication preview drawn by assets/js/pub-fig.js.
   Params: scene (bib field `preview_figure`), alt (accessible description).
 {%- endcomment -%}
 <div class="pub-figure">
-  <canvas data-acid-scene="{{ include.scene }}" data-acid-style="drafting" data-acid-colorway="ultramarine" data-acid-boil="true" role="img" aria-label="{{ include.alt | strip_html | escape }}"></canvas>
+  <canvas data-fig-scene="{{ include.scene }}" data-fig-style="drafting" data-fig-colorway="ultramarine" data-fig-boil="true" role="img" aria-label="{{ include.alt | strip_html | escape }}"></canvas>
 </div>
-<script defer src="{{ '/assets/js/acid-fig.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+<script defer src="{{ '/assets/js/pub-fig.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

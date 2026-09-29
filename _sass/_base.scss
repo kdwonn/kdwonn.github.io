@@ -1711,27 +1711,38 @@ $home-sticky-top: 72px;
   background: rgba(26, 49, 144, .035);
   box-shadow: inset 3px 0 0 var(--global-theme-color);
 }
-.pub-row-head {
+// Text on the left; the preview takes the right column at full row height.
+// Rows without a preview keep the column empty so titles stay aligned.
+.pub-row {
   display: grid;
-  grid-template-columns: 76px minmax(0, 1fr) 58px;
-  column-gap: 12px;
+  grid-template-columns: minmax(0, 1fr) clamp(240px, 30%, 340px);
+  column-gap: 32px;
+  padding: 14px 14px 14px 18px;
+}
+.pub-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-size: .8rem;
+  line-height: 1.5;
+}
+.pub-kicker {
+  display: flex;
+  gap: 12px;
   align-items: baseline;
-  padding: 10px 8px 8px;
   .pub-venue { font-size: .75rem; letter-spacing: .06em; color: var(--global-theme-color); }
   .pub-year { color: var(--global-theme-color); }
-  .pub-title { font-size: .9rem; line-height: 1.45; color: var(--global-text-color); }
-  .pub-area { font-size: .7rem; text-align: right; white-space: nowrap; color: var(--global-text-color-light); }
+  .pub-area { font-size: .7rem; white-space: nowrap; color: var(--global-text-color-light); }
 }
+.pub-title { font-size: .95rem; line-height: 1.4; color: var(--global-text-color); text-wrap: pretty; }
 .pub-list.is-grouped .pub-year { display: none; }
 
-.pub-row-body {
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
-  column-gap: 20px;
-  padding: 2px 8px 16px 96px;
-}
 .pub-thumb {
-  height: 118px;
+  grid-column: 2;
+  align-self: start;
+  width: 100%;
+  aspect-ratio: 340 / 196;
   padding: 6px;
   box-sizing: border-box;
   border: 1px solid var(--global-divider-color);
@@ -1739,21 +1750,13 @@ $home-sticky-top: 72px;
   img { display: block; width: 100%; height: 100%; object-fit: contain; }
   .pub-figure { width: 100%; height: 100%; }
 }
-// Interactive preview (assets/js/acid-fig.js draws into the canvas and letterboxes to fit).
+// Interactive preview (assets/js/pub-fig.js draws into the canvas and letterboxes to fit).
 .pub-figure canvas {
   display: block;
   width: 100%;
   height: 100%;
   cursor: crosshair;
   touch-action: pan-y;
-}
-.pub-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-  font-size: .8rem;
-  line-height: 1.5;
 }
 .pub-authors {
   color: #3b4049;
@@ -1768,23 +1771,21 @@ $home-sticky-top: 72px;
   display: flex;
   flex-wrap: wrap;
   gap: 4px 12px;
+  margin-top: auto;
+  padding-top: 4px;
   a { color: var(--global-theme-color); }
 }
 
 @media (max-width: 767.98px) {
   .pub-group { grid-template-columns: minmax(0, 1fr); }
   .pub-group-year span { position: static; padding: 10px 8px 0; }
-  .pub-row-head {
-    grid-template-columns: 64px minmax(0, 1fr);
-    column-gap: 8px;
-    .pub-area { display: none; }
+  // Phones: one column, preview above the text.
+  .pub-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+    padding: 12px 8px 14px 12px;
   }
-  .pub-row-body {
-    grid-template-columns: 112px minmax(0, 1fr);
-    column-gap: 12px;
-    padding: 2px 8px 14px;
-  }
-  .pub-thumb { height: 72px; padding: 4px; }
+  .pub-thumb { grid-column: 1; grid-row: 1; max-width: 420px; padding: 4px; }
 }
 
 @keyframes pub-row-in {
