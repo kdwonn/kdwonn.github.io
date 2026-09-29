@@ -31,7 +31,9 @@
   </div>
   <div class="pub-row-body">
     <div class="pub-thumb">
-      {%- if entry.preview %}
+      {%- if entry.preview_figure %}
+      {% include pub_figure.html scene=entry.preview_figure alt=entry.title %}
+      {%- elsif entry.preview %}
       {%- if entry.preview contains '://' %}
       <img src="{{ entry.preview }}" alt="{{ entry.title | strip_html }} preview" loading="lazy">
       {%- else %}

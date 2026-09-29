@@ -935,6 +935,13 @@ $when-chars: 11.5; // + half a char of slack for sub-pixel rounding
         max-width: 300px;
         margin-bottom: 0.5rem;
 
+        .pub-figure {
+          aspect-ratio: 16 / 9;
+          background-color: #fff;
+          border: 1px solid var(--global-divider-color);
+          padding: 4px;
+        }
+
         img {
           background-color: var(--global-bg-color);
           border: 1px solid var(--global-divider-color);
@@ -1730,6 +1737,15 @@ $home-sticky-top: 72px;
   border: 1px solid var(--global-divider-color);
   background: #fff;
   img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .pub-figure { width: 100%; height: 100%; }
+}
+// Interactive preview (assets/js/acid-fig.js draws into the canvas and letterboxes to fit).
+.pub-figure canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: pan-y;
 }
 .pub-info {
   display: flex;
