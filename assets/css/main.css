@@ -1669,6 +1669,33 @@ nav[data-toggle=toc] .nav-link.active:hover {
   background: rgba(26, 49, 144, 0.04);
 }
 
+.pub-row.pub-lead {
+  background: rgba(26, 49, 144, 0.035);
+  box-shadow: inset 3px 0 0 var(--global-theme-color);
+}
+.pub-row.pub-lead:hover {
+  background: rgba(26, 49, 144, 0.07);
+}
+
+.publications ol.bibliography li .row.pub-lead {
+  padding: 8px 0;
+  background: rgba(26, 49, 144, 0.035);
+  box-shadow: inset 3px 0 0 var(--global-theme-color);
+}
+
+.pub-legend {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  color: var(--global-text-color-light);
+}
+
+.pub-legend-lead {
+  padding: 1px 6px;
+  color: var(--global-text-color);
+  background: rgba(26, 49, 144, 0.035);
+  box-shadow: inset 3px 0 0 var(--global-theme-color);
+}
+
 .pub-row-head {
   display: grid;
   grid-template-columns: 76px minmax(0, 1fr) 58px;
