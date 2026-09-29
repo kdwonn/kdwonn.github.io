@@ -1,5 +1,5 @@
 // pub-fig.js: interactive publication preview figures.
-//   ACID: cycle, lens · CompACT: tokens, squeeze, race, rollout, touch
+//   ACID: cycle, lens · CompACT: tokens, squeeze, race, rollout, touch · SelfMod: selfmod
 // Mounts itself on every <canvas data-fig-scene="...">. Other data attributes,
 // re-read every frame so they can change live:
 //   data-fig-style    = drafting | sketch
@@ -84,7 +84,7 @@
     const lw = (w) => Math.max(w, minW);
     const amp = sketch ? 0.85 : cfg.boil ? 0.3 : 0;
     const sd = (s) => (cfg.boil ? s + cfg.phase * 7919 : s);
-    const P = { T, sketch, small: cfg.small, k: cfg.k };
+    const P = { T, sketch, small: cfg.small, k: cfg.k, boil: cfg.boil, phase: cfg.phase };
 
     // polyline; returns the (wobbled) points actually drawn
     P.line = (pts, o = {}) => {
@@ -986,7 +986,195 @@
     };
   }
 
-  const SCENES = { cycle: cycleScene, lens: lensScene, tokens: tokensScene, squeeze: squeezeScene, race: raceScene, rollout: rolloutScene, touch: touchScene };
+  // ================================================================ SelfMod
+  // Three modules left to right: entangled slots -> codebook -> separated slots.
+  //   1 bottom-up  - slot attention alone: the four objects come out tangled
+  //   2 bootstrap  - each slot flies into a codebook of shapes that is already
+  //                  there, greyed out; the matching codes switch on
+  //   3 modulate   - the switched-on codes feed back, and the same objects
+  //                  pull apart into separate slots
+  // Objects have no outline until modulation, when an outline in their own
+  // colour appears. It loops by itself; the pointer on any object or code
+  // highlights that object in all three modules.
+  const SMC = [
+    { fill: '#7a81ff', line: '#4c52d6' },   // periwinkle
+    { fill: '#73fdd6', line: '#1fb893' },   // mint
+    { fill: '#ffc46b', line: '#e98a24' },   // peach
+    { fill: '#ff9bd2', line: '#d9519f' },   // pink
+  ];
+  const SM_INK = '#3a3b40', SM_OFF = '#c4c8d0';
+  const ngon = (n, r0 = -Math.PI / 2) => Array.from({ length: n }, (_, i) => [Math.cos(r0 + i / n * TAU), Math.sin(r0 + i / n * TAU)]);
+  // unit outlines. 0-3 are the objects; 4-7 only live in the codebook
+  const SHAPE = [
+    ngon(48),                                                                   // circle
+    [[-0.88, -0.88], [0.88, -0.88], [0.88, 0.88], [-0.88, 0.88]],               // square
+    [[-0.95, -1], [-0.1, -1], [-0.1, 0.3], [0.95, 0.3], [0.95, 1], [-0.95, 1]], // L
+    [[0, -1.05], [1.05, 0.85], [-1.05, 0.85]],                                  // triangle
+    ngon(6, 0),                                                                 // hexagon
+    [[0, -1.05], [1, 0], [0, 1.05], [-1, 0]],                                   // diamond
+    [[-0.3, -1], [0.3, -1], [0.3, -0.3], [1, -0.3], [1, 0.3], [0.3, 0.3], [0.3, 1], [-0.3, 1], [-0.3, 0.3], [-1, 0.3], [-1, -0.3], [-0.3, -0.3]], // plus
+    [...Array.from({ length: 25 }, (_, i) => [Math.cos(Math.PI + i / 24 * Math.PI), 0.35 + Math.sin(Math.PI + i / 24 * Math.PI) * 1.05])],      // half disc
+  ];
+  const xf = (poly, c, s, rot = 0) => poly.map(([x, y]) => [
+    c[0] + s * (x * Math.cos(rot) - y * Math.sin(rot)),
+    c[1] + s * (x * Math.sin(rot) + y * Math.cos(rot)),
+  ]);
+  // flat shape: fill and outline share one edge, which wobbles (and boils) like the pen's lines
+  function wobbleEdge(P, pts, seed, scale = 1) {
+    const amp = (P.sketch ? 1 : P.boil ? 0.35 : 0) * scale;
+    const closed = [...pts, pts[0]], out = [];
+    let s = 0;
+    const sd = P.boil ? seed + P.phase * 7919 : seed;
+    for (let i = 0; i < closed.length - 1; i++) {
+      const a = closed[i], b = closed[i + 1], L = dist(a, b);
+      if (L < 1e-6) continue;
+      const nx = -(b[1] - a[1]) / L, ny = (b[0] - a[0]) / L, n = Math.max(1, Math.ceil(L / 2.5));
+      for (let j = 0; j < n; j++) {
+        const x = a[0] + (b[0] - a[0]) * j / n, y = a[1] + (b[1] - a[1]) * j / n;
+        const d = amp ? amp * noise(sd, s + L * j / n) : 0;
+        out.push([x + nx * d, y + ny * d]);
+      }
+      s += L;
+    }
+    return out;
+  }
+  function flatShape(ctx, P, id, c, s, rot, o = {}) {
+    const pts = wobbleEdge(P, xf(SHAPE[id], c, s, rot), o.seed || 7, clamp(s / 18, 0.4, 1));   // small shapes wobble less
+    if (o.fill) {
+      ctx.save();
+      ctx.globalAlpha = o.fillAlpha ?? 1;
+      if (o.blend) ctx.globalCompositeOperation = o.blend;
+      ctx.fillStyle = o.fill;
+      ctx.beginPath();
+      pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+    if (o.w !== 0) P.line([...pts, pts[0], pts[1]], { w: o.w ?? 1.5, color: o.color || SM_INK, alpha: o.alpha ?? 1, amp: 0 });
+  }
+
+  function selfmodScene() {
+    const LF = [8, 36, 136], RF = [256, 36, 136];              // frames: x, y, size
+    const LC = [LF[0] + LF[2] / 2, LF[1] + LF[2] / 2], RC = [RF[0] + RF[2] / 2, RF[1] + RF[2] / 2];
+    const CELL = 22, PITCH = 26.5, GX = [187, 213.5], GY0 = LC[1] - 1.5 * PITCH;
+    const CODES = [5, 0, 7, 1, 2, 4, 3, 6];                      // shape in each code slot (2 x 4)
+    const codeOf = [1, 3, 4, 6];                                  // code slot of each object
+    const cellC = (i) => [GX[i % 2], GY0 + Math.floor(i / 2) * PITCH];
+    const TANG = [[-15, -8], [13, -13], [-8, 13], [16, 10]];
+    const SEP = [[-33, -33], [33, -33], [-33, 33], [33, 33]];
+    const SIZE = [25, 22, 24, 26], ROT = [0, 0.1, -0.05, 0];
+    const STEPS = ['1 bottom-up', '2 bootstrap', '3 modulate'];
+    const T = 9;
+    return {
+      idle: (t) => [200, 206],
+      draw(P, st) {
+        const t = st.t, ctx = st.ctx, u = (t % T) / T;
+        const ph = (a, b) => ease(clamp((u - a) / (b - a), 0, 1));
+        const pUp = ph(0.02, 0.16);
+        const fly = (k) => clamp((u - 0.24 - k * 0.06) / 0.14, 0, 1);  // slot k -> its code
+        const on = (k) => ease(clamp((fly(k) - 0.85) / 0.15, 0, 1));    // code k switches on
+        const fb = (k) => clamp((u - 0.56 - k * 0.04) / 0.12, 0, 1);    // code k -> separated slot
+        const pMod = ph(0.64, 0.86);
+        const fade = 1 - ph(0.95, 1);                                  // gentle reset at loop end
+        const step = u < 0.22 ? 0 : u < 0.54 ? 1 : 2;
+
+        const jig = pUp * 1.3;
+        const left = TANG.map((o, k) => [LC[0] + o[0] + jig * Math.sin(t * 5.3 + k * 1.7), LC[1] + o[1] + jig * Math.cos(t * 4.1 + k * 2.3)]);
+        const right = SEP.map((s, k) => [RC[0] + lerp(TANG[k][0], s[0], pMod), RC[1] + lerp(TANG[k][1], s[1], pMod)]);
+        let hot = -1;
+        if (!st.idle) {
+          left.forEach((p, k) => { if (dist(p, st.ptr) < SIZE[k]) hot = k; });
+          right.forEach((p, k) => { if (dist(p, st.ptr) < SIZE[k]) hot = k; });
+          codeOf.forEach((ci, k) => { if (dist(cellC(ci), st.ptr) < CELL * 0.7) hot = k; });
+        }
+        const dim = (k) => (hot >= 0 && hot !== k ? 0.3 : 1);
+        const hi = (i) => i === step;
+
+        // frames + module labels
+        const frame = (f, active) => {
+          ctx.save();
+          ctx.strokeStyle = active ? SM_INK : 'rgba(20, 30, 50, 0.18)';
+          ctx.lineWidth = Math.max(1, (active ? 1.3 : 1) / P.k);
+          ctx.strokeRect(f[0], f[1], f[2], f[2]);
+          ctx.restore();
+        };
+        frame(LF, hi(0));
+        frame(RF, hi(2));
+        P.text('slots', LF[0], LF[1] - 10, { size: 8, keepCase: true, detail: true });
+        P.text('codebook', 200, LF[1] - 10, { size: 8, align: 'center', keepCase: true, detail: true });
+        P.text('modulated slots', RF[0], RF[1] - 10, { size: 8, keepCase: true, detail: true });
+        // connectors between modules
+        P.arrow([[LF[0] + LF[2] + 4, LC[1]], [GX[0] - CELL / 2 - 5, LC[1]]], { w: 1.1, head: 5, color: hi(1) ? SM_INK : P.T.mute, amp: 0, seed: 91 });
+        P.arrow([[GX[1] + CELL / 2 + 5, RC[1]], [RF[0] - 4, RC[1]]], { w: 1.1, head: 5, color: hi(2) ? SM_INK : P.T.mute, amp: 0, seed: 92 });
+
+        // codebook
+        for (let i = 0; i < 8; i++) {
+          const c = cellC(i), k = codeOf.indexOf(i), a = k >= 0 ? on(k) * fade : 0;
+          ctx.save();
+          ctx.strokeStyle = a > 0.5 ? SMC[k].line : 'rgba(20, 30, 50, 0.16)';
+          ctx.lineWidth = Math.max(1, 1.05 / P.k);
+          ctx.strokeRect(c[0] - CELL / 2, c[1] - CELL / 2, CELL, CELL);
+          ctx.restore();
+          flatShape(ctx, P, CODES[i], c, 6.8 * (1 + 0.25 * Math.sin(Math.PI * a)), 0, {
+            fill: a > 0 ? SMC[k].fill : null, fillAlpha: a,
+            color: a > 0.5 ? SMC[k].line : SM_OFF, w: 1.2, seed: 40 + i, alpha: k >= 0 ? dim(k) : (hot >= 0 ? 0.5 : 1),
+          });
+        }
+
+        // left: entangled slots
+        [0, 1, 2, 3].forEach((k) => flatShape(ctx, P, k, left[k], SIZE[k] * lerp(0.75, 1, pUp), ROT[k], {
+          fill: SMC[k].fill, fillAlpha: 0.8 * pUp * dim(k), blend: 'multiply', w: 0,
+        }));
+
+        const dot = (p, color, a) => {
+          ctx.save();
+          ctx.globalAlpha = a;
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(p[0], p[1], 2.3, 0, TAU);
+          ctx.fill();
+          ctx.restore();
+        };
+        // modulate: each switched-on code feeds its separated slot
+        codeOf.forEach((ci, k) => {
+          const f = fb(k);
+          if (f <= 0) return;
+          const a = cellC(ci), b = right[k];
+          const path = cubic([a[0] + CELL / 2, a[1]], [a[0] + 30, a[1]], [b[0] - 30, b[1]], [b[0] - SIZE[k] - 2, b[1]], 20);
+          const e = ease(Math.min(1, f));
+          P.line(path, { w: 1.1, color: SMC[k].line, alpha: (f < 1 ? 0.55 : 0.18) * dim(k) * fade, upto: e, amp: 0 });
+          if (f < 1) dot(path[Math.round(e * 20)], SMC[k].line, dim(k));
+        });
+
+        // right: starts as a faint copy of the tangle, fills in and separates as feedback arrives
+        [0, 1, 2, 3].forEach((k) => {
+          const got = ease(clamp(fb(k) * 1.4 - 0.4, 0, 1)) * fade;
+          flatShape(ctx, P, k, right[k], SIZE[k], ROT[k], {
+            fill: SMC[k].fill, fillAlpha: lerp(0.14, 1, got) * dim(k) * pUp, blend: pMod < 0.6 ? 'multiply' : null,
+            w: got > 0.02 ? 1.8 : 0, color: SMC[k].line, alpha: got * dim(k), seed: 30 + k,
+          });
+        });
+
+        // bootstrap: each entangled slot flies into its code
+        codeOf.forEach((ci, k) => {
+          const f = fly(k);
+          if (f <= 0 || f >= 1) return;
+          const a = left[k], b = cellC(ci), m = [(a[0] + b[0]) / 2, Math.min(a[1], b[1]) - 16];
+          const path = Array.from({ length: 21 }, (_, j) => { const e = j / 20, v = 1 - e; return [v * v * a[0] + 2 * v * e * m[0] + e * e * b[0], v * v * a[1] + 2 * v * e * m[1] + e * e * b[1]]; });
+          const e = ease(f);
+          P.line(path, { w: 1.2, color: SMC[k].line, alpha: 0.5 * dim(k), upto: e, amp: 0 });
+          dot(path[Math.round(e * 20)], SMC[k].line, dim(k));
+        });
+        // step labels under the modules
+        [[LC[0], 0], [200, 1], [RC[0], 2]].forEach(([x, i]) => P.text(STEPS[i], x, 190, {
+          size: 8, align: 'center', keepCase: true, bold: hi(i), color: hi(i) ? '#15181d' : P.T.mute,
+        }));
+      },
+    };
+  }
+
+  const SCENES = { cycle: cycleScene, lens: lensScene, tokens: tokensScene, squeeze: squeezeScene, race: raceScene, rollout: rolloutScene, touch: touchScene, selfmod: selfmodScene };
   const reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
 
   // ---------------------------------------------------------------- mount
@@ -1026,6 +1214,7 @@
         st.idle = !st.hover || now - st.lastMove > 3000;
         // with reduced motion the figure holds still until the pointer moves it
         if (!(reduceMotion.matches && st.idle)) st.t += dt;
+        st.dt = dt;
         if (st.idle) st.target = scene.idle(st.t);
         const kk = 1 - Math.exp(-dt * (st.idle ? 3.5 : 14));
         st.ptr = [lerp(st.ptr[0], st.target[0], kk), lerp(st.ptr[1], st.target[1], kk)];
