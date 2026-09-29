@@ -10,6 +10,8 @@ nav: true
 <!-- _pages/publications.md -->
 <div class="publications">
 
+<p class="pub-legend"><span class="pub-legend-lead">Highlighted</span>: first, co-first, or co-corresponding author &middot; * equal contribution &middot; &dagger; co-corresponding</p>
+
 {%- for y in page.years %}
   <h2 class="year">{{y}}</h2>
   {% bibliography -f {{ site.scholar.bibliography }} -q @*[year={{y}}]* %}
