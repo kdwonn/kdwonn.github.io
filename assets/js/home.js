@@ -311,8 +311,8 @@
     if (items.length < 2) return;
 
     var GLYPHS = '#%&*+=<>/\\|_~^$@!?01';
-    var STEP_MS = 35, HOLD_MS = 6000;
-    var idx = 0, anim = null, hold = null, paused = false;
+    var STEP_MS = 35, HOLD_MS = 6000, END_HOLD_MS = 3000, SLIDE_DELAY_MS = 1500, SLIDE_PX_PER_S = 60;
+    var idx = 0, anim = null, hold = null, slide = null, pending = 0, paused = false;
 
     function plain(el) { return el.textContent.replace(/\s+/g, ' ').trim(); }
 
@@ -329,10 +329,51 @@
       return out;
     }
 
-    function schedule() {
+    function schedule(ms) {
       clearTimeout(hold);
-      if (!paused && !document.hidden) hold = setTimeout(function () { go(idx + 1); }, HOLD_MS);
+      if (!paused && !document.hidden) hold = setTimeout(function () { go(idx + 1); }, ms || HOLD_MS);
     }
+
+    // A message wider than the band scrolls to its end once, then holds.
+    function settle() {
+      stopSlide();
+      var run = textEl.querySelector('.news-band-run');
+      var over = run ? Math.ceil(run.offsetWidth - textEl.clientWidth) : 0;
+      textEl.classList.toggle('is-long', over > 0);
+      if (over <= 0 || reduceMotion || !run.animate) { schedule(); return; }
+      pending = over;
+      slideLater();
+    }
+    function slideLater() {
+      clearTimeout(hold);
+      if (!paused && !document.hidden) hold = setTimeout(startSlide, SLIDE_DELAY_MS);
+    }
+    function startSlide() {
+      var run = textEl.querySelector('.news-band-run');
+      var over = pending;
+      pending = 0;
+      if (!run || over <= 0) { schedule(); return; }
+      textEl.classList.add('is-moving');
+      slide = run.animate([
+        { transform: 'none' },
+        { transform: 'translateX(' + -over + 'px)' }
+      ], { duration: Math.max(1500, over / SLIDE_PX_PER_S * 1000), easing: 'ease-in-out', fill: 'forwards' });
+      slide.onfinish = function () {
+        slide = null;
+        textEl.classList.remove('is-moving');
+        textEl.classList.add('is-end');
+        schedule(END_HOLD_MS);
+      };
+    }
+    function stopSlide() {
+      pending = 0;
+      textEl.classList.remove('is-moving', 'is-end');
+      if (!slide) return;
+      slide.onfinish = null;
+      slide.cancel();
+      slide = null;
+    }
+    function wrap(html) { return '<span class="news-band-run">' + html + '</span>'; }
 
     function show(i) {
       var li = items[i];
@@ -341,12 +382,14 @@
       var finish = function () {
         anim = null;
         dateEl.textContent = toDate;
-        textEl.innerHTML = li.innerHTML;
-        schedule();
+        textEl.innerHTML = wrap(li.innerHTML);
+        settle();
       };
       posEl.textContent = pad2(i + 1) + ' / ' + pad2(items.length);
       clearInterval(anim);
       clearTimeout(hold);
+      stopSlide();
+      textEl.classList.remove('is-long', 'is-end');
       if (reduceMotion) { finish(); return; }
       var fromDate = dateEl.textContent, fromText = plain(textEl);
       var total = Math.max(fromDate.length, toDate.length) + 3 + Math.max(fromText.length, toText.length);
@@ -369,17 +412,26 @@
 
     band.querySelector('[data-prev]').addEventListener('click', function () { go(idx - 1); });
     band.querySelector('[data-next]').addEventListener('click', function () { go(idx + 1); });
-    var pause = function () { paused = true; clearTimeout(hold); };
-    var resume = function () { paused = false; if (!anim) schedule(); };
+    var pause = function () { paused = true; clearTimeout(hold); if (slide) slide.pause(); };
+    var resume = function () {
+      paused = false;
+      if (slide) slide.play();
+      else if (pending) slideLater();
+      else if (!anim) schedule(textEl.classList.contains('is-end') ? END_HOLD_MS : HOLD_MS);
+    };
     band.addEventListener('mouseenter', pause);
     band.addEventListener('mouseleave', resume);
     band.addEventListener('focusin', pause);
     band.addEventListener('focusout', resume);
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) clearTimeout(hold);
-      else if (!anim) schedule();
+      else if (pending) slideLater();
+      else if (!anim && !slide) schedule();
     });
-    schedule();
+    // The first message is rendered by the page; measure it once fonts load.
+    textEl.innerHTML = wrap(textEl.innerHTML);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+    else settle();
   }
 
   initFit();
