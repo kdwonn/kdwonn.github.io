@@ -304,15 +304,59 @@
   function initNews() {
     var band = document.querySelector('[data-news-band]');
     if (!band) return;
-    var items = toArray(band.querySelectorAll('.news-band-items > li'));
-    var dateEl = band.querySelector('[data-date]');
-    var textEl = band.querySelector('[data-text]');
-    var posEl = band.querySelector('[data-pos]');
-    if (items.length < 2) return;
-
     var GLYPHS = '#%&*+=<>/\\|_~^$@!?01';
     var STEP_MS = 35, HOLD_MS = 6000, END_HOLD_MS = 3000, SLIDE_DELAY_MS = 1500, SLIDE_PX_PER_S = 60;
     var idx = 0, anim = null, hold = null, slide = null, pending = 0, paused = false;
+    var items = toArray(band.querySelectorAll('.news-band-items > .news-item'));
+    var dateEl = band.querySelector('[data-date]');
+    var textEl = band.querySelector('[data-text]');
+    var posEl = band.querySelector('[data-pos]');
+    var list = band.querySelector('.news-band-items');
+    var toggle = band.querySelector('[data-news-toggle]');
+    var open = false;
+
+    var pause = function () { paused = true; clearTimeout(hold); if (slide) slide.pause(); };
+    var resume = function () {
+      if (open || items.length < 2) return;
+      paused = false;
+      if (slide) slide.play();
+      else if (pending) slideLater();
+      else if (!anim) schedule(textEl.classList.contains('is-end') ? END_HOLD_MS : HOLD_MS);
+    };
+
+    // "all news" expands the full list under the band instead of leaving the page.
+    function setOpen(next) {
+      open = next;
+      list.hidden = !open;
+      band.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        pause();
+        // In the pinned layout, keep the list inside the window above the footer.
+        list.style.maxHeight = '';
+        if (document.documentElement.classList.contains('home-fit')) {
+          var footer = document.querySelector('footer.fixed-bottom');
+          var room = window.innerHeight - band.getBoundingClientRect().bottom - (footer ? footer.offsetHeight : 0) - 16;
+          list.style.maxHeight = Math.max(160, Math.min(room, 440)) + 'px';
+        }
+        list.scrollTop = 0;
+      }
+      else if (!band.matches(':hover') && !band.contains(document.activeElement)) resume();
+    }
+    toggle.setAttribute('role', 'button');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener('click', function (e) { e.preventDefault(); setOpen(!open); });
+    toggle.addEventListener('keydown', function (e) {
+      if (e.key === ' ') { e.preventDefault(); setOpen(!open); }
+    });
+    document.addEventListener('click', function (e) {
+      if (open && !band.contains(e.target)) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (open && e.key === 'Escape') { setOpen(false); toggle.focus(); }
+    });
+
+    if (items.length < 2) return;
 
     function plain(el) { return el.textContent.replace(/\s+/g, ' ').trim(); }
 
@@ -377,12 +421,14 @@
 
     function show(i) {
       var li = items[i];
-      var toDate = li.getAttribute('data-date') || '';
-      var toText = plain(li);
+      var liText = li.querySelector('.news-item-text');
+      var toDate = li.getAttribute('data-date');
+      var toText = plain(liText);
+      items.forEach(function (el, j) { el.classList.toggle('is-current', j === i); });
       var finish = function () {
         anim = null;
         dateEl.textContent = toDate;
-        textEl.innerHTML = wrap(li.innerHTML);
+        textEl.innerHTML = wrap(liText.innerHTML);
         settle();
       };
       posEl.textContent = pad2(i + 1) + ' / ' + pad2(items.length);
@@ -412,13 +458,6 @@
 
     band.querySelector('[data-prev]').addEventListener('click', function () { go(idx - 1); });
     band.querySelector('[data-next]').addEventListener('click', function () { go(idx + 1); });
-    var pause = function () { paused = true; clearTimeout(hold); if (slide) slide.pause(); };
-    var resume = function () {
-      paused = false;
-      if (slide) slide.play();
-      else if (pending) slideLater();
-      else if (!anim) schedule(textEl.classList.contains('is-end') ? END_HOLD_MS : HOLD_MS);
-    };
     band.addEventListener('mouseenter', pause);
     band.addEventListener('mouseleave', resume);
     band.addEventListener('focusin', pause);
@@ -428,6 +467,7 @@
       else if (pending) slideLater();
       else if (!anim && !slide) schedule();
     });
+    items[0].classList.add('is-current');
     // The first message is rendered by the page; measure it once fonts load.
     textEl.innerHTML = wrap(textEl.innerHTML);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
