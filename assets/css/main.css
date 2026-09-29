@@ -1360,6 +1360,7 @@ nav[data-toggle=toc] .nav-link.active:hover {
 }
 
 .news-band {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -1475,6 +1476,110 @@ nav[data-toggle=toc] .nav-link.active:hover {
 .news-band .news-band-all:hover {
   color: #fff;
 }
+.news-band .news-band-all:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.news-band .news-band-caret {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.news-band.is-open .news-band-all {
+  color: #fff;
+}
+.news-band .news-band-items {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  max-height: 440px;
+  margin: 0;
+  padding: 6px 24px 14px;
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  background: #fff;
+  border: 1px solid var(--global-divider-color);
+  border-top: 2px solid var(--global-theme-color);
+  box-shadow: 0 18px 40px -12px rgba(20, 30, 50, 0.22);
+  font-size: 0.84rem;
+  animation: news-band-drop 0.18s ease-out;
+}
+.news-band .news-band-items .news-year {
+  position: sticky;
+  top: -6px;
+  z-index: 1;
+  padding: 12px 0 6px;
+  background: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--global-text-color-light);
+}
+.news-band .news-band-items .news-year::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 7ch);
+  margin-left: 1.5ch;
+  border-top: 1px dashed var(--global-divider-color);
+}
+.news-band .news-band-items .news-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7ch minmax(0, 1fr);
+  column-gap: 4ch;
+  padding: 6px 0;
+  line-height: 1.55;
+}
+.news-band .news-band-items .news-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 9ch;
+  border-left: 1px solid var(--global-divider-color);
+}
+.news-band .news-band-items .news-item::after {
+  content: "";
+  position: absolute;
+  top: calc(6px + 0.78em - 3.5px);
+  left: calc(9ch - 3px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--global-text-color-light);
+}
+.news-band .news-band-items .news-item.is-current::after {
+  background: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+  box-shadow: 0 0 0 3px rgba(26, 49, 144, 0.15);
+}
+.news-band .news-band-items .news-item.is-current .news-item-date {
+  color: var(--global-theme-color);
+}
+.news-band .news-band-items .news-item-date {
+  white-space: nowrap;
+  color: var(--global-text-color-light);
+  font-variant-numeric: tabular-nums;
+}
+.news-band .news-band-items .news-item-text {
+  color: var(--global-text-color);
+}
+.news-band .news-band-items .news-item-text em, .news-band .news-band-items .news-item-text strong {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--global-theme-color);
+}
+.news-band .news-band-items .news-item-text a {
+  color: var(--global-theme-color);
+  border-bottom: 1px dashed rgba(26, 49, 144, 0.45);
+}
+.news-band .news-band-items .news-item-text a:hover {
+  border-bottom-style: solid;
+}
 @media (max-width: 767.98px) {
   .news-band {
     flex-wrap: wrap;
@@ -1493,11 +1598,33 @@ nav[data-toggle=toc] .nav-link.active:hover {
     margin-left: auto;
     padding-right: 16px;
   }
+  .news-band .news-band-items {
+    max-height: 65vh;
+    padding: 4px 16px 12px;
+  }
+}
+
+.home-js .news-band-caret {
+  transform: rotate(90deg);
+}
+
+.home-js .news-band.is-open .news-band-caret {
+  transform: rotate(-90deg);
 }
 
 @keyframes news-band-dot {
   50% {
     opacity: 0.25;
+  }
+}
+@keyframes news-band-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 .home-tabs {
@@ -1998,11 +2125,12 @@ article.home.is-morphing > .news-band {
 
 @media (prefers-reduced-motion: reduce) {
   .news-band .news-band-dot,
+  .news-band .news-band-items,
   .home-js .home-panel:not([hidden]),
   .pub-list ol.bibliography > li.is-entering {
     animation: none;
   }
-  .home-tabs .home-tabs-ind {
+  .home-tabs .home-tabs-ind, .news-band-caret {
     transition: none;
   }
 }
