@@ -6,7 +6,7 @@ subtitle: <a href='https://cvlab.postech.ac.kr'>POSTECH Computer vision lab.</a>
 
 profile:
   align: right
-  image: prof_pic.jpeg
+  image: prof-pic-2026.jpeg
   image_circular: false # crops the image to make it circular
   affiliation: Postdoctoral Researcher, KAIST
   affiliation_url: https://cvlab.postech.ac.kr/
