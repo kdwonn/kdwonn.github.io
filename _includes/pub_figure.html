@@ -1,8 +1,9 @@
 {%- comment -%}
   Interactive publication preview drawn by assets/js/pub-fig.js.
-  Params: scene (bib field `preview_figure`), alt (accessible description).
+  Params: scene (bib field `preview_figure`), style (bib field `preview_figure_style`:
+  drafting, the default, or sketch), alt (accessible description).
 {%- endcomment -%}
 <div class="pub-figure">
-  <canvas data-fig-scene="{{ include.scene }}" data-fig-style="drafting" data-fig-colorway="ultramarine" data-fig-boil="true" role="img" aria-label="{{ include.alt | strip_html | escape }}"></canvas>
+  <canvas data-fig-scene="{{ include.scene }}" data-fig-style="{{ include.style | default: 'drafting' }}" data-fig-colorway="ultramarine" data-fig-boil="true" role="img" aria-label="{{ include.alt | strip_html | escape }}"></canvas>
 </div>
 <script defer src="{{ '/assets/js/pub-fig.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
