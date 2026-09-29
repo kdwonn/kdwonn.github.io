@@ -10,8 +10,10 @@
         {%- endif -%}
       {%- endfor -%}
       <div class="row{% if is_lead %} pub-lead{% endif %}">
-        <div class="col-sm-3 {% if entry.preview %}preview{% else %}abbr{% endif %}">
-        {%- if entry.preview -%}
+        <div class="col-sm-3 {% if entry.preview or entry.preview_figure %}preview{% else %}abbr{% endif %}">
+        {%- if entry.preview_figure -%}
+          {% include pub_figure.html scene=entry.preview_figure alt=entry.title %}
+        {%- elsif entry.preview -%}
           {% if entry.preview contains '://' -%}
           <img class="img-fluid" src="{{ entry.preview }}">
           {%- else -%}
