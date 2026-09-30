@@ -1448,6 +1448,7 @@ nav[data-toggle=toc] .nav-link.active:hover {
   width: 1ch;
   line-height: 1;
   letter-spacing: 0;
+  color: inherit;
   transform: translateY(-0.079em) scale(1.4);
 }
 .news-band .news-band-dot.is-dot {
