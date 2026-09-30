@@ -531,8 +531,12 @@
     const S = o.state || HOME, w0 = S.wrist, cb = S.cube, el = elbowOf(w0);
     const w = o.w ?? 1.3, c = o.color || T.ink;
     if (!o.only) {
-      P.line([m(0, 34), m(150, 34)], { w: w * 0.8, color: T.mute, seed: 101 });
-      P.rect(fx + 16 * s, fy + 10 * s, 36 * s, 16 * s, { w: w * 0.8, color: T.mute, seed: 102 });
+      P.line([m(0, 34), m(150, 34)], { w, color: c, seed: 101 });
+      // a window on the back wall: frame, cross mullions, sill
+      P.rect(fx + 18 * s, fy + 6 * s, 32 * s, 21 * s, { w, color: c, seed: 102 });
+      P.line([m(34, 6), m(34, 27)], { w: w * 0.8, color: c, seed: 113 });
+      P.line([m(18, 16.5), m(50, 16.5)], { w: w * 0.8, color: c, seed: 114 });
+      P.line([m(15, 29), m(53, 29)], { w, color: c, seed: 115 });
       P.line([m(0, 112), m(150, 112)], { w, color: c, seed: 103 });
       P.rect(fx + 108 * s, fy + 84 * s, 20 * s, 28 * s, { fill: T.bg, w, color: c, seed: 111 });
       P.line([m(108, 89), m(128, 89)], { w: w * 0.7, color: c, seed: 112 });
@@ -679,36 +683,63 @@
 
   // ---------------------------------------------------------------- C2
   // Squeeze: pointer x sweeps the token budget 784 -> 256 -> 64 -> 8. A
-  // uniform grid over the scene gives way, at 8, to one token per thing.
+  // uniform grid over the scene gives way, at 8, to one token per thing;
+  // after a beat each token takes its own colour, and so does its region.
+  const HUES = ['#1a3190', '#1f86c7', '#b4442a', '#d49a16', '#c2336f', '#5e8f1c', '#6a3fb5', '#0f6e62'];
   function squeezeScene() {
-    const FX = 22, FY = 40, FS = 150;
+    const FX = 14, FY = 24, SC = 1.24, FS = 150 * SC;
     const STOPS = [784, 256, 64, 8];
-    const BX = 206, BY = 58, BW = 172, BH = 82;
+    const BX = 218, BY = 24, BW = 170, BH = 112, TRK = 204;
     const fine = 50, fc = FS / fine;
     const own = [];
-    for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) own.push(owner((i + 0.5) * fc, (j + 0.5) * fc));
+    for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) own.push(owner((i + 0.5) * 3, (j + 0.5) * 3));
     const O = (i, j) => own[j * fine + i];
+    // 'space' surrounds everything, so its centroid lands on the gripper: pin it to open floor
+    const MARK = CENT.map((c, k) => (k === 7 ? [138, 58] : c));
+    let t8 = null, col = 0;
     return {
-      idle: (t) => [200 + 175 * Math.sin(t * 0.28), 120],
+      // lingers at both ends of the sweep so the 8-token colouring has time to land
+      idle: (t) => [200 + 185 * clamp(1.3 * Math.sin(t * 0.26), -1, 1), 120],
       draw(P, st) {
-        const T = P.T, t = st.t;
-        P.marks();
+        const T = P.T, t = st.t, ctx = st.ctx;
         const u = clamp((st.ptr[0] - 30) / (W - 60), 0, 1) * (STOPS.length - 1);
         const i0 = Math.min(STOPS.length - 2, Math.floor(u)), f = ease(clamp((u - i0 - 0.3) / 0.4, 0, 1));
+
+        // colour comes in a beat after the budget settles at 8, and leaves at once
+        if (i0 === STOPS.length - 2 && f > 0.999) { if (t8 === null) t8 = t; } else t8 = null;
+        const want = t8 !== null && t - t8 > 0.6 ? 1 : 0;
+        col += (want - col) * (1 - Math.exp(-(st.dt || 0.016) * (want ? 3.2 : 9)));
+        const cA = ease(col);
+
+        // per-region colour wash under the drawing
+        if (cA > 0.01) {
+          for (let k = 0; k < 8; k++) {
+            ctx.save();
+            ctx.fillStyle = HUES[k];
+            ctx.globalAlpha = cA * (k < 5 ? 0.34 : 0.13);
+            ctx.beginPath();
+            for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) if (O(i, j) === k) ctx.rect(FX + i * fc, FY + j * fc, fc + 0.25, fc + 0.25);
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+
         const layer = (idx, alpha) => {
           if (alpha <= 0.01) return;
           const N = STOPS[idx];
           if (N === 8) {
             // semantic partition: region boundaries on the fine grid + token markers
+            const ba = alpha * (1 - 0.65 * cA);
             for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) {
               const k = O(i, j), x = FX + i * fc, y = FY + j * fc;
-              if (i + 1 < fine && O(i + 1, j) !== k) P.line([[x + fc, y], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha, amp: 0, cap: 'square' });
-              if (j + 1 < fine && O(i, j + 1) !== k) P.line([[x, y + fc], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha, amp: 0, cap: 'square' });
+              if (i + 1 < fine && O(i + 1, j) !== k) P.line([[x + fc, y], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha: ba, amp: 0, cap: 'square' });
+              if (j + 1 < fine && O(i, j + 1) !== k) P.line([[x, y + fc], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha: ba, amp: 0, cap: 'square' });
             }
-            CENT.forEach(([cx, cy], k) => {
-              const c = [FX + cx, FY + cy];
-              P.rect(c[0] - 4.5, c[1] - 4.5, 9, 9, { fill: T.acc, fillAlpha: alpha, w: 0 });
-              if (!P.small) P.text(String(k + 1), c[0], c[1] + 0.5, { size: 6.5, color: T.bg, alpha, align: 'center', keepCase: true });
+            MARK.forEach(([cx, cy], k) => {
+              const c = [FX + cx * SC, FY + cy * SC];
+              P.rect(c[0] - 5.5, c[1] - 5.5, 11, 11, { fill: T.acc, fillAlpha: alpha, w: 0 });
+              if (cA > 0.01) P.rect(c[0] - 5.5, c[1] - 5.5, 11, 11, { fill: HUES[k], fillAlpha: alpha * cA, w: 0 });
+              if (!P.small) P.text(String(k + 1), c[0], c[1] + 0.5, { size: 7.5, color: T.bg, alpha, align: 'center', keepCase: true });
             });
           } else {
             const g = Math.round(Math.sqrt(N)), c = FS / g;
@@ -718,43 +749,40 @@
             }
           }
         };
-        drawTabletop(P, FX, FY, 1);
+        drawTabletop(P, FX, FY, SC);
         layer(i0, 1 - f);
         layer(i0 + 1, f);
         P.rect(FX, FY, FS, FS, { w: 1.2, color: T.ink, seed: 150 });
-        P.text('observation', FX, FY - 11, { detail: true });
+        P.text('observation', FX, FY - 9, { detail: true });
 
         // token sequence block: N cells packed into the box
         const N = Math.round(Math.exp(lerp(Math.log(STOPS[i0]), Math.log(STOPS[i0 + 1]), f)));
-        P.text('token sequence', BX, BY - 11, { detail: true });
+        P.text('token sequence', BX, BY - 9, { detail: true });
         const cols = Math.max(8, Math.ceil(Math.sqrt(N * BW / BH)));
-        const cs = Math.min(BW / cols, 20), gap = cs > 8 ? 2.5 : cs > 4 ? 1 : 0.4;
+        const cs = Math.min(BW / cols, 21), gap = cs > 8 ? 3 : cs > 4 ? 1 : 0.4;
         const rows = Math.ceil(N / cols);
         const oy = BY + (BH - rows * cs) / 2;
         for (let q = 0; q < N; q++) {
           const x = BX + (q % cols) * cs, y = oy + Math.floor(q / cols) * cs;
-          if (cs > 8) P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, w: 1, color: T.acc, seed: 160 + q });
-          else P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, fillAlpha: 0.85, w: 0 });
+          if (cs > 8) {
+            P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, w: 1, color: T.acc, seed: 160 + q });
+            if (N === 8 && cA > 0.01) P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: HUES[q], fillAlpha: cA, w: 1, color: HUES[q], alpha: cA, seed: 160 + q });
+            if (N === 8 && !P.small) P.text(String(q + 1), x + cs / 2, y + cs / 2 + 0.5, { size: 8, color: T.bg, align: 'center', keepCase: true, alpha: f });
+          } else P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, fillAlpha: 0.85, w: 0 });
         }
 
-        // readouts
-        const pairs = N * N;
-        P.text(`${N} tokens`, BX, BY + BH + 16, { size: 11, color: T.ink, bold: true, keepCase: true });
-        P.text('attention pairs', BX, BY + BH + 34, { size: 7, detail: true });
-        const bw = BW * Math.log(pairs) / Math.log(784 * 784);
-        P.rect(BX, BY + BH + 41, BW, 6, { w: 0.8, color: T.faint, amp: 0 });
-        P.rect(BX, BY + BH + 41, bw, 6, { fill: T.ink, w: 0 });
-        P.text(pairs.toLocaleString('en-US'), BX + BW, BY + BH + 34, { size: 7, align: 'right', keepCase: true, detail: true, color: T.ink });
+        // readout
+        P.text(`${N} tokens`, BX, 160, { size: 21, color: T.ink, bold: true, keepCase: true });
 
-        // stop ticks along the bottom (the pointer's track)
-        const sx = (idx) => 30 + (W - 60) * idx / (STOPS.length - 1);
-        P.line([[30, 212], [W - 30, 212]], { w: 0.8, color: T.faint, amp: 0 });
+        // budget track under the readout
+        const sx = (idx) => BX + BW * idx / (STOPS.length - 1);
+        P.line([[BX, TRK], [BX + BW, TRK]], { w: 0.8, color: T.faint, amp: 0 });
         STOPS.forEach((n, idx) => {
-          P.line([[sx(idx), 208], [sx(idx), 216]], { w: 1, color: T.mute, amp: 0 });
-          P.text(String(n), sx(idx), 203, { size: 7, align: 'center', keepCase: true, detail: true });
+          P.line([[sx(idx), TRK - 4], [sx(idx), TRK + 4]], { w: 1, color: T.mute, amp: 0 });
+          P.text(String(n), sx(idx), TRK - 11, { size: 7.5, align: idx === 0 ? 'left' : idx === STOPS.length - 1 ? 'right' : 'center', keepCase: true, detail: true });
         });
-        const px = 30 + (W - 60) * u / (STOPS.length - 1);
-        P.rect(px - 3, 209, 6, 6, { fill: T.acc, w: 0 });
+        const px = BX + BW * u / (STOPS.length - 1);
+        P.rect(px - 3.5, TRK - 3.5, 7, 7, { fill: T.acc, w: 0 });
       },
     };
   }
