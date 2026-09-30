@@ -1500,6 +1500,7 @@ $home-sticky-top: 72px;
     width: 1ch;
     line-height: 1;
     letter-spacing: 0;
+    color: inherit;  // theme colours every span; keep the label's white
     transform: translateY(-.079em) scale(1.4);
     &.is-dot { transform: translateY(-.408em) scale(1.4); }
   }
