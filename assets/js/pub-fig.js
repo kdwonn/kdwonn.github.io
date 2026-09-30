@@ -14,7 +14,8 @@
   const BASE = {
     bg: '#ffffff', ink: '#15181d', mute: '#7c828c', faint: 'rgba(20,30,50,.18)',
     grid: 'rgba(20,30,50,.13)', acc: '#1a3190', accSoft: 'rgba(26,49,144,.07)',
-    bad: '#15181d', badSoft: 'rgba(20,30,50,.04)',
+    // pigments at ultramarine's depth: viridian, burnt sienna
+    alt: '#0f6e62', bad: '#b4442a', badSoft: 'rgba(180,68,42,.09)',
   };
   const THEMES = {
     ultramarine: BASE,
@@ -22,7 +23,7 @@
     inverse: {
       bg: '#15181d', ink: '#eceef1', mute: '#8b919b', faint: 'rgba(236,238,241,.2)',
       grid: 'rgba(236,238,241,.1)', acc: '#8ea2ff', accSoft: 'rgba(142,162,255,.1)',
-      bad: '#ff8a5b', badSoft: 'rgba(255,138,91,.1)',
+      alt: '#5ccfb8', bad: '#ff8a5b', badSoft: 'rgba(255,138,91,.1)',
     },
   };
 
@@ -307,13 +308,13 @@
   // prediction toward the goal, so the recovered action matches a only when
   // the step is honest; otherwise the cycle stays open by the hatched gap.
   function cycleScene() {
-    const C = [98, 113], R = 48;
-    const PX = 262, PY = 58, PW = 112, PH = 110;
-    const S = [290, 138], G = [346, 86];
+    const C = [100, 113], R = 60;
+    const PX = 246, PY = 40, PW = 136, PH = 146;
+    const S = [284, 148], G = [344, 78];
     const thG = Math.atan2(G[1] - S[1], G[0] - S[0]);
-    const WX = PX + PW - 26;
-    const topWire = [[C[0], C[1] - R - 12], [C[0], 26], [WX, 26], [WX, PY - 1]];
-    const botWire = [[WX, PY + PH + 1], [WX, 202], [C[0], 202], [C[0], C[1] + R + 12]];
+    const WX = PX + PW - 26, TY = 22, BY = 204, MX = (C[0] + PX) / 2;
+    const topWire = [[C[0], C[1] - R - 12], [C[0], TY], [WX, TY], [WX, PY - 1]];
+    const botWire = [[WX, PY + PH + 1], [WX, BY], [C[0], BY], [C[0], C[1] + R + 12]];
     const along = (pts, u) => {
       const segs = [];
       let tot = 0;
@@ -326,23 +327,24 @@
       return pts[pts.length - 1];
     };
     return {
-      idle: (t) => polar(C, 120, -0.9 + 1.25 * Math.sin(t * 0.42) + 0.35 * Math.sin(t * 1.1)),
+      idle: (t) => polar(C, 130, -0.9 + 1.25 * Math.sin(t * 0.42) + 0.35 * Math.sin(t * 1.1)),
       draw(P, st) {
         const T = P.T, t = st.t;
         P.marks();
 
-        // wires + chips
+        // wires + chips: the world model (ultramarine) feeds the prediction,
+        // inverse dynamics (viridian) reads the action back out of it
         P.arrow(topWire, { w: 1.4, color: T.ink, seed: 3, head: 7 });
         P.arrow(botWire, { w: 1.4, color: T.ink, seed: 4, head: 7, dash: P.sketch ? [5, 4] : null });
         const tok = (pts, u, fill) => {
           const p = along(pts, u);
-          P.rect(p[0] - 3, p[1] - 3, 6, 6, { fill, w: 1, color: T.ink, seed: 5 });
+          P.rect(p[0] - 3.5, p[1] - 3.5, 7, 7, { fill, w: 1, color: T.ink, seed: 5 });
         };
         const ph = (t * 0.32) % 1;
-        tok(topWire, ph, T.ink);
-        tok(botWire, (ph + 0.5) % 1, T.acc);
-        P.chip((C[0] + WX) / 2, 26, 'world model', { seed: 61 });
-        P.chip((C[0] + WX) / 2, 202, 'inverse dynamics', { seed: 62, color: T.acc });
+        tok(topWire, ph, T.acc);
+        tok(botWire, (ph + 0.5) % 1, T.alt);
+        P.chip(MX, TY, 'world model', { seed: 61, color: T.acc });
+        P.chip(MX, BY, 'inverse dynamics', { seed: 62, color: T.alt });
 
         // angles
         const thU = Math.atan2(st.ptr[1] - C[1], st.ptr[0] - C[0]);
@@ -351,40 +353,35 @@
 
         // prediction panel
         P.rect(PX, PY, PW, PH, { fill: T.bg, w: 1.2, color: T.ink, seed: 20 });
-        P.dots(PX + 8, PY + 8, PX + PW - 8, PY + PH - 8, 10.25);
+        P.dots(PX + 8, PY + 8, PX + PW - 8, PY + PH - 8, 10);
         P.text('prediction', PX, PY - 9, { detail: true });
-        P.target(G, 6.5, { fill: T.bg });
-        const L = 44, Pd = polar(S, L, thD);
-        P.ray(S, polar(S, L, thU), { w: 1.1, color: T.mute, dash: [3, 3], head: 5, seed: 21 });
+        P.target(G, 8, { fill: T.bg });
+        const L = 58, Pd = polar(S, L, thD);
+        P.ray(S, polar(S, L, thU), { w: 1.2, color: T.mute, dash: [3, 3], head: 6, seed: 21 });
         const e = ease(((t % 2.6) / 2.6) / 0.5);
-        if (e > 0.03) P.arrow([S, [lerp(S[0], Pd[0], e), lerp(S[1], Pd[1], e)]], { w: 2, color: T.acc, head: 7, seed: 22 });
-        P.rect(S[0] - 3, S[1] - 3, 6, 6, { fill: T.bg, w: 1.3, color: T.ink, seed: 23 });
+        if (e > 0.03) P.arrow([S, [lerp(S[0], Pd[0], e), lerp(S[1], Pd[1], e)]], { w: 2.4, color: T.acc, head: 8, seed: 22 });
+        P.rect(S[0] - 3.5, S[1] - 3.5, 7, 7, { fill: T.bg, w: 1.3, color: T.ink, seed: 23 });
 
         // action dial
         P.text('action', C[0] - R, C[1] - R - 16, { detail: true });
         P.circle(C, R, { w: 1, color: T.faint, seed: 30 });
         for (let i = 0; i < 24; i++) {
           const a = i * TAU / 24, long = i % 6 === 0;
-          P.line([polar(C, R - (long ? 7 : 3.5), a), polar(C, R, a)], { w: long ? 1.1 : 0.8, color: long ? T.mute : T.faint, amp: 0 });
+          P.line([polar(C, R - (long ? 8 : 4), a), polar(C, R, a)], { w: long ? 1.1 : 0.8, color: long ? T.mute : T.faint, amp: 0 });
         }
-        P.gap(C, thU, thD, 28, { dim: R + 9 });
-        P.ray(C, polar(C, R - 5, thD), { w: 2, color: T.acc, head: 7, seed: 32, dash: P.sketch ? [5, 3] : null });
-        P.ray(C, polar(C, R - 5, thU), { w: 2.4, color: T.ink, head: 8, seed: 31 });
-        P.rect(C[0] - 2.5, C[1] - 2.5, 5, 5, { fill: T.ink, w: 0 });
-        const sep = ok ? 0.28 : 0;
-        P.text('a', ...polar(C, R + 17, thU - sep), { align: 'center', size: 11, color: T.ink, bold: true, keepCase: true, detail: true });
-        P.text('â', ...polar(C, R + 17, thD + sep), { align: 'center', size: 11, color: T.acc, bold: true, keepCase: true, detail: true });
+        P.gap(C, thU, thD, 36, { dim: R + 9 });
+        P.ray(C, polar(C, R - 6, thD), { w: 2.4, color: T.alt, head: 8, seed: 32, dash: P.sketch ? [5, 3] : null });
+        P.ray(C, polar(C, R - 6, thU), { w: 2.8, color: T.ink, head: 9, seed: 31 });
+        P.rect(C[0] - 3, C[1] - 3, 6, 6, { fill: T.ink, w: 0 });
+        const sep = ok ? 0.24 : 0;
+        P.text('a', ...polar(C, R + 18, thU - sep), { align: 'center', size: 12, color: T.ink, bold: true, keepCase: true, detail: true });
+        P.text('â', ...polar(C, R + 18, thD + sep), { align: 'center', size: 12, color: T.alt, bold: true, keepCase: true, detail: true });
 
         // pointer guide (construction line + crosshair)
         if (!P.small) {
           P.line([C, st.ptr], { w: 0.8, color: T.faint, dash: [2, 3], amp: 0 });
           P.crosshair(st.ptr, { color: T.mute });
         }
-
-        // status readout
-        const deg = Math.round(Math.abs(gap) * 180 / Math.PI);
-        if (ok) P.text('cycle closed', W - 12, 12, { align: 'right', size: 7.5, color: T.acc, detail: true });
-        else P.text(`cycle open  Δ ${String(deg).padStart(2, '0')}°`, W - 12, 12, { align: 'right', size: 7.5, color: T.bad, detail: true });
       },
     };
   }
