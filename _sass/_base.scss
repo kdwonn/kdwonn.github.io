@@ -1490,12 +1490,18 @@ $home-sticky-top: 72px;
     letter-spacing: .16em;
     text-transform: uppercase;
   }
+  // Blinks * . (blank) . in steps (home.js). The slot stays 1ch wide and the
+  // glyph is enlarged with scale(), so the label text never moves; translate
+  // (in label em) centres the ink on the NEWS cap height.
   .news-band-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #f6f7f9;
-    animation: news-band-dot 1.4s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1ch;
+    line-height: 1;
+    letter-spacing: 0;
+    transform: translateY(-.079em) scale(1.4);
+    &.is-dot { transform: translateY(-.408em) scale(1.4); }
   }
   .news-band-pos {
     flex-shrink: 0;
@@ -1671,7 +1677,6 @@ $home-sticky-top: 72px;
 .home-js .news-band-caret { transform: rotate(90deg); }
 .home-js .news-band.is-open .news-band-caret { transform: rotate(-90deg); }
 
-@keyframes news-band-dot { 50% { opacity: .25; } }
 @keyframes news-band-drop {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: none; }
@@ -1984,7 +1989,6 @@ html.home-fit body.page-home > .container.mt-5 { margin-top: 1.25rem !important;
 article.home.is-morphing > .news-band { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  .news-band .news-band-dot,
   .news-band .news-band-items,
   .home-js .home-panel:not([hidden]),
   .pub-list ol.bibliography > li.is-entering { animation: none; }
