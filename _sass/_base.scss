@@ -1585,7 +1585,6 @@ $home-sticky-top: 72px;
     list-style: none;
     overflow-y: auto;
     overscroll-behavior: contain;
-    scrollbar-width: thin;
     background: #fff;
     border: 1px solid var(--global-divider-color);
     border-top: 2px solid var(--global-theme-color);
@@ -1910,7 +1909,6 @@ html.home-fit body { overflow: hidden; }
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
-    scrollbar-width: thin;
   }
   .pub-section:not([hidden]) {
     display: flex;
@@ -1924,7 +1922,6 @@ html.home-fit body { overflow: hidden; }
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
-    scrollbar-width: thin;
   }
   .pub-group-year span { top: 0; }
 }

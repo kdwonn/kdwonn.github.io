@@ -84,3 +84,45 @@ body.sticky-bottom-footer {
 *****************************************************************************/
 
 // TODO: redefine projects layout.
+
+// Scrollbars: AmigaOS 1.0 style in the site blue. A dotted track, a white
+// square block with a 1px outline, and thin line arrows at both ends.
+// Chrome ignores the ::-webkit-scrollbar rules on any element with
+// scrollbar-width/-color set, so those standard properties are only for
+// browsers without the pseudo-elements (Firefox).
+$sb-blue: #1a3190;
+$sb-dots: radial-gradient(circle, rgba(26, 49, 144, .6) .8px, transparent 1px);
+
+::-webkit-scrollbar { width: 12px; height: 12px; background: transparent; }
+::-webkit-scrollbar-track {
+  background: $sb-dots .5px .5px / 3px 3px #fff;
+  box-shadow: inset 0 0 0 1px rgba(26, 49, 144, .35);
+}
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border: 1px solid $sb-blue;
+  border-radius: 0;
+  min-height: 16px;
+  min-width: 16px;
+}
+::-webkit-scrollbar-thumb:hover { background: #eef1fa; }
+::-webkit-scrollbar-thumb:active { background: #c9d3f0; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+::-webkit-scrollbar-button:single-button {
+  display: block;
+  width: 12px;
+  height: 14px;
+  background: transparent center no-repeat;
+}
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath d='M6 2V11M6 2L2.5 5.5M6 2L9.5 5.5' fill='none' stroke='%231a3190' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Cpath d='M6 10V1M6 10L2.5 6.5M6 10L9.5 6.5' fill='none' stroke='%231a3190' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+::-webkit-scrollbar-button:single-button:horizontal { display: none; }
+
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: $sb-blue #eef1fa; }
+}
