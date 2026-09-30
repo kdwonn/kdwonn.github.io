@@ -301,9 +301,22 @@
   }
 
   // ------------------------------------------------------ glitch news band
+  // The label's * blinks in steps like a flap card: * . (blank) . and repeat.
+  function blinkDot(dot) {
+    if (!dot || reduceMotion) return;
+    var steps = [['*', 450], ['.', 90], ['\u00a0', 350], ['.', 90]], i = 0;
+    (function next() {
+      var s = steps[i++ % steps.length];
+      dot.textContent = s[0];
+      dot.classList.toggle('is-dot', s[0] === '.');
+      setTimeout(next, s[1]);
+    })();
+  }
+
   function initNews() {
     var band = document.querySelector('[data-news-band]');
     if (!band) return;
+    blinkDot(band.querySelector('.news-band-dot'));
     var GLYPHS = '#%&*+=<>/\\|_~^$@!?01';
     var STEP_MS = 35, HOLD_MS = 6000, END_HOLD_MS = 3000, SLIDE_DELAY_MS = 1500, SLIDE_PX_PER_S = 60;
     var idx = 0, anim = null, hold = null, slide = null, pending = 0, paused = false;

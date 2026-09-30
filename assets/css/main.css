@@ -1442,11 +1442,16 @@ nav[data-toggle=toc] .nav-link.active:hover {
   text-transform: uppercase;
 }
 .news-band .news-band-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #f6f7f9;
-  animation: news-band-dot 1.4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1ch;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: translateY(-0.079em) scale(1.4);
+}
+.news-band .news-band-dot.is-dot {
+  transform: translateY(-0.408em) scale(1.4);
 }
 .news-band .news-band-pos {
   flex-shrink: 0;
@@ -1670,11 +1675,6 @@ nav[data-toggle=toc] .nav-link.active:hover {
   transform: rotate(-90deg);
 }
 
-@keyframes news-band-dot {
-  50% {
-    opacity: 0.25;
-  }
-}
 @keyframes news-band-drop {
   from {
     opacity: 0;
@@ -2180,7 +2180,6 @@ article.home.is-morphing > .news-band {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .news-band .news-band-dot,
   .news-band .news-band-items,
   .home-js .home-panel:not([hidden]),
   .pub-list ol.bibliography > li.is-entering {
