@@ -85,18 +85,20 @@ body.sticky-bottom-footer {
 
 // TODO: redefine projects layout.
 
-// Scrollbars: AmigaOS 1.0 style in the site blue. A dotted track, a white
-// square block with a 1px outline, and thin line arrows at both ends.
+// Scrollbars: AmigaOS 1.0 style in the site blue. A dashed hairline rail,
+// a white square block with a 1px outline, and thin line arrows at both ends.
 // Chrome ignores the ::-webkit-scrollbar rules on any element with
 // scrollbar-width/-color set, so those standard properties are only for
 // browsers without the pseudo-elements (Firefox).
 $sb-blue: #1a3190;
-$sb-dots: radial-gradient(circle, rgba(26, 49, 144, .6) .8px, transparent 1px);
+$sb-dash: rgba(26, 49, 144, .45) 0 3px, transparent 3px 6px;
 
 ::-webkit-scrollbar { width: 12px; height: 12px; background: transparent; }
 ::-webkit-scrollbar-track {
-  background: $sb-dots .5px .5px / 3px 3px #fff;
-  box-shadow: inset 0 0 0 1px rgba(26, 49, 144, .35);
+  background: repeating-linear-gradient(to bottom, $sb-dash) center / 1px 100% no-repeat;
+}
+::-webkit-scrollbar-track:horizontal {
+  background: repeating-linear-gradient(to right, $sb-dash) center / 100% 1px no-repeat;
 }
 ::-webkit-scrollbar-thumb {
   background: #fff;
@@ -124,5 +126,5 @@ $sb-dots: radial-gradient(circle, rgba(26, 49, 144, .6) .8px, transparent 1px);
 ::-webkit-scrollbar-button:single-button:horizontal { display: none; }
 
 @supports not selector(::-webkit-scrollbar) {
-  * { scrollbar-width: thin; scrollbar-color: $sb-blue #eef1fa; }
+  * { scrollbar-width: thin; scrollbar-color: $sb-blue transparent; }
 }
