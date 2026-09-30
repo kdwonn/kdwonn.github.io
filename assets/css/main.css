@@ -167,8 +167,11 @@ body.sticky-bottom-footer {
 }
 
 ::-webkit-scrollbar-track {
-  background: radial-gradient(circle, rgba(26, 49, 144, 0.6) 0.8px, transparent 1px) 0.5px 0.5px/3px 3px #fff;
-  box-shadow: inset 0 0 0 1px rgba(26, 49, 144, 0.35);
+  background: repeating-linear-gradient(to bottom, rgba(26, 49, 144, 0.45) 0 3px, transparent 3px 6px) center/1px 100% no-repeat;
+}
+
+::-webkit-scrollbar-track:horizontal {
+  background: repeating-linear-gradient(to right, rgba(26, 49, 144, 0.45) 0 3px, transparent 3px 6px) center/100% 1px no-repeat;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -213,7 +216,7 @@ body.sticky-bottom-footer {
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #1a3190 #eef1fa;
+    scrollbar-color: #1a3190 transparent;
   }
 }
 /*******************************************************************************
