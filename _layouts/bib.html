@@ -143,6 +143,10 @@
           {{ entry.note | strip }}
         </div>
 
+        {%- if entry.tldr %}
+        <div class="pub-tldr">{{ entry.tldr | strip }}</div>
+        {%- endif %}
+
         <!-- Additional info -->
         {% if entry.award -%}
           <span style="color:darkgreen"><b>{{entry.award}}</b></span>

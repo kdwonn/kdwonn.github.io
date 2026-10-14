@@ -62,6 +62,9 @@
     {%- endfor -%}
     </div>
     <div class="pub-meta">{{ venue | strip }} {{ entry.year }}{% if entry.award %}<span class="pub-award">{{ entry.award | remove: '(' | remove: ')' }}</span>{% endif %}</div>
+    {%- if entry.tldr %}
+    <div class="pub-tldr">{{ entry.tldr | strip }}</div>
+    {%- endif %}
     {%- if entry.note %}
     <div class="pub-note">{{ entry.note | strip }}</div>
     {%- endif %}

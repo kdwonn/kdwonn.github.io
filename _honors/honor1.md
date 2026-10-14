@@ -3,7 +3,10 @@ layout: post
 inline: true
 ---
 
-**POSTECH CSE Best Research Award**, POSTECH, 2025
+**POSTECH CSE Best Research Award**, POSTECH, 2026
+- Best doctoral research among 2025 PhD graduates in the CSE department
+
+**IPIU Best Paper Honorable Mention**, 2026
 
 **POSTECHIAN Fellowship**, POSTECH, 2023
 - $5,000 grant

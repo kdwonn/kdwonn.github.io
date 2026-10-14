@@ -3,6 +3,28 @@
 
 @string{aps = {American Physical Society,}}
 
+@inproceedings{lee_2026_neurips,
+    title = {Structured State-Space Regularization for Generation-Friendly Image Tokenization},
+    topics    = {gen},
+    booktitle = {NeurIPS},
+    author={Lee, Jinsung and Oh, Jaemin and Kim, Namhun and Kim, Dongwon and Yoon, Byung-Jun and Kwak, Suha},
+    month     = {December},
+    selected  = {true},
+    year      = {2026},
+    arxiv={2604.11089}
+}
+
+@inproceedings{yu_2026_arxiv,
+    title = {Reliable Action-Chunk Extension for Vision-Language-Action Models},
+    topics    = {wm},
+    booktitle = {arXiv preprint},
+    author={Yu, Seonghoon and Kim, Dongwon and Jung, HyungRok and Baek, Yoonjae and Lee, Byung-kwan and Kwak, Suha and Son, Jeany},
+    month     = {October},
+    selected  = {true},
+    year      = {2026},
+    arxiv={2610.05719}
+}
+
 @inproceedings{song_2026_arxiv,
     title = {EventCoT: Event-centric Video Chain-of-thought for Reasoning Temporal Localization},
     topics    = {vl},
@@ -16,6 +38,7 @@
 
 @inproceedings{seo_2026_arxiv,
     title = {ACID: Action Consistency via Inverse Dynamics for Planning with World Models},
+    tldr = {Planning with world models usually scores action sequences only by how close the predicted final state is to the goal, ignoring whether the intermediate transitions are physically realizable. ACID adds a cycle action-consistency term: an inverse dynamics model re-infers each action from the predicted transition, and the mismatch is added to the planning cost. Across four world models and six tasks, it improves planning and matches baseline accuracy with far less planning compute.},
     topics    = {wm},
     booktitle = {arXiv preprint},
     author={Seo, Gawon and Kim†, Dongwon and Kwak†, Suha},
@@ -28,6 +51,7 @@
 
 @inproceedings{kim_2026_cvpr,
     title = {Planning in 8 Tokens: A Compact Discrete Tokenizer for Latent World Model},
+    tldr = {Latent world models usually encode each observation with hundreds of tokens, which makes planning slow. CompACT is a discrete tokenizer that compresses an observation into as few as 8 tokens. An action-conditioned world model built on it plans competitively while running orders of magnitude faster.},
     topics    = {wm, gen},
     booktitle = {CVPR},
     author={Kim, Dongwon and Seo, Gawon and Lee, Jinsung and Cho, Minsu and Kwak, Suha},
@@ -41,23 +65,13 @@
     code      = {https://github.com/kdwonn/CompACT},
 }
 
-@inproceedings{lee_2026_neurips,
-    title = {Structured State-Space Regularization for Generation-Friendly Image Tokenization},
-    topics    = {gen},
-    booktitle = {NeurIPS},
-    author={Lee, Jinsung and Oh, Jaemin and Kim, Namhun and Kim, Dongwon and Yoon, Byung-Jun and Kwak, Suha},
-    month     = {December},
-    selected  = {true},
-    year      = {2026},
-    arxiv={2604.11089}
-}
-
 @inproceedings{kim_2025_arxiv,
     title = {Democratizing Text-to-Image Masked Generative Models with Compact Text-Aware One-Dimensional Tokens},
+    tldr = {TA-TiTok is a 1D image tokenizer, discrete or continuous, that uses text during de-tokenization and trains in a single stage, so it scales easily to large datasets. Building on it, MaskGen is a family of text-to-image masked generative models trained only on open data that performs comparably to models trained on private data.},
     topics    = {gen, vl},
     booktitle = {ICCV},
     author={Kim*, Dongwon and He*, Ju and Yu*, Qihang and Yang, Chenglin and Shen, Xiaohui and Kwak, Suha and Chen, Liang-Chieh},
-    month     = {January},
+    month     = {October},
     selected  = {true},
     preview = {maskgen.png},
     year      = {2025},
@@ -81,6 +95,7 @@
 @inproceedings{Kim_2024_NeurIPS,
     author    = {Kim, Dongwon and Kim, Seoyeon and Kwak, Suha},
     title     = {Bootstrapping Top-down Information for Self-modulating Slot Attention},
+    tldr = {Bottom-up object-centric learning struggles when an object's features vary widely in complex scenes. We add a top-down pathway to slot attention: the model first estimates object semantics from its own outputs, then uses them to steer attention toward relevant features. This gives state-of-the-art object discovery on synthetic and real-world benchmarks.},
     topics    = {rep},
     booktitle = {NeurIPS},
     month     = {December},
@@ -118,6 +133,7 @@
 @inproceedings{Kim_2023_ICCV,
     author    = {Kim*, Dongwon and Kim*, Namyup and Lan, Cuiling and Kwak, Suha},
     title     = {Shatter and Gather: Learning Referring Image Segmentation with Text Supervision},
+    tldr = {We learn referring image segmentation using only text descriptions of the training images as supervision. The model first discovers semantic entities in an image, then gathers the ones relevant to the text query into the referent's mask, trained with a loss that needs no extra labels. It outperforms prior weakly supervised and open-vocabulary segmentation methods on four benchmarks.},
     topics    = {vl},
     booktitle = {ICCV},
     month     = {October},
@@ -132,6 +148,7 @@
 @inproceedings{Kim_2023_CVPR,
     author    = {Kim, Dongwon and Kim, Namyup and Kwak, Suha},
     title     = {Improving Cross-Modal Retrieval With Set of Diverse Embeddings},
+    tldr = {In image-text retrieval, one image can match many captions and vice versa. We represent each sample as a set of diverse embeddings produced by a slot-attention-based set prediction module, and compare sets with a new smooth-Chamfer similarity. It outperforms prior methods on COCO and Flickr30K, including ones that need much more inference compute.},
     topics    = {vl},
     booktitle = {CVPR},
     month     = {June},
@@ -203,4 +220,3 @@
   website={http://cvlab.postech.ac.kr/research/ProxyAnchor/},
   preview={pa.gif}
 }
-
