@@ -14,7 +14,8 @@
   const BASE = {
     bg: '#ffffff', ink: '#15181d', mute: '#7c828c', faint: 'rgba(20,30,50,.18)',
     grid: 'rgba(20,30,50,.13)', acc: '#1a3190', accSoft: 'rgba(26,49,144,.07)',
-    bad: '#15181d', badSoft: 'rgba(20,30,50,.04)',
+    // pigments at ultramarine's depth: viridian, burnt sienna
+    alt: '#0f6e62', bad: '#b4442a', badSoft: 'rgba(180,68,42,.09)',
   };
   const THEMES = {
     ultramarine: BASE,
@@ -22,7 +23,7 @@
     inverse: {
       bg: '#15181d', ink: '#eceef1', mute: '#8b919b', faint: 'rgba(236,238,241,.2)',
       grid: 'rgba(236,238,241,.1)', acc: '#8ea2ff', accSoft: 'rgba(142,162,255,.1)',
-      bad: '#ff8a5b', badSoft: 'rgba(255,138,91,.1)',
+      alt: '#5ccfb8', bad: '#ff8a5b', badSoft: 'rgba(255,138,91,.1)',
     },
   };
 
@@ -307,13 +308,13 @@
   // prediction toward the goal, so the recovered action matches a only when
   // the step is honest; otherwise the cycle stays open by the hatched gap.
   function cycleScene() {
-    const C = [98, 113], R = 48;
-    const PX = 262, PY = 58, PW = 112, PH = 110;
-    const S = [290, 138], G = [346, 86];
+    const C = [100, 113], R = 60;
+    const PX = 246, PY = 40, PW = 136, PH = 146;
+    const S = [284, 148], G = [344, 78];
     const thG = Math.atan2(G[1] - S[1], G[0] - S[0]);
-    const WX = PX + PW - 26;
-    const topWire = [[C[0], C[1] - R - 12], [C[0], 26], [WX, 26], [WX, PY - 1]];
-    const botWire = [[WX, PY + PH + 1], [WX, 202], [C[0], 202], [C[0], C[1] + R + 12]];
+    const WX = PX + PW - 26, TY = 22, BY = 204, MX = (C[0] + PX) / 2;
+    const topWire = [[C[0], C[1] - R - 12], [C[0], TY], [WX, TY], [WX, PY - 1]];
+    const botWire = [[WX, PY + PH + 1], [WX, BY], [C[0], BY], [C[0], C[1] + R + 12]];
     const along = (pts, u) => {
       const segs = [];
       let tot = 0;
@@ -326,23 +327,24 @@
       return pts[pts.length - 1];
     };
     return {
-      idle: (t) => polar(C, 120, -0.9 + 1.25 * Math.sin(t * 0.42) + 0.35 * Math.sin(t * 1.1)),
+      idle: (t) => polar(C, 130, -0.9 + 1.25 * Math.sin(t * 0.42) + 0.35 * Math.sin(t * 1.1)),
       draw(P, st) {
         const T = P.T, t = st.t;
         P.marks();
 
-        // wires + chips
+        // wires + chips: the world model (ultramarine) feeds the prediction,
+        // inverse dynamics (viridian) reads the action back out of it
         P.arrow(topWire, { w: 1.4, color: T.ink, seed: 3, head: 7 });
         P.arrow(botWire, { w: 1.4, color: T.ink, seed: 4, head: 7, dash: P.sketch ? [5, 4] : null });
         const tok = (pts, u, fill) => {
           const p = along(pts, u);
-          P.rect(p[0] - 3, p[1] - 3, 6, 6, { fill, w: 1, color: T.ink, seed: 5 });
+          P.rect(p[0] - 3.5, p[1] - 3.5, 7, 7, { fill, w: 1, color: T.ink, seed: 5 });
         };
         const ph = (t * 0.32) % 1;
-        tok(topWire, ph, T.ink);
-        tok(botWire, (ph + 0.5) % 1, T.acc);
-        P.chip((C[0] + WX) / 2, 26, 'world model', { seed: 61 });
-        P.chip((C[0] + WX) / 2, 202, 'inverse dynamics', { seed: 62, color: T.acc });
+        tok(topWire, ph, T.acc);
+        tok(botWire, (ph + 0.5) % 1, T.alt);
+        P.chip(MX, TY, 'world model', { seed: 61, color: T.acc });
+        P.chip(MX, BY, 'inverse dynamics', { seed: 62, color: T.alt });
 
         // angles
         const thU = Math.atan2(st.ptr[1] - C[1], st.ptr[0] - C[0]);
@@ -351,40 +353,35 @@
 
         // prediction panel
         P.rect(PX, PY, PW, PH, { fill: T.bg, w: 1.2, color: T.ink, seed: 20 });
-        P.dots(PX + 8, PY + 8, PX + PW - 8, PY + PH - 8, 10.25);
+        P.dots(PX + 8, PY + 8, PX + PW - 8, PY + PH - 8, 10);
         P.text('prediction', PX, PY - 9, { detail: true });
-        P.target(G, 6.5, { fill: T.bg });
-        const L = 44, Pd = polar(S, L, thD);
-        P.ray(S, polar(S, L, thU), { w: 1.1, color: T.mute, dash: [3, 3], head: 5, seed: 21 });
+        P.target(G, 8, { fill: T.bg });
+        const L = 58, Pd = polar(S, L, thD);
+        P.ray(S, polar(S, L, thU), { w: 1.2, color: T.mute, dash: [3, 3], head: 6, seed: 21 });
         const e = ease(((t % 2.6) / 2.6) / 0.5);
-        if (e > 0.03) P.arrow([S, [lerp(S[0], Pd[0], e), lerp(S[1], Pd[1], e)]], { w: 2, color: T.acc, head: 7, seed: 22 });
-        P.rect(S[0] - 3, S[1] - 3, 6, 6, { fill: T.bg, w: 1.3, color: T.ink, seed: 23 });
+        if (e > 0.03) P.arrow([S, [lerp(S[0], Pd[0], e), lerp(S[1], Pd[1], e)]], { w: 2.4, color: T.acc, head: 8, seed: 22 });
+        P.rect(S[0] - 3.5, S[1] - 3.5, 7, 7, { fill: T.bg, w: 1.3, color: T.ink, seed: 23 });
 
         // action dial
         P.text('action', C[0] - R, C[1] - R - 16, { detail: true });
         P.circle(C, R, { w: 1, color: T.faint, seed: 30 });
         for (let i = 0; i < 24; i++) {
           const a = i * TAU / 24, long = i % 6 === 0;
-          P.line([polar(C, R - (long ? 7 : 3.5), a), polar(C, R, a)], { w: long ? 1.1 : 0.8, color: long ? T.mute : T.faint, amp: 0 });
+          P.line([polar(C, R - (long ? 8 : 4), a), polar(C, R, a)], { w: long ? 1.1 : 0.8, color: long ? T.mute : T.faint, amp: 0 });
         }
-        P.gap(C, thU, thD, 28, { dim: R + 9 });
-        P.ray(C, polar(C, R - 5, thD), { w: 2, color: T.acc, head: 7, seed: 32, dash: P.sketch ? [5, 3] : null });
-        P.ray(C, polar(C, R - 5, thU), { w: 2.4, color: T.ink, head: 8, seed: 31 });
-        P.rect(C[0] - 2.5, C[1] - 2.5, 5, 5, { fill: T.ink, w: 0 });
-        const sep = ok ? 0.28 : 0;
-        P.text('a', ...polar(C, R + 17, thU - sep), { align: 'center', size: 11, color: T.ink, bold: true, keepCase: true, detail: true });
-        P.text('â', ...polar(C, R + 17, thD + sep), { align: 'center', size: 11, color: T.acc, bold: true, keepCase: true, detail: true });
+        P.gap(C, thU, thD, 36, { dim: R + 9 });
+        P.ray(C, polar(C, R - 6, thD), { w: 2.4, color: T.alt, head: 8, seed: 32, dash: P.sketch ? [5, 3] : null });
+        P.ray(C, polar(C, R - 6, thU), { w: 2.8, color: T.ink, head: 9, seed: 31 });
+        P.rect(C[0] - 3, C[1] - 3, 6, 6, { fill: T.ink, w: 0 });
+        const sep = ok ? 0.24 : 0;
+        P.text('a', ...polar(C, R + 18, thU - sep), { align: 'center', size: 12, color: T.ink, bold: true, keepCase: true, detail: true });
+        P.text('â', ...polar(C, R + 18, thD + sep), { align: 'center', size: 12, color: T.alt, bold: true, keepCase: true, detail: true });
 
         // pointer guide (construction line + crosshair)
         if (!P.small) {
           P.line([C, st.ptr], { w: 0.8, color: T.faint, dash: [2, 3], amp: 0 });
           P.crosshair(st.ptr, { color: T.mute });
         }
-
-        // status readout
-        const deg = Math.round(Math.abs(gap) * 180 / Math.PI);
-        if (ok) P.text('cycle closed', W - 12, 12, { align: 'right', size: 7.5, color: T.acc, detail: true });
-        else P.text(`cycle open  Δ ${String(deg).padStart(2, '0')}°`, W - 12, 12, { align: 'right', size: 7.5, color: T.bad, detail: true });
       },
     };
   }
@@ -534,8 +531,12 @@
     const S = o.state || HOME, w0 = S.wrist, cb = S.cube, el = elbowOf(w0);
     const w = o.w ?? 1.3, c = o.color || T.ink;
     if (!o.only) {
-      P.line([m(0, 34), m(150, 34)], { w: w * 0.8, color: T.mute, seed: 101 });
-      P.rect(fx + 16 * s, fy + 10 * s, 36 * s, 16 * s, { w: w * 0.8, color: T.mute, seed: 102 });
+      P.line([m(0, 34), m(150, 34)], { w, color: c, seed: 101 });
+      // a window on the back wall: frame, cross mullions, sill
+      P.rect(fx + 18 * s, fy + 6 * s, 32 * s, 21 * s, { w, color: c, seed: 102 });
+      P.line([m(34, 6), m(34, 27)], { w: w * 0.8, color: c, seed: 113 });
+      P.line([m(18, 16.5), m(50, 16.5)], { w: w * 0.8, color: c, seed: 114 });
+      P.line([m(15, 29), m(53, 29)], { w, color: c, seed: 115 });
       P.line([m(0, 112), m(150, 112)], { w, color: c, seed: 103 });
       P.rect(fx + 108 * s, fy + 84 * s, 20 * s, 28 * s, { fill: T.bg, w, color: c, seed: 111 });
       P.line([m(108, 89), m(128, 89)], { w: w * 0.7, color: c, seed: 112 });
@@ -682,36 +683,63 @@
 
   // ---------------------------------------------------------------- C2
   // Squeeze: pointer x sweeps the token budget 784 -> 256 -> 64 -> 8. A
-  // uniform grid over the scene gives way, at 8, to one token per thing.
+  // uniform grid over the scene gives way, at 8, to one token per thing;
+  // after a beat each token takes its own colour, and so does its region.
+  const HUES = ['#1a3190', '#1f86c7', '#b4442a', '#d49a16', '#c2336f', '#5e8f1c', '#6a3fb5', '#0f6e62'];
   function squeezeScene() {
-    const FX = 22, FY = 40, FS = 150;
+    const FX = 14, FY = 24, SC = 1.24, FS = 150 * SC;
     const STOPS = [784, 256, 64, 8];
-    const BX = 206, BY = 58, BW = 172, BH = 82;
+    const BX = 218, BY = 24, BW = 170, BH = 112, TRK = 204;
     const fine = 50, fc = FS / fine;
     const own = [];
-    for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) own.push(owner((i + 0.5) * fc, (j + 0.5) * fc));
+    for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) own.push(owner((i + 0.5) * 3, (j + 0.5) * 3));
     const O = (i, j) => own[j * fine + i];
+    // 'space' surrounds everything, so its centroid lands on the gripper: pin it to open floor
+    const MARK = CENT.map((c, k) => (k === 7 ? [138, 58] : c));
+    let t8 = null, col = 0;
     return {
-      idle: (t) => [200 + 175 * Math.sin(t * 0.28), 120],
+      // lingers at both ends of the sweep so the 8-token colouring has time to land
+      idle: (t) => [200 + 185 * clamp(1.3 * Math.sin(t * 0.26), -1, 1), 120],
       draw(P, st) {
-        const T = P.T, t = st.t;
-        P.marks();
+        const T = P.T, t = st.t, ctx = st.ctx;
         const u = clamp((st.ptr[0] - 30) / (W - 60), 0, 1) * (STOPS.length - 1);
         const i0 = Math.min(STOPS.length - 2, Math.floor(u)), f = ease(clamp((u - i0 - 0.3) / 0.4, 0, 1));
+
+        // colour comes in a beat after the budget settles at 8, and leaves at once
+        if (i0 === STOPS.length - 2 && f > 0.999) { if (t8 === null) t8 = t; } else t8 = null;
+        const want = t8 !== null && t - t8 > 0.6 ? 1 : 0;
+        col += (want - col) * (1 - Math.exp(-(st.dt || 0.016) * (want ? 3.2 : 9)));
+        const cA = ease(col);
+
+        // per-region colour wash under the drawing
+        if (cA > 0.01) {
+          for (let k = 0; k < 8; k++) {
+            ctx.save();
+            ctx.fillStyle = HUES[k];
+            ctx.globalAlpha = cA * (k < 5 ? 0.34 : 0.13);
+            ctx.beginPath();
+            for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) if (O(i, j) === k) ctx.rect(FX + i * fc, FY + j * fc, fc + 0.25, fc + 0.25);
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+
         const layer = (idx, alpha) => {
           if (alpha <= 0.01) return;
           const N = STOPS[idx];
           if (N === 8) {
             // semantic partition: region boundaries on the fine grid + token markers
+            const ba = alpha * (1 - 0.65 * cA);
             for (let j = 0; j < fine; j++) for (let i = 0; i < fine; i++) {
               const k = O(i, j), x = FX + i * fc, y = FY + j * fc;
-              if (i + 1 < fine && O(i + 1, j) !== k) P.line([[x + fc, y], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha, amp: 0, cap: 'square' });
-              if (j + 1 < fine && O(i, j + 1) !== k) P.line([[x, y + fc], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha, amp: 0, cap: 'square' });
+              if (i + 1 < fine && O(i + 1, j) !== k) P.line([[x + fc, y], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha: ba, amp: 0, cap: 'square' });
+              if (j + 1 < fine && O(i, j + 1) !== k) P.line([[x, y + fc], [x + fc, y + fc]], { w: 1.2, color: T.acc, alpha: ba, amp: 0, cap: 'square' });
             }
-            CENT.forEach(([cx, cy], k) => {
-              const c = [FX + cx, FY + cy];
-              P.rect(c[0] - 4.5, c[1] - 4.5, 9, 9, { fill: T.acc, fillAlpha: alpha, w: 0 });
-              if (!P.small) P.text(String(k + 1), c[0], c[1] + 0.5, { size: 6.5, color: T.bg, alpha, align: 'center', keepCase: true });
+            MARK.forEach(([cx, cy], k) => {
+              const c = [FX + cx * SC, FY + cy * SC];
+              P.rect(c[0] - 5.5, c[1] - 5.5, 11, 11, { fill: T.acc, fillAlpha: alpha, w: 0 });
+              if (cA > 0.01) P.rect(c[0] - 5.5, c[1] - 5.5, 11, 11, { fill: HUES[k], fillAlpha: alpha * cA, w: 0 });
+              if (!P.small) P.text(String(k + 1), c[0], c[1] + 0.5, { size: 7.5, color: T.bg, alpha, align: 'center', keepCase: true });
             });
           } else {
             const g = Math.round(Math.sqrt(N)), c = FS / g;
@@ -721,43 +749,40 @@
             }
           }
         };
-        drawTabletop(P, FX, FY, 1);
+        drawTabletop(P, FX, FY, SC);
         layer(i0, 1 - f);
         layer(i0 + 1, f);
         P.rect(FX, FY, FS, FS, { w: 1.2, color: T.ink, seed: 150 });
-        P.text('observation', FX, FY - 11, { detail: true });
+        P.text('observation', FX, FY - 9, { detail: true });
 
         // token sequence block: N cells packed into the box
         const N = Math.round(Math.exp(lerp(Math.log(STOPS[i0]), Math.log(STOPS[i0 + 1]), f)));
-        P.text('token sequence', BX, BY - 11, { detail: true });
+        P.text('token sequence', BX, BY - 9, { detail: true });
         const cols = Math.max(8, Math.ceil(Math.sqrt(N * BW / BH)));
-        const cs = Math.min(BW / cols, 20), gap = cs > 8 ? 2.5 : cs > 4 ? 1 : 0.4;
+        const cs = Math.min(BW / cols, 21), gap = cs > 8 ? 3 : cs > 4 ? 1 : 0.4;
         const rows = Math.ceil(N / cols);
         const oy = BY + (BH - rows * cs) / 2;
         for (let q = 0; q < N; q++) {
           const x = BX + (q % cols) * cs, y = oy + Math.floor(q / cols) * cs;
-          if (cs > 8) P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, w: 1, color: T.acc, seed: 160 + q });
-          else P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, fillAlpha: 0.85, w: 0 });
+          if (cs > 8) {
+            P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, w: 1, color: T.acc, seed: 160 + q });
+            if (N === 8 && cA > 0.01) P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: HUES[q], fillAlpha: cA, w: 1, color: HUES[q], alpha: cA, seed: 160 + q });
+            if (N === 8 && !P.small) P.text(String(q + 1), x + cs / 2, y + cs / 2 + 0.5, { size: 8, color: T.bg, align: 'center', keepCase: true, alpha: f });
+          } else P.rect(x + gap / 2, y + gap / 2, cs - gap, cs - gap, { fill: T.acc, fillAlpha: 0.85, w: 0 });
         }
 
-        // readouts
-        const pairs = N * N;
-        P.text(`${N} tokens`, BX, BY + BH + 16, { size: 11, color: T.ink, bold: true, keepCase: true });
-        P.text('attention pairs', BX, BY + BH + 34, { size: 7, detail: true });
-        const bw = BW * Math.log(pairs) / Math.log(784 * 784);
-        P.rect(BX, BY + BH + 41, BW, 6, { w: 0.8, color: T.faint, amp: 0 });
-        P.rect(BX, BY + BH + 41, bw, 6, { fill: T.ink, w: 0 });
-        P.text(pairs.toLocaleString('en-US'), BX + BW, BY + BH + 34, { size: 7, align: 'right', keepCase: true, detail: true, color: T.ink });
+        // readout
+        P.text(`${N} tokens`, BX, 160, { size: 21, color: T.ink, bold: true, keepCase: true });
 
-        // stop ticks along the bottom (the pointer's track)
-        const sx = (idx) => 30 + (W - 60) * idx / (STOPS.length - 1);
-        P.line([[30, 212], [W - 30, 212]], { w: 0.8, color: T.faint, amp: 0 });
+        // budget track under the readout
+        const sx = (idx) => BX + BW * idx / (STOPS.length - 1);
+        P.line([[BX, TRK], [BX + BW, TRK]], { w: 0.8, color: T.faint, amp: 0 });
         STOPS.forEach((n, idx) => {
-          P.line([[sx(idx), 208], [sx(idx), 216]], { w: 1, color: T.mute, amp: 0 });
-          P.text(String(n), sx(idx), 203, { size: 7, align: 'center', keepCase: true, detail: true });
+          P.line([[sx(idx), TRK - 4], [sx(idx), TRK + 4]], { w: 1, color: T.mute, amp: 0 });
+          P.text(String(n), sx(idx), TRK - 11, { size: 7.5, align: idx === 0 ? 'left' : idx === STOPS.length - 1 ? 'right' : 'center', keepCase: true, detail: true });
         });
-        const px = 30 + (W - 60) * u / (STOPS.length - 1);
-        P.rect(px - 3, 209, 6, 6, { fill: T.acc, w: 0 });
+        const px = BX + BW * u / (STOPS.length - 1);
+        P.rect(px - 3.5, TRK - 3.5, 7, 7, { fill: T.acc, w: 0 });
       },
     };
   }
