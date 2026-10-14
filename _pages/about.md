@@ -2,14 +2,14 @@
 layout: about
 title: About
 permalink: /
-subtitle: <a href='https://cvlab.postech.ac.kr'>POSTECH Computer vision lab.</a> kdwon@postech.ac.kr
+subtitle: kdwon@postech.ac.kr
 
 profile:
   align: right
   image: prof-pic-2026.jpeg
   image_circular: false # crops the image to make it circular
   affiliation: Postdoctoral Researcher, KAIST
-  affiliation_url: https://cvlab.postech.ac.kr/
+  affiliation_url: https://jeanyson.github.io/
   tagline: world model / representation learning / multi-modal learning
   # address: >
   #   <p>555 your office number</p>

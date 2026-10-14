@@ -1720,6 +1720,14 @@ $home-sticky-top: 72px;
 }
 .home-js .home-tabs { display: flex; }
 
+// Phones: short tab labels so all three tabs fit without sideways scrolling.
+@media (max-width: 575.98px) {
+  .home-tabs {
+    gap: 20px;
+    .home-tab-long { display: none; }
+  }
+}
+
 .home-panel {
   padding-top: 1rem;
   .experiences, .education, .services, .honors { margin-top: 0; }

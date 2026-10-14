@@ -56,10 +56,10 @@ layout: default
             <button type="button" role="tab" id="tab-pub" aria-controls="panel-pub" aria-selected="true">Publications <span class="home-tab-n" data-pub-count></span></button>
             {%- endif %}
             {% if page.experiences or page.education -%}
-            <button type="button" role="tab" id="tab-exp" aria-controls="panel-exp" aria-selected="false">Experience &amp; education</button>
+            <button type="button" role="tab" id="tab-exp" aria-controls="panel-exp" aria-selected="false">Experience<span class="home-tab-long"> &amp; education</span></button>
             {%- endif %}
             {% if page.honors or page.services -%}
-            <button type="button" role="tab" id="tab-hon" aria-controls="panel-hon" aria-selected="false">Honors &amp; service</button>
+            <button type="button" role="tab" id="tab-hon" aria-controls="panel-hon" aria-selected="false">Honors<span class="home-tab-long"> &amp; service</span></button>
             {%- endif %}
             <span class="home-tabs-ind" aria-hidden="true"></span>
           </div>
