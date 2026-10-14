@@ -1994,6 +1994,13 @@ nav[data-toggle=toc] .nav-link.active:hover {
   color: var(--global-text-color-light);
 }
 
+.pub-tldr {
+  margin: 2px 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--global-text-color-light);
+}
+
 .pub-links {
   display: flex;
   flex-wrap: wrap;
